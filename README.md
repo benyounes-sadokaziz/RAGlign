@@ -124,6 +124,17 @@ chunker keeps that list intact because the list lives under one heading. It also
 costs ~4× more to build, since it embeds every sentence in the corpus before it
 can cut anything.
 
+**Tested fix that didn't work.** The standard remedy is sentence *buffering* —
+embed each position as a window of its neighbours so a run of bullets reads as
+one topic. It made things monotonically worse (spans intact 9/11 → 8/11 → 4/11
+at buffer ±0/±1/±2). The mechanism: chunk counts barely moved (685 → 685 → 674),
+because a *percentile* threshold always cuts the most abrupt 10% of boundaries.
+Smoothing the curve can't reduce the number of cuts — it only removes the signal
+that decides where they land. Buffering and percentile thresholds are
+antagonistic; buffering only pays off with an absolute threshold, which
+reintroduces the non-transferability problem the percentile was chosen to avoid.
+Kept as a documented, defaulted-off parameter (TC-17).
+
 Reranking buys ~+0.11 to +0.23 MRR for ~+2.8 s/query. Whether that trade is worth taking is
 the user's call, so the optimizer reports the **Pareto frontier** before applying any weights.
 

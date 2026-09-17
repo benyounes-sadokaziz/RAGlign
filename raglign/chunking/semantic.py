@@ -105,12 +105,15 @@ class SemanticChunker:
         percentile: float = 90.0,
         max_size: int = 1200,
         min_size: int = 200,
+        buffer_size: int = 0,
         embedder=None,
     ):
         self.percentile = percentile
         self.max_size = max_size
         self.min_size = min_size
-        self.name = f"semantic_{int(percentile)}_{max_size}"
+        self.buffer_size = buffer_size
+        suffix = f"_b{buffer_size}" if buffer_size else ""
+        self.name = f"semantic_{int(percentile)}_{max_size}{suffix}"
         self._embedder = embedder
 
     def _ensure_embedder(self):
@@ -126,7 +129,25 @@ class SemanticChunker:
             return []
 
         embedder = self._ensure_embedder()
-        vecs = embedder.encode([doc.text[s:e] for s, e in sents])
+
+        if self.buffer_size:
+            # Embed each position as a window of its neighbours rather than the
+            # bare sentence. This is NOT a cost saving -- it is the same number
+            # of calls on slightly longer text. It is a signal-quality fix: a
+            # single sentence embeds noisily, and consecutive items in a list
+            # ("* Never store plaintext passwords.") each look like their own
+            # topic, so the unbuffered version cuts enumerations apart. A window
+            # spanning several items embeds as "a list of security rules" --
+            # one topic -- which is what the list actually is.
+            b = self.buffer_size
+            texts = [
+                doc.text[sents[max(0, i - b)][0] : sents[min(len(sents) - 1, i + b)][1]]
+                for i in range(len(sents))
+            ]
+        else:
+            texts = [doc.text[s:e] for s, e in sents]
+
+        vecs = embedder.encode(texts)
         # Vectors are L2-normalised, so cosine distance is 1 - dot product.
         dists = 1.0 - np.sum(vecs[:-1] * vecs[1:], axis=1)
         if not len(dists):
