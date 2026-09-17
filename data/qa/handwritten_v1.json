@@ -1,0 +1,294 @@
+[
+  {
+    "id": "q01",
+    "question": "How do I add a dependency when I don't need its return value in the path operation function?",
+    "answer": "Add a list of dependencies to the path operation decorator instead of declaring a parameter with Depends.",
+    "quotes": [
+      {
+        "doc": "tutorial/dependencies/dependencies-in-path-operation-decorators.md",
+        "quote": "For those cases, instead of declaring a *path operation function* parameter with `Depends`, you can add a `list` of `dependencies` to the *path operation decorator*."
+      }
+    ],
+    "tags": ["dependencies", "tutorial"]
+  },
+  {
+    "id": "q02",
+    "question": "What middleware do I use to mount a Flask or Django app inside FastAPI?",
+    "answer": "WSGIMiddleware, used to wrap the WSGI application.",
+    "quotes": [
+      {
+        "doc": "advanced/wsgi.md",
+        "quote": "For that, you can use the `WSGIMiddleware` and use it to wrap your WSGI application, for example, Flask, Django, etc."
+      }
+    ],
+    "tags": ["integration", "advanced"]
+  },
+  {
+    "id": "q03",
+    "question": "Which class of attack does the default strict content type behavior protect against?",
+    "answer": "Cross-Site Request Forgery (CSRF) attacks in a specific scenario.",
+    "quotes": [
+      {
+        "doc": "advanced/strict-content-type.md",
+        "quote": "This default behavior provides protection against a class of **Cross-Site Request Forgery (CSRF)** attacks in a very specific scenario."
+      }
+    ],
+    "tags": ["security", "advanced"]
+  },
+  {
+    "id": "q04",
+    "question": "How are header parameters declared compared to query and path parameters?",
+    "answer": "The same way — using the same structure as Query, Path and Cookie.",
+    "quotes": [
+      {
+        "doc": "tutorial/header-params.md",
+        "quote": "You can define Header parameters the same way you define `Query`, `Path` and `Cookie` parameters."
+      }
+    ],
+    "tags": ["parameters", "tutorial"]
+  },
+  {
+    "id": "q05",
+    "question": "Which tool can generate client SDKs in many languages from a FastAPI app?",
+    "answer": "The OpenAPI Generator, which supports many programming languages.",
+    "quotes": [
+      {
+        "doc": "advanced/generate-clients.md",
+        "quote": "A versatile option is the [OpenAPI Generator](https://openapi-generator.tech/), which supports **many programming languages** and can generate SDKs from your OpenAPI specification."
+      }
+    ],
+    "tags": ["clients", "advanced"]
+  },
+  {
+    "id": "q06",
+    "question": "What should I override if I need to manipulate the request body before the application processes it?",
+    "answer": "The logic used by the Request and APIRoute classes.",
+    "quotes": [
+      {
+        "doc": "how-to/custom-request-and-route.md",
+        "quote": "In some cases, you may want to override the logic used by the `Request` and `APIRoute` classes."
+      }
+    ],
+    "tags": ["customization", "how-to"]
+  },
+  {
+    "id": "q07",
+    "question": "Which library do I need to install to use WebSockets with FastAPI?",
+    "answer": "The websockets Python library.",
+    "quotes": [
+      {
+        "doc": "advanced/websockets.md",
+        "quote": "Add `websockets` (a Python library that makes it easy to use the \"WebSocket\" protocol) to your project:"
+      }
+    ],
+    "tags": ["websockets", "advanced"]
+  },
+  {
+    "id": "q08",
+    "question": "What minimum FastAPI version do I need before using Annotated?",
+    "answer": "At least version 0.95.1.",
+    "quotes": [
+      {
+        "doc": "tutorial/path-params-numeric-validations.md",
+        "quote": "Make sure you [Upgrade the FastAPI version](../deployment/versions.md#upgrading-the-fastapi-versions) to at least 0.95.1 before using `Annotated`."
+      }
+    ],
+    "tags": ["versions", "tutorial"]
+  },
+  {
+    "id": "q09",
+    "question": "How do I declare validations and metadata for path parameters?",
+    "answer": "With Path, the same way Query is used for query parameters.",
+    "quotes": [
+      {
+        "doc": "tutorial/path-params-numeric-validations.md",
+        "quote": "In the same way that you can declare more validations and metadata for query parameters with `Query`, you can declare the same type of validations and metadata for path parameters with `Path`."
+      }
+    ],
+    "tags": ["parameters", "validation", "tutorial"]
+  },
+  {
+    "id": "q10",
+    "question": "What does the current user dependency receive from the oauth2_scheme sub-dependency?",
+    "answer": "A token as a str.",
+    "quotes": [
+      {
+        "doc": "tutorial/security/get-current-user.md",
+        "quote": "The same as we were doing before in the *path operation* directly, our new dependency `get_current_user` will receive a `token` as a `str` from the sub-dependency `oauth2_scheme`:"
+      }
+    ],
+    "tags": ["security", "dependencies", "tutorial"]
+  },
+  {
+    "id": "q11",
+    "question": "Which package must I install to receive uploaded files and form data?",
+    "answer": "python-multipart.",
+    "quotes": [
+      {
+        "doc": "tutorial/request-forms-and-files.md",
+        "quote": "To receive uploaded files and/or form data, first install [`python-multipart`](https://github.com/Kludex/python-multipart)."
+      }
+    ],
+    "tags": ["forms", "files", "tutorial"]
+  },
+  {
+    "id": "q12",
+    "question": "Why would I override a dependency during tests?",
+    "answer": "So the original dependency and its sub-dependencies do not run, and a test-specific value is provided instead.",
+    "quotes": [
+      {
+        "doc": "advanced/testing-dependencies.md",
+        "quote": "You don't want the original dependency to run (nor any of the sub-dependencies it might have)."
+      },
+      {
+        "doc": "advanced/testing-dependencies.md",
+        "quote": "Instead, you want to provide a different dependency that will be used only during tests (possibly only some specific tests), and will provide a value that can be used where the value of the original dependency was used."
+      }
+    ],
+    "tags": ["testing", "dependencies", "advanced", "multi-span"]
+  },
+  {
+    "id": "q13",
+    "question": "How do I pass extra configuration options to Swagger UI?",
+    "answer": "Pass the swagger_ui_parameters argument when creating the FastAPI() app object or to get_swagger_ui_html().",
+    "quotes": [
+      {
+        "doc": "how-to/configure-swagger-ui.md",
+        "quote": "To configure them, pass the `swagger_ui_parameters` argument when creating the `FastAPI()` app object or to the `get_swagger_ui_html()` function."
+      }
+    ],
+    "tags": ["docs-ui", "how-to"]
+  },
+  {
+    "id": "q14",
+    "question": "What header does HTTP Basic Auth return when credentials are missing?",
+    "answer": "WWW-Authenticate with a value of Basic and an optional realm parameter.",
+    "quotes": [
+      {
+        "doc": "advanced/security/http-basic-auth.md",
+        "quote": "And returns a header `WWW-Authenticate` with a value of `Basic`, and an optional `realm` parameter."
+      }
+    ],
+    "tags": ["security", "advanced"]
+  },
+  {
+    "id": "q15",
+    "question": "What is the downside of sending binary data as base64 inside JSON?",
+    "answer": "It needs more characters than the original binary data, so it is less efficient than regular files.",
+    "quotes": [
+      {
+        "doc": "advanced/json-base64-bytes.md",
+        "quote": "Base64 can encode binary data in strings, but to do it, it needs to use more characters than the original binary data, so it would normally be less efficient than regular files."
+      }
+    ],
+    "tags": ["encoding", "advanced"]
+  },
+  {
+    "id": "q16",
+    "question": "Why are dicts a poor choice for dependency parameters from an editor support perspective?",
+    "answer": "Editors cannot provide completion because they cannot know a dict's keys and value types.",
+    "quotes": [
+      {
+        "doc": "tutorial/dependencies/classes-as-dependencies.md",
+        "quote": "And we know that editors can't provide a lot of support (like completion) for `dict`s, because they can't know their keys and value types."
+      }
+    ],
+    "tags": ["dependencies", "tutorial"]
+  },
+  {
+    "id": "q17",
+    "question": "How should user passwords be stored?",
+    "answer": "Never in plaintext — always as a secure hash that can be verified.",
+    "quotes": [
+      {
+        "doc": "tutorial/extra-models.md",
+        "quote": "Never store user's plaintext passwords. Always store a \"secure hash\" that you can then verify."
+      }
+    ],
+    "tags": ["security", "models", "tutorial"]
+  },
+  {
+    "id": "q18",
+    "question": "Does a response_model still apply when I return an object after setting cookies?",
+    "answer": "Yes, it will still be used to filter and convert the returned object.",
+    "quotes": [
+      {
+        "doc": "advanced/response-cookies.md",
+        "quote": "And if you declared a `response_model`, it will still be used to filter and convert the object you returned."
+      }
+    ],
+    "tags": ["responses", "advanced"]
+  },
+  {
+    "id": "q19",
+    "question": "Which FastAPI version first supported both Pydantic v1 and v2?",
+    "answer": "Version 0.100.0, using whichever was installed.",
+    "quotes": [
+      {
+        "doc": "how-to/migrate-from-pydantic-v1-to-pydantic-v2.md",
+        "quote": "FastAPI version 0.100.0 had support for either Pydantic v1 or v2. It would use whichever you had installed."
+      }
+    ],
+    "tags": ["pydantic", "migration", "how-to"]
+  },
+  {
+    "id": "q20",
+    "question": "Are path operation configuration parameters passed to the decorator or the function?",
+    "answer": "To the path operation decorator, not the path operation function.",
+    "quotes": [
+      {
+        "doc": "tutorial/path-operation-configuration.md",
+        "quote": "Notice that these parameters are passed directly to the *path operation decorator*, not to your *path operation function*."
+      }
+    ],
+    "tags": ["routing", "tutorial"]
+  },
+  {
+    "id": "q21",
+    "question": "How do I convert input data such as datetime so it can be stored in a NoSQL database?",
+    "answer": "Use jsonable_encoder to convert it to JSON-storable data.",
+    "quotes": [
+      {
+        "doc": "tutorial/body-updates.md",
+        "quote": "You can use the `jsonable_encoder` to convert the input data to data that can be stored as JSON (e.g. with a NoSQL database). For example, converting `datetime` to `str`."
+      }
+    ],
+    "tags": ["encoding", "tutorial"]
+  },
+  {
+    "id": "q22",
+    "question": "Can I serve the Swagger UI JavaScript and CSS files myself instead of from a CDN?",
+    "answer": "Yes — you can set a specific CDN or serve the files yourself.",
+    "quotes": [
+      {
+        "doc": "how-to/custom-docs-ui-assets.md",
+        "quote": "But it's possible to customize it, you can set a specific CDN, or serve the files yourself."
+      }
+    ],
+    "tags": ["docs-ui", "how-to"]
+  },
+  {
+    "id": "q23",
+    "question": "What GraphQL libraries can be integrated with FastAPI?",
+    "answer": "Any GraphQL library compatible with ASGI, since FastAPI is based on the ASGI standard.",
+    "quotes": [
+      {
+        "doc": "how-to/graphql.md",
+        "quote": "As **FastAPI** is based on the **ASGI** standard, it's very easy to integrate any **GraphQL** library also compatible with ASGI."
+      }
+    ],
+    "tags": ["graphql", "how-to"]
+  },
+  {
+    "id": "q24",
+    "question": "What is the purpose of the __name__ == \"__main__\" block when debugging?",
+    "answer": "To have code that is executed when the file is called directly.",
+    "quotes": [
+      {
+        "doc": "tutorial/debugging.md",
+        "quote": "The main purpose of the `__name__ == \"__main__\"` is to have some code that is executed when your file is called with:"
+      }
+    ],
+    "tags": ["debugging", "tutorial"]
+  }
+]
