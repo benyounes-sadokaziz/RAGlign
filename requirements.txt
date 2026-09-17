@@ -17,3 +17,8 @@ pydantic>=2.7
 # --- Phase 3 ---
 # Lexical retrieval. Pure-python, no index server; fine at this corpus size.
 rank_bm25>=0.2.2
+
+# --- Phase 4 (demo only; the library does not import it) ---
+streamlit>=1.40
+pandas>=2.0
+pytest>=8.0
