@@ -1,0 +1,134 @@
+[
+  {
+    "id": "L01",
+    "question": "What do the individual arguments in the project initialization command each do?",
+    "answer": "uv init creates a new Python project, the name argument creates it in a new directory, and --bare produces only a minimal pyproject.toml without sample files.",
+    "quotes": [
+      {
+        "doc": "tutorial/index.md",
+        "quote": "* `uv init`: create a new Python project.\n* `awesome-project`: create the project in a new directory with this name.\n* `--bare`: create only the minimal `pyproject.toml` file, without generating a sample `main.py`, `README.md`, or other files. You will create the application files yourself in the next steps of this tutorial."
+      }
+    ],
+    "tags": ["long-span", "setup"]
+  },
+  {
+    "id": "L02",
+    "question": "In tests, how do I supply each different kind of request data to the client?",
+    "answer": "Path and query values go in the URL; a JSON body goes in the json parameter; form data uses data; headers and cookies each take a dict in their own parameter.",
+    "quotes": [
+      {
+        "doc": "tutorial/testing.md",
+        "quote": "* To pass a *path* or *query* parameter, add it to the URL itself.\n* To pass a JSON body, pass a Python object (e.g. a `dict`) to the parameter `json`.\n* If you need to send *Form Data* instead of JSON, use the `data` parameter instead.\n* To pass *headers*, use a `dict` in the `headers` parameter.\n* For *cookies*, a `dict` in the `cookies` parameter."
+      }
+    ],
+    "tags": ["long-span", "testing"]
+  },
+  {
+    "id": "L03",
+    "question": "Which fields can I set when building the schema manually, and what is each one for?",
+    "answer": "title, version, openapi_version, summary, description and routes — covering the displayed name, API version, spec version, short and long descriptions, and the registered path operations.",
+    "quotes": [
+      {
+        "doc": "how-to/extending-openapi.md",
+        "quote": "* `title`: The OpenAPI title, shown in the docs.\n* `version`: The version of your API, e.g. `2.5.0`.\n* `openapi_version`: The version of the OpenAPI specification used. By default, the latest: `3.1.0`.\n* `summary`: A short summary of the API.\n* `description`: The description of your API, this can include markdown and will be shown in the docs.\n* `routes`: The routes from the application, taken from `app.routes`. FastAPI uses them to collect the registered *path operations*, including those from included routers."
+      }
+    ],
+    "tags": ["long-span", "openapi"]
+  },
+  {
+    "id": "L04",
+    "question": "What arguments does the self-hosted documentation page need in order to load its assets?",
+    "answer": "openapi_url, title, oauth2_redirect_url, and the custom CDN URLs for the JavaScript and CSS files.",
+    "quotes": [
+      {
+        "doc": "how-to/custom-docs-ui-assets.md",
+        "quote": "* `openapi_url`: the URL where the HTML page for the docs can get the OpenAPI schema for your API. You can use here the attribute `app.openapi_url`.\n* `title`: the title of your API.\n* `oauth2_redirect_url`: you can use `app.swagger_ui_oauth2_redirect_url` here to use the default.\n* `swagger_js_url`: the URL where the HTML for your Swagger UI docs can get the **JavaScript** file. This is the custom CDN URL.\n* `swagger_css_url`: the URL where the HTML for your Swagger UI docs can get the **CSS** file. This is the custom CDN URL."
+      }
+    ],
+    "tags": ["long-span", "docs-ui"]
+  },
+  {
+    "id": "L05",
+    "question": "What must I do to stop proxies from dropping or buffering a streaming response?",
+    "answer": "Send a keep-alive ping comment every 15 seconds, set Cache-Control: no-cache, and set X-Accel-Buffering: no.",
+    "quotes": [
+      {
+        "doc": "tutorial/server-sent-events.md",
+        "quote": "* Send a **\"keep alive\" `ping` comment** every 15 seconds when there hasn't been any message, to prevent some proxies from closing the connection, as suggested in the [HTML specification: Server-Sent Events](https://html.spec.whatwg.org/multipage/server-sent-events.html#authoring-notes).\n* Set the `Cache-Control: no-cache` header to **prevent caching** of the stream.\n* Set a special header `X-Accel-Buffering: no` to **prevent buffering** in some proxies like Nginx."
+      }
+    ],
+    "tags": ["long-span", "streaming"]
+  },
+  {
+    "id": "L06",
+    "question": "What is the recommended checklist for securing an application before deployment?",
+    "answer": "Well-defined Pydantic models, permissions and roles via dependencies, hashed passwords only, established cryptographic tools like pwdlib and JWT, and granular OAuth2 scopes.",
+    "quotes": [
+      {
+        "doc": "how-to/conditional-openapi.md",
+        "quote": "* Make sure you have well defined Pydantic models for your request bodies and responses.\n* Configure any required permissions and roles using dependencies.\n* Never store plaintext passwords, only password hashes.\n* Implement and use well-known cryptographic tools, like pwdlib and JWT tokens, etc.\n* Add more granular permission controls with OAuth2 scopes where needed."
+      }
+    ],
+    "tags": ["long-span", "security"]
+  },
+  {
+    "id": "L07",
+    "question": "How does the framework decide whether a function argument comes from the URL path, the query string, or the request payload?",
+    "answer": "If it appears in the path it is a path parameter; a singular type becomes a query parameter; a Pydantic model type is read as the request body.",
+    "quotes": [
+      {
+        "doc": "tutorial/body.md",
+        "quote": "* If the parameter is also declared in the **path**, it will be used as a path parameter.\n* If the parameter is of a **singular type** (like `int`, `float`, `str`, `bool`, etc) it will be interpreted as a **query** parameter.\n* If the parameter is declared to be of the type of a **Pydantic model**, it will be interpreted as a request **body**."
+      }
+    ],
+    "tags": ["long-span", "parameters"]
+  },
+  {
+    "id": "L08",
+    "question": "What are the steps to render HTML pages from a template engine?",
+    "answer": "Import Jinja2Templates, create a reusable templates object, declare a Request parameter, and return a TemplateResponse with the template name, request and context dict.",
+    "quotes": [
+      {
+        "doc": "advanced/templates.md",
+        "quote": "* Import `Jinja2Templates`.\n* Create a `templates` object that you can reuse later.\n* Declare a `Request` parameter in the *path operation* that will return a template.\n* Use the `templates` you created to render and return a `TemplateResponse`, pass the name of the template, the request object, and a \"context\" dictionary with key-value pairs to be used inside of the Jinja2 template."
+      }
+    ],
+    "tags": ["long-span", "templates"]
+  },
+  {
+    "id": "L09",
+    "question": "Walk me through what happens between the login form and the API issuing credentials.",
+    "answer": "The user submits username and password in the frontend, the browser sends them to the declared token URL, and the API validates them and responds with a token.",
+    "quotes": [
+      {
+        "doc": "tutorial/security/first-steps.md",
+        "quote": "* The user types the `username` and `password` in the frontend, and hits `Enter`.\n* The frontend (running in the user's browser) sends that `username` and `password` to a specific URL in our API (declared with `tokenUrl=\"token\"`).\n* The API checks that `username` and `password`, and responds with a \"token\" (we haven't implemented any of this yet)."
+      }
+    ],
+    "tags": ["long-span", "security"]
+  },
+  {
+    "id": "L10",
+    "question": "How should I read the dots in a relative import inside a router module?",
+    "answer": "Each dot walks up one package level from the current module's directory, and the final name is the module and object being imported.",
+    "quotes": [
+      {
+        "doc": "tutorial/bigger-applications.md",
+        "quote": "* Starting in the same package that this module (the file `app/routers/items.py`) lives in (the directory `app/routers/`)...\n* go to the parent package (the directory `app/`)...\n* then go to the parent of that package (there's no parent package, `app` is the top level 😱)...\n* and in there, find the module `dependencies` (the file at `app/dependencies.py`)...\n* and from it, import the function `get_token_header`."
+      }
+    ],
+    "tags": ["long-span", "structure"]
+  },
+  {
+    "id": "L11",
+    "question": "Which forwarded headers does a reverse proxy typically set?",
+    "answer": "X-Forwarded-For, X-Forwarded-Proto and X-Forwarded-Host.",
+    "quotes": [
+      {
+        "doc": "advanced/behind-a-proxy.md",
+        "quote": "* [X-Forwarded-For](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/X-Forwarded-For)\n* [X-Forwarded-Proto](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/X-Forwarded-Proto)\n* [X-Forwarded-Host](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/X-Forwarded-Host)"
+      }
+    ],
+    "tags": ["long-span", "deployment"]
+  }
+]
