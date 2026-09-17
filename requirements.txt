@@ -1,0 +1,15 @@
+# Phase 1 dependencies only. Added per-phase, not up front.
+# Rationale for each choice: see docs/TECHNICAL_CHOICES.md
+
+numpy>=1.26,<3
+
+# Text splitters only (NOT the full langchain stack) -- small, dependency-light,
+# battle-tested recursive/markdown splitters we don't need to reimplement.
+langchain-text-splitters>=0.3
+
+# Local CPU embeddings via ONNX. Chosen over sentence-transformers to avoid a
+# ~2 GB torch install for a job that is pure inference on a small model.
+fastembed>=0.4
+
+# Structured config / validation for run manifests.
+pydantic>=2.7

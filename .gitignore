@@ -1,0 +1,28 @@
+# --- Internal design notes (per project owner: kept local, not tracked) ---
+docs/
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# --- Generated artifacts ---
+# Embeddings and indexes are derived data: rebuildable from corpus/ + config.
+.cache/
+runs/
+*.npy
+*.faiss
+
+# --- Env / secrets ---
+.env
+.env.*
+
+# --- OS / editor ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
