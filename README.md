@@ -46,12 +46,13 @@ artefact of a convenient choice of author, rotating would dissolve it.
 
 | ground truth authored by | chunk-ID GT | span GT |
 |---|---:|---:|
-| `fixed_800_100` | **+0.636** | −0.045 |
-| `recursive_800_100` | **+0.591** | −0.045 |
-| `heading_1200_200` | **+0.682** | +0.091 |
+| `fixed_800_100` | **+0.606** | −0.030 |
+| `recursive_800_100` | **+0.576** | −0.030 |
+| `heading_1200_200` | **+0.697** | +0.091 |
+| `semantic_90` | **+0.576** | −0.030 |
 
 Whoever writes the ground truth wins. Under span alignment the spread collapses to the
-genuine differences. **The recommended config flips in 2 of 3 rotations.**
+genuine differences. **The recommended config flips in 3 of 4 rotations.**
 
 ### "Isn't that just strict matching?"
 
@@ -59,9 +60,10 @@ The fair objection: chunk-ID matching required IoU ≥ 0.9 against the gold chun
 
 | author | IoU≥0.9 | IoU≥0.7 | IoU≥0.5 | IoU≥0.3 |
 |---|---:|---:|---:|---:|
-| `fixed_800_100` | +0.636 | +0.364 | +0.182 | −0.045 |
-| `recursive_800_100` | +0.591 | +0.409 | +0.136 | −0.045 |
-| `heading_1200_200` | +0.682 | +0.591 | +0.364 | +0.091 |
+| `fixed_800_100` | +0.606 | +0.333 | +0.182 | −0.030 |
+| `recursive_800_100` | +0.576 | +0.364 | +0.091 | −0.030 |
+| `heading_1200_200` | +0.697 | +0.576 | +0.333 | +0.061 |
+| `semantic_90` | +0.576 | +0.394 | +0.242 | +0.061 |
 
 The bias decays monotonically and converges **exactly** on the span-GT column. Chunk-ID
 matching becomes unbiased only once it is loosened so far that it effectively *is* span
@@ -79,6 +81,7 @@ retriever entirely — the ceiling imposed by segmentation alone.
 | `heading_1200` | 1.000 | 1.000 | 1.000 | 1.000 |
 | `fixed_800` | 1.000 | 1.000 | 1.000 | 1.000 |
 | `recursive_800` | 1.000 | 1.000 | 1.000 | 1.000 |
+| `semantic_90` | 1.000 | 1.000 | 1.000 | **0.909** |
 | `fixed_300` | 1.000 | 1.000 | 1.000 | **0.455** |
 
 `fixed_300` destroys over half the evidence *before retrieval happens*. Hit@k alone reports
@@ -89,7 +92,7 @@ Separating the two failure modes requires spans; chunk IDs cannot express it.
 
 ## Results
 
-24 configs = 4 chunkers × 3 retrievers × reranker on/off. Long-span question set:
+30 configs = 5 chunker variants × 3 retrievers × reranker on/off. Long-span question set:
 
 | config | hit@5 | MRR | nDCG | ms/query | context chars |
 |---|---:|---:|---:|---:|---:|
@@ -97,7 +100,29 @@ Separating the two failure modes requires spans; chunk IDs cannot express it.
 | `heading1200/dense+rerank` | 0.727 | **0.659** | 0.676 | 2809 | 3988 |
 | `heading1200/dense` | 0.727 | 0.545 | 0.591 | **0.4** | 3445 |
 | `fixed800/dense` | 0.636 | 0.530 | 0.549 | 0.4 | 3903 |
+| `semantic90/dense` | 0.636 | 0.397 | 0.514 | 0.4 | 3866 |
 | `fixed300/dense` | 0.273 | 0.227 | 0.258 | 0.6 | 1491 |
+
+### What it tests
+
+| strategy | cuts where | family |
+|---|---|---|
+| `fixed_800` / `fixed_300` | every N characters | position |
+| `recursive_800` | paragraph → line → word breaks | separator |
+| `heading_1200` | markdown headings, code-fence aware | document structure |
+| `semantic_90` | where sentence embeddings diverge | meaning |
+
+**Semantic chunking did not win here**, and the reason is specific and useful:
+it **fragments enumerations**. Both of its failures were bullet lists cut
+mid-list — each item genuinely *is* a topic shift (different rule, different
+field), so the sentence-distance signal spikes between them, but the list as a
+whole is the answer unit. One security checklist got split with only 0.578
+coverage remaining.
+
+On structured API docs, explicit structure beats inferred structure: the heading
+chunker keeps that list intact because the list lives under one heading. It also
+costs ~4× more to build, since it embeds every sentence in the corpus before it
+can cut anything.
 
 Reranking buys ~+0.11 to +0.23 MRR for ~+2.8 s/query. Whether that trade is worth taking is
 the user's call, so the optimizer reports the **Pareto frontier** before applying any weights.
@@ -144,7 +169,7 @@ py -3.11 -m venv .venv
 .venv/Scripts/python.exe scripts/check_chunkers.py      # offset invariant holds?
 .venv/Scripts/python.exe scripts/check_qa.py            # every quote resolves?
 .venv/Scripts/python.exe scripts/validation_study.py    # the headline result
-.venv/Scripts/python.exe scripts/run_grid.py            # 24 configs (~6 min, CPU)
+.venv/Scripts/python.exe scripts/run_grid.py            # 30 configs (~7 min, CPU)
 .venv/Scripts/python.exe scripts/recommend.py           # ranked + explained
 
 .venv/Scripts/streamlit.exe run app.py                  # demo UI

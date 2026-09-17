@@ -23,6 +23,7 @@ CHUNKER_VARIANTS = [
     ("fixed", {"size": 300, "overlap": 50}),  # smaller than the evidence, on purpose
     ("recursive", {"size": 800, "overlap": 100}),
     ("heading", {"max_size": 1200, "min_size": 200}),
+    ("semantic", {"percentile": 90.0, "max_size": 1200, "min_size": 200}),
 ]
 
 RETRIEVERS = ["dense", "bm25", "hybrid"]

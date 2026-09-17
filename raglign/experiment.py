@@ -22,7 +22,7 @@ from pathlib import Path
 from typing import Sequence
 
 from .alignment import DEFAULT_THRESHOLDS, OverlapMode, align, oracle_reachability
-from .chunking import FixedSizeChunker, HeadingChunker, RecursiveChunker
+from .chunking import FixedSizeChunker, HeadingChunker, RecursiveChunker, SemanticChunker
 from .embedding import Embedder
 from .loader import corpus_fingerprint
 from .metrics import MetricSet, compute_metrics
@@ -34,6 +34,7 @@ CHUNKERS = {
     "fixed": FixedSizeChunker,
     "recursive": RecursiveChunker,
     "heading": HeadingChunker,
+    "semantic": SemanticChunker,
 }
 
 

@@ -12,6 +12,7 @@ import pytest
 
 from raglign.alignment import OverlapMode, align, overlap_score
 from raglign.chunking import FixedSizeChunker, HeadingChunker, RecursiveChunker
+from raglign.chunking.semantic import split_sentences
 from raglign.metrics import compute_metrics
 from raglign.models import Chunk, Document, OffsetError, Span
 
@@ -143,6 +144,26 @@ class TestOffsetInvariant:
         assert chunks
         for c in chunks:
             c.validate_against(doc)
+
+    def test_sentence_spans_cover_the_document_exactly(self):
+        """Semantic chunking cuts only at these boundaries, so gaps or overlaps
+        here would silently corrupt every span it produces."""
+        text = "One sentence. Two sentences! Three?\n\n```py\nx = 1. y = 2.\n```\n\nFour."
+        spans = split_sentences(text)
+        assert spans[0][0] == 0
+        assert spans[-1][1] == len(text)
+        for (_, prev_end), (next_start, _) in zip(spans, spans[1:]):
+            assert prev_end == next_start  # contiguous, no gaps, no overlap
+        assert "".join(text[s:e] for s, e in spans) == text
+
+    def test_code_fences_are_never_split_by_sentence_logic(self):
+        """'x = 1. y = 2.' inside a fence must stay one unit, not two sentences."""
+        text = "Intro text here.\n\n```py\nx = 1. y = 2. z = 3.\n```\n\nOutro text.\n"
+        fence_start = text.index("```")
+        fence_end = text.index("```", fence_start + 3) + 4
+        spans = split_sentences(text)
+        interior_cuts = [s for s, _ in spans if fence_start < s < fence_end - 1]
+        assert not interior_cuts
 
     def test_heading_detection_skips_fenced_code(self):
         """A '# comment' inside a code block must not start a section."""

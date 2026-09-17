@@ -16,7 +16,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from raglign.chunking import FixedSizeChunker, HeadingChunker, RecursiveChunker, coverage_ratio
+from raglign.chunking import FixedSizeChunker, HeadingChunker, RecursiveChunker, SemanticChunker, coverage_ratio
 from raglign.loader import corpus_fingerprint, load_documents
 
 
@@ -29,6 +29,7 @@ def main() -> int:
         FixedSizeChunker(size=800, overlap=100),
         RecursiveChunker(size=800, overlap=100),
         HeadingChunker(max_size=1200, min_size=200),
+        SemanticChunker(percentile=90.0, max_size=1200, min_size=200),
     ]
 
     print(f"{'strategy':<24} {'chunks':>7} {'mean':>6} {'p10':>6} {'p90':>6} {'cover':>7} {'sec':>6}")

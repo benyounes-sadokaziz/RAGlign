@@ -36,6 +36,7 @@ SPECS = [
     ConfigSpec(chunker="fixed", chunker_params={"size": 800, "overlap": 100}),
     ConfigSpec(chunker="recursive", chunker_params={"size": 800, "overlap": 100}),
     ConfigSpec(chunker="heading", chunker_params={"max_size": 1200, "min_size": 200}),
+    ConfigSpec(chunker="semantic", chunker_params={"percentile": 90.0, "max_size": 1200, "min_size": 200}),
 ]
 
 K = 5
