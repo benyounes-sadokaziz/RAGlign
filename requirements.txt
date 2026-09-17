@@ -13,3 +13,7 @@ fastembed>=0.4
 
 # Structured config / validation for run manifests.
 pydantic>=2.7
+
+# --- Phase 3 ---
+# Lexical retrieval. Pure-python, no index server; fine at this corpus size.
+rank_bm25>=0.2.2

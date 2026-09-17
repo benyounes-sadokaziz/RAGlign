@@ -54,7 +54,9 @@ class ConfigSpec:
         if self.retriever_params:
             parts += [f"{v}" for v in self.retriever_params.values()]
         if self.reranker:
-            parts.append(f"rr-{self.reranker}")
+            # Model names are namespaced ("Xenova/ms-marco-..."); the id is used
+            # as a filename, so keep only the last segment.
+            parts.append(f"rr-{self.reranker.rsplit('/', 1)[-1]}")
         return "_".join(str(p) for p in parts)
 
     def as_dict(self) -> dict:
