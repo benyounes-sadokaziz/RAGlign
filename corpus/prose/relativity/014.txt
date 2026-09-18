@@ -1,0 +1,137 @@
+
+From our consideration of the accelerated chest we see that a general
+theory of relativity must yield important results on the laws of
+gravitation. In point of fact, the systematic pursuit of the general
+idea of relativity has supplied the laws satisfied by the gravitational
+field. Before proceeding farther, however, I must warn the reader
+against a misconception suggested by these considerations. A
+gravitational field exists for the man in the chest, despite the fact
+that there was no such field for the co-ordinate system first chosen.
+Now we might easily suppose that the existence of a gravitational field
+is always only an _apparent_ one. We might also think that, regardless
+of the kind of gravitational field which may be present, we could
+always choose another reference-body such that _no_ gravitational field
+exists with reference to it. This is by no means true for all
+gravitational fields, but only for those of quite special form. It is,
+for instance, impossible to choose a body of reference such that, as
+judged from it, the gravitational field of the earth (in its entirety)
+vanishes.
+
+We can now appreciate why that argument is not convincing, which we
+brought forward against the general principle of relativity at the end
+of Section XVIII. It is certainly true that the observer in the railway
+carriage experiences a jerk forwards as a result of the application of
+the brake, and that he recognises, in this the non-uniformity of motion
+(retardation) of the carriage. But he is compelled by nobody to refer
+this jerk to a “real” acceleration (retardation) of the carriage. He
+might also interpret his experience thus: “My body of reference (the
+carriage) remains permanently at rest. With reference to it, however,
+there exists (during the period of application of the brakes) a
+gravitational field which is directed forwards and which is variable
+with respect to time. Under the influence of this field, the embankment
+together with the earth moves non-uniformly in such a manner that their
+original velocity in the backwards direction is continuously reduced.”
+
+
+XXI.
+
+IN WHAT RESPECTS ARE THE FOUNDATIONS OF CLASSICAL MECHANICS AND OF THE
+SPECIAL THEORY OF RELATIVITY UNSATISFACTORY?
+
+We have already stated several times that classical mechanics starts
+out from the following law: Material particles sufficiently far removed
+from other material particles continue to move uniformly in a straight
+line or continue in a state of rest. We have also repeatedly emphasised
+that this fundamental law can only be valid for bodies of reference _K_
+which possess certain unique states of motion, and which are in uniform
+translational motion relative to each other. Relative to other
+reference-bodies _K_ the law is not valid. Both in classical mechanics
+and in the special theory of relativity we therefore differentiate
+between reference-bodies _K_ relative to which the recognised “laws of
+nature” can be said to hold, and reference-bodies _K_ relative to which
+these laws do not hold.
+
+But no person whose mode of thought is logical can rest satisfied with
+this condition of things. He asks: “How does it come that certain
+reference-bodies (or their states of motion) are given priority over
+other reference-bodies (or their states of motion)? _What is the reason
+for this preference?_” In order to show clearly what I mean by this
+question, I shall make use of a comparison.
+
+I am standing in front of a gas range. Standing alongside of each other
+on the range are two pans so much alike that one may be mistaken for
+the other. Both are half full of water. I notice that steam is being
+emitted continuously from the one pan, but not from the other. I am
+surprised at this, even if I have never seen either a gas range or a
+pan before. But if I now notice a luminous something of bluish colour
+under the first pan but not under the other, I cease to be astonished,
+even if I have never before seen a gas flame. For I can only say that
+this bluish something will cause the emission of the steam, or at least
+_possibly_ it may do so. If, however, I notice the bluish something in
+neither case, and if I observe that the one continuously emits steam
+whilst the other does not, then I shall remain astonished and
+dissatisfied until I have discovered some circumstance to which I can
+attribute the different behaviour of the two pans.
+
+Analogously, I seek in vain for a real something in classical mechanics
+(or in the special theory of relativity) to which I can attribute the
+different behaviour of bodies considered with respect to the reference
+systems _K_ and _K′_.[15] Newton saw this objection and attempted to
+invalidate it, but without success. But E. Mach recognised it most
+clearly of all, and because of this objection he claimed that mechanics
+must be placed on a new basis. It can only be got rid of by means of a
+physics which is conformable to the general principle of relativity,
+since the equations of such a theory hold for every body of reference,
+whatever may be its state of motion.
+
+
+ [15] The objection is of importance more especially when the state of
+ motion of the reference-body is of such a nature that it does not
+ require any external agency for its maintenance, _e.g._ in the case
+ when the reference-body is rotating uniformly.
+
+
+XXII.
+
+A FEW INFERENCES FROM THE GENERAL PRINCIPLE OF RELATIVITY
+
+The considerations of Section XX show that the general principle of
+relativity puts us in a position to derive properties of the
+gravitational field in a purely theoretical manner. Let us suppose, for
+instance, that we know the space-time “course” for any natural process
+whatsoever, as regards the manner in which it takes place in the
+Galileian domain relative to a Galileian body of reference _K_. By
+means of purely theoretical operations (_i.e._ simply by calculation)
+we are then able to find how this known natural process appears, as
+seen from a reference-body _K′_ which is accelerated relatively to _K_.
+But since a gravitational field exists with respect to this new body of
+reference _K′_, our consideration also teaches us how the gravitational
+field influences the process studied.
+
+For example, we learn that a body which is in a state of uniform
+rectilinear motion with respect to _K_ (in accordance with the law of
+Galilei) is executing an accelerated and in general curvilinear motion
+with respect to the accelerated reference-body _K′_ (chest). This
+acceleration or curvature corresponds to the influence on the moving
+body of the gravitational field prevailing relatively to _K_. It is
+known that a gravitational field influences the movement of bodies in
+this way, so that our consideration supplies us with nothing
+essentially new.
+
+However, we obtain a new result of fundamental importance when we carry
+out the analogous consideration for a ray of light. With respect to the
+Galileian reference-body _K_, such a ray of light is transmitted
+rectilinearly with the velocity _c_. It can easily be shown that the
+path of the same ray of light is no longer a straight line when we
+consider it with reference to the accelerated chest (reference-body
+_K′_). From this we conclude, _that, in general, rays of light are
+propagated curvilinearly in gravitational fields._ In two respects this
+result is of great importance.
+
+In the first place, it can be compared with the reality. Although a
+detailed examination of the question shows that the curvature of light
+rays required by the general theory of relativity is only exceedingly
+small for the gravitational fields at our disposal in practice, its
+estimated magnitude for light rays passing the sun at grazing incidence
+is nevertheless 1.7 seconds of arc. This ought to manifest itself in
+the following way.

@@ -1,0 +1,126 @@
+As judged from this body, the clock at
+the centre of the disc has no velocity, whereas the clock at the edge
+of the disc is in motion relative to _K_ in consequence of the
+rotation. According to a result obtained in Section XII, it follows
+that the latter clock goes at a rate permanently slower than that of
+the clock at the centre of the circular disc, _i.e._ as observed from
+_K_. It is obvious that the same effect would be noted by an observer
+whom we will imagine sitting alongside his clock at the centre of the
+circular disc. Thus on our circular disc, or, to make the case more
+general, in every gravitational field, a clock will go more quickly or
+less quickly, according to the position in which the clock is situated
+(at rest). For this reason it is not possible to obtain a reasonable
+definition of time with the aid of clocks which are arranged at rest
+with respect to the body of reference. A similar difficulty presents
+itself when we attempt to apply our earlier definition of simultaneity
+in such a case, but I do not wish to go any farther into this question.
+
+Moreover, at this stage the definition of the space co-ordinates also
+presents insurmountable difficulties. If the observer applies his
+standard measuring-rod (a rod which is short as compared with the
+radius of the disc) tangentially to the edge of the disc, then, as
+judged from the Galileian system, the length of this rod will be less
+than 1, since, according to Section XII, moving bodies suffer a
+shortening in the direction of the motion. On the other hand, the
+measuring-rod will not experience a shortening in length, as judged
+from _K_, if it is applied to the disc in the direction of the radius.
+If, then, the observer first measures the circumference of the disc
+with his measuring-rod and then the diameter of the disc, on dividing
+the one by the other, he will not obtain as quotient the familiar
+number π = 3.14 . . ., but a larger number,[19] whereas of course, for
+a disc which is at rest with respect to _K_, this operation would yield
+π exactly. This proves that the propositions of Euclidean geometry
+cannot hold exactly on the rotating disc, nor in general in a
+gravitational field, at least if we attribute the length 1 to the rod
+in all positions and in every orientation. Hence the idea of a straight
+line also loses its meaning. We are therefore not in a position to
+define exactly the co-ordinates _x, y, z_ relative to the disc by means
+of the method used in discussing the special theory, and as long as the
+co-ordinates and times of events have not been defined, we cannot
+assign an exact meaning to the natural laws in which these occur.
+
+
+ [19] Throughout this consideration we have to use the Galileian
+ (non-rotating) system _K_ as reference-body, since we may only assume
+ the validity of the results of the special theory of relativity
+ relative to _K_ (relative to _K′_ a gravitational field prevails).
+
+
+Thus all our previous conclusions based on general relativity would
+appear to be called in question. In reality we must make a subtle
+detour in order to be able to apply the postulate of general relativity
+exactly. I shall prepare the reader for this in the following
+paragraphs.
+
+
+XXIV.
+
+EUCLIDEAN AND NON-EUCLIDEAN CONTINUUM
+
+The surface of a marble table is spread out in front of me. I can get
+from any one point on this table to any other point by passing
+continuously from one point to a “neighbouring” one, and repeating this
+process a (large) number of times, or, in other words, by going from
+point to point without executing “jumps.” I am sure the reader will
+appreciate with sufficient clearness what I mean here by “neighbouring”
+and by “jumps” (if he is not too pedantic). We express this property of
+the surface by describing the latter as a continuum.
+
+Let us now imagine that a large number of little rods of equal length
+have been made, their lengths being small compared with the dimensions
+of the marble slab. When I say they are of equal length, I mean that
+one can be laid on any other without the ends overlapping. We next lay
+four of these little rods on the marble slab so that they constitute a
+quadrilateral figure (a square), the diagonals of which are equally
+long. To ensure the equality of the diagonals, we make use of a little
+testing-rod. To this square we add similar ones, each of which has one
+rod in common with the first. We proceed in like manner with each of
+these squares until finally the whole marble slab is laid out with
+squares. The arrangement is such, that each side of a square belongs to
+two squares and each corner to four squares.
+
+It is a veritable wonder that we can carry out this business without
+getting into the greatest difficulties. We only need to think of the
+following. If at any moment three squares meet at a corner, then two
+sides of the fourth square are already laid, and, as a consequence, the
+arrangement of the remaining two sides of the square is already
+completely determined. But I am now no longer able to adjust the
+quadrilateral so that its diagonals may be equal. If they are equal of
+their own accord, then this is an especial favour of the marble slab
+and of the little rods, about which I can only be thankfully surprised.
+We must experience many such surprises if the construction is to be
+successful.
+
+If everything has really gone smoothly, then I say that the points of
+the marble slab constitute a Euclidean continuum with respect to the
+little rod, which has been used as a “distance” (line-interval). By
+choosing one corner of a square as “origin” I can characterise every
+other corner of a square with reference to this origin by means of two
+numbers. I only need state how many rods I must pass over when,
+starting from the origin, I proceed towards the “right” and then
+“upwards,” in order to arrive at the corner of the square under
+consideration. These two numbers are then the “Cartesian co-ordinates”
+of this corner with reference to the “Cartesian co-ordinate system”
+which is determined by the arrangement of little rods.
+
+By making use of the following modification of this abstract
+experiment, we recognise that there must also be cases in which the
+experiment would be unsuccessful. We shall suppose that the rods
+“expand” by in amount proportional to the increase of temperature. We
+heat the central part of the marble slab, but not the periphery, in
+which case two of our little rods can still be brought into coincidence
+at every position on the table. But our construction of squares must
+necessarily come into disorder during the heating, because the little
+rods on the central region of the table expand, whereas those on the
+outer part do not.
+
+With reference to our little rods—defined as unit lengths—the marble
+slab is no longer a Euclidean continuum, and we are also no longer in
+the position of defining Cartesian co-ordinates directly with their
+aid, since the above construction can no longer be carried out. But
+since there are other things which are not influenced in a similar
+manner to the little rods (or perhaps not at all) by the temperature of
+the table, it is possible quite naturally to maintain the point of view
+that the marble slab is a “Euclidean continuum.” This can be done in a
+satisfactory manner by making a more subtle stipulation about the
+measurement or the comparison of lengths.

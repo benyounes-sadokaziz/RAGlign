@@ -97,3 +97,63 @@ def compute_metrics(results: Sequence[AlignedResult], k: int, threshold: float) 
         mean_chars_retrieved=mean(r.chars_retrieved(k) for r in results),
         unanswered=unanswered,
     )
+
+
+def bootstrap_ci(
+    results: Sequence[AlignedResult],
+    k: int,
+    threshold: float,
+    metric: str = "mrr",
+    *,
+    iterations: int = 2000,
+    confidence: float = 0.95,
+    seed: int = 0,
+) -> tuple[float, float, float]:
+    """Resample questions with replacement; return (point, lo, hi).
+
+    Why this exists: with 11 questions, one question is worth 0.09 of hit@5, so
+    a reported difference of 0.09 between two configs is one question changing
+    its mind. A point estimate invites reading that as a result. An interval
+    makes the resolution limit visible in the same table as the number.
+
+    Resampling is over *questions*, not over retrievals, because the retrieval
+    is deterministic -- rerun it and you get bit-identical output (TC-3). The
+    only sampling uncertainty is "which questions ended up in the eval set",
+    which is exactly what this resamples.
+
+    Caveat worth stating: at small n the bootstrap is itself approximate, and
+    the interval is wide precisely because the evidence is thin. It quantifies
+    the uncertainty; it does not remove it.
+    """
+    import random
+
+    rng = random.Random(seed)
+    n = len(results)
+    if n == 0:
+        raise ValueError("no results to score")
+
+    def point_of(sample: Sequence[AlignedResult]) -> float:
+        return getattr(compute_metrics(sample, k=k, threshold=threshold), metric)
+
+    point = point_of(results)
+    draws = [
+        point_of([results[rng.randrange(n)] for _ in range(n)]) for _ in range(iterations)
+    ]
+    draws.sort()
+    alpha = (1.0 - confidence) / 2.0
+    lo = draws[int(alpha * (iterations - 1))]
+    hi = draws[int((1.0 - alpha) * (iterations - 1))]
+    return point, lo, hi
+
+
+def indistinguishable(
+    a: tuple[float, float, float], b: tuple[float, float, float]
+) -> bool:
+    """True when two configs' confidence intervals overlap.
+
+    A blunt test, and deliberately so: overlapping intervals are not proof of
+    equality, but non-overlap is a reasonable bar for claiming one config beats
+    another. Reported so the results table can say "these are tied" instead of
+    ranking noise.
+    """
+    return not (a[2] < b[1] or b[2] < a[1])

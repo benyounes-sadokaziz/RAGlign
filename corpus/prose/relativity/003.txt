@@ -1,0 +1,147 @@
+
+(_b_) In locating the position of the object, we make use of a number
+(here the length of the pole measured with the measuring-rod) instead
+of designated points of reference.
+
+(_c_) We speak of the height of the cloud even when the pole which
+reaches the cloud has not been erected. By means of optical
+observations of the cloud from different positions on the ground, and
+taking into account the properties of the propagation of light, we
+determine the length of the pole we should have required in order to
+reach the cloud.
+
+From this consideration we see that it will be advantageous if, in the
+description of position, it should be possible by means of numerical
+measures to make ourselves independent of the existence of marked
+positions (possessing names) on the rigid body of reference. In the
+physics of measurement this is attained by the application of the
+Cartesian system of co-ordinates.
+
+This consists of three plane surfaces perpendicular to each other and
+rigidly attached to a rigid body. Referred to a system of co-ordinates,
+the scene of any event will be determined (for the main part) by the
+specification of the lengths of the three perpendiculars or
+co-ordinates (_x, y, z_) which can be dropped from the scene of the
+event to those three plane surfaces. The lengths of these three
+perpendiculars can be determined by a series of manipulations with
+rigid measuring-rods performed according to the rules and methods laid
+down by Euclidean geometry.
+
+In practice, the rigid surfaces which constitute the system of
+co-ordinates are generally not available; furthermore, the magnitudes
+of the co-ordinates are not actually determined by constructions with
+rigid rods, but by indirect means. If the results of physics and
+astronomy are to maintain their clearness, the physical meaning of
+specifications of position must always be sought in accordance with the
+above considerations.[5]
+
+
+ [5] A refinement and modification of these views does not become
+ necessary until we come to deal with the general theory of relativity,
+ treated in the second part of this book.
+
+
+We thus obtain the following result: Every description of events in
+space involves the use of a rigid body to which such events have to be
+referred. The resulting relationship takes for granted that the laws of
+Euclidean geometry hold for “distances;” the “distance” being
+represented physically by means of the convention of two marks on a
+rigid body.
+
+
+III.
+
+SPACE AND TIME IN CLASSICAL MECHANICS
+
+The purpose of mechanics is to describe how bodies change their
+position in space with “time.” I should load my conscience with grave
+sins against the sacred spirit of lucidity were I to formulate the aims
+of mechanics in this way, without serious reflection and detailed
+explanations. Let us proceed to disclose these sins.
+
+It is not clear what is to be understood here by “position” and
+“space.” I stand at the window of a railway carriage which is
+travelling uniformly, and drop a stone on the embankment, without
+throwing it. Then, disregarding the influence of the air resistance, I
+see the stone descend in a straight line. A pedestrian who observes the
+misdeed from the footpath notices that the stone falls to earth in a
+parabolic curve. I now ask: Do the “positions” traversed by the stone
+lie “in reality” on a straight line or on a parabola? Moreover, what is
+meant here by motion “in space”? From the considerations of the
+previous section the answer is self-evident. In the first place we
+entirely shun the vague word “space,” of which, we must honestly
+acknowledge, we cannot form the slightest conception, and we replace it
+by “motion relative to a practically rigid body of reference.” The
+positions relative to the body of reference (railway carriage or
+embankment) have already been defined in detail in the preceding
+section. If instead of “body of reference” we insert “system of
+co-ordinates,” which is a useful idea for mathematical description, we
+are in a position to say: The stone traverses a straight line relative
+to a system of co-ordinates rigidly attached to the carriage, but
+relative to a system of co-ordinates rigidly attached to the ground
+(embankment) it describes a parabola. With the aid of this example it
+is clearly seen that there is no such thing as an independently
+existing trajectory (lit. “path-curve”[6], but only a trajectory
+relative to a particular body of reference.
+
+
+ [6] That is, a curve along which the body moves.
+
+
+In order to have a _complete_ description of the motion, we must
+specify how the body alters its position _with time; i.e._ for every
+point on the trajectory it must be stated at what time the body is
+situated there. These data must be supplemented by such a definition of
+time that, in virtue of this definition, these time-values can be
+regarded essentially as magnitudes (results of measurements) capable of
+observation. If we take our stand on the ground of classical mechanics,
+we can satisfy this requirement for our illustration in the following
+manner. We imagine two clocks of identical construction; the man at the
+railway-carriage window is holding one of them, and the man on the
+footpath the other. Each of the observers determines the position on
+his own reference-body occupied by the stone at each tick of the clock
+he is holding in his hand. In this connection we have not taken account
+of the inaccuracy involved by the finiteness of the velocity of
+propagation of light. With this and with a second difficulty prevailing
+here we shall have to deal in detail later.
+
+
+IV. THE GALILEIAN SYSTEM OF CO-ORDINATES
+
+
+As is well known, the fundamental law of the mechanics of
+Galilei-Newton, which is known as the _law of inertia_, can be stated
+thus: A body removed sufficiently far from other bodies continues in a
+state of rest or of uniform motion in a straight line. This law not
+only says something about the motion of the bodies, but it also
+indicates the reference-bodies or systems of coordinates, permissible
+in mechanics, which can be used in mechanical description. The visible
+fixed stars are bodies for which the law of inertia certainly holds to
+a high degree of approximation. Now if we use a system of co-ordinates
+which is rigidly attached to the earth, then, relative to this system,
+every fixed star describes a circle of immense radius in the course of
+an astronomical day, a result which is opposed to the statement of the
+law of inertia. So that if we adhere to this law we must refer these
+motions only to systems of coordinates relative to which the fixed
+stars do not move in a circle. A system of co-ordinates of which the
+state of motion is such that the law of inertia holds relative to it is
+called a “Galileian system of co-ordinates.” The laws of the mechanics
+of Galilei-Newton can be regarded as valid only for a Galileian system
+of co-ordinates.
+
+
+V.
+
+THE PRINCIPLE OF RELATIVITY (IN THE RESTRICTED SENSE)
+
+In order to attain the greatest possible clearness, let us return to
+our example of the railway carriage supposed to be travelling
+uniformly. We call its motion a uniform translation (“uniform” because
+it is of constant velocity and direction, “translation” because
+although the carriage changes its position relative to the embankment
+yet it does not rotate in so doing). Let us imagine a raven flying
+through the air in such a manner that its motion, as observed from the
+embankment, is uniform and in a straight line. If we were to observe
+the flying raven from the moving railway carriage. we should find that
+the motion of the raven would be one of different velocity and
+direction, but that it would still be uniform and in a straight line.

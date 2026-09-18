@@ -1,0 +1,142 @@
+From our point of view this means: The law governing the properties of
+the gravitational field in space must be a perfectly definite one, in
+order correctly to represent the diminution of gravitational action
+with the distance from operative bodies. It is something like this: The
+body (_e.g._ the earth) produces a field in its immediate neighbourhood
+directly; the intensity and direction of the field at points farther
+removed from the body are thence determined by the law which governs
+the properties in space of the gravitational fields themselves.
+
+In contrast to electric and magnetic fields, the gravitational field
+exhibits a most remarkable property, which is of fundamental importance
+for what follows. Bodies which are moving under the sole influence of a
+gravitational field receive an acceleration, _which does not in the
+least depend either on the material or on the physical state of the
+body._ For instance, a piece of lead and a piece of wood fall in
+exactly the same manner in a gravitational field (_in vacuo_), when
+they start off from rest or with the same initial velocity. This law,
+which holds most accurately, can be expressed in a different form in
+the light of the following consideration.
+
+According to Newton’s law of motion, we have
+
+(Force) = (inertial mass) x (acceleration),
+
+where the “inertial mass” is a characteristic constant of the
+accelerated body. If now gravitation is the cause of the acceleration,
+we then have
+
+(Force) = (gravitational mass) x (intensity of the gravitational
+field),
+
+where the “gravitational mass” is likewise a characteristic constant
+for the body. From these two relations follows:
+
+image032
+
+
+If now, as we find from experience, the acceleration is to be
+independent of the nature and the condition of the body and always the
+same for a given gravitational field, then the ratio of the
+gravitational to the inertial mass must likewise be the same for all
+bodies. By a suitable choice of units we can thus make this ratio equal
+to unity. We then have the following law: The _gravitational_ mass of a
+body is equal to its _inertial_ mass.
+
+It is true that this important law had hitherto been recorded in
+mechanics, but it had not been _interpreted_. A satisfactory
+interpretation can be obtained only if we recognise the following fact:
+_The same_ quality of a body manifests itself according to
+circumstances as “inertia” or as “weight” (lit. “heaviness”). In the
+following section we shall show to what extent this is actually the
+case, and how this question is connected with the general postulate of
+relativity.
+
+
+XX.
+
+THE EQUALITY OF INERTIAL AND GRAVITATIONAL MASS AS AN ARGUMENT FOR THE
+GENERAL POSTULATE OF RELATIVITY
+
+We imagine a large portion of empty space, so far removed from stars
+and other appreciable masses, that we have before us approximately the
+conditions required by the fundamental law of Galilei. It is then
+possible to choose a Galileian reference-body for this part of space
+(world), relative to which points at rest remain at rest and points in
+motion continue permanently in uniform rectilinear motion. As
+reference-body let us imagine a spacious chest resembling a room with
+an observer inside who is equipped with apparatus. Gravitation
+naturally does not exist for this observer. He must fasten himself with
+strings to the floor, otherwise the slightest impact against the floor
+will cause him to rise slowly towards the ceiling of the room.
+
+To the middle of the lid of the chest is fixed externally a hook with
+rope attached, and now a “being” (what kind of a being is immaterial to
+us) begins pulling at this with a constant force. The chest together
+with the observer then begin to move “upwards” with a uniformly
+accelerated motion. In course of time their velocity will reach
+unheard-of values—provided that we are viewing all this from another
+reference-body which is not being pulled with a rope.
+
+But how does the man in the chest regard the Process? The acceleration
+of the chest will be transmitted to him by the reaction of the floor of
+the chest. He must therefore take up this pressure by means of his legs
+if he does not wish to be laid out full length on the floor. He is then
+standing in the chest in exactly the same way as anyone stands in a
+room of a home on our earth. If he releases a body which he previously
+had in his land, the accelertion of the chest will no longer be
+transmitted to this body, and for this reason the body will approach
+the floor of the chest with an accelerated relative motion. The
+observer will further convince himself _that the acceleration of the
+body towards the floor of the chest is always of the same magnitude,
+whatever kind of body he may happen to use for the experiment._
+
+Relying on his knowledge of the gravitational field (as it was
+discussed in the preceding section), the man in the chest will thus
+come to the conclusion that he and the chest are in a gravitational
+field which is constant with regard to time. Of course he will be
+puzzled for a moment as to why the chest does not fall in this
+gravitational field. just then, however, he discovers the hook in the
+middle of the lid of the chest and the rope which is attached to it,
+and he consequently comes to the conclusion that the chest is suspended
+at rest in the gravitational field.
+
+Ought we to smile at the man and say that he errs in his conclusion? I
+do not believe we ought to if we wish to remain consistent; we must
+rather admit that his mode of grasping the situation violates neither
+reason nor known mechanical laws. Even though it is being accelerated
+with respect to the “Galileian space” first considered, we can
+nevertheless regard the chest as being at rest. We have thus good
+grounds for extending the principle of relativity to include bodies of
+reference which are accelerated with respect to each other, and as a
+result we have gained a powerful argument for a generalised postulate
+of relativity.
+
+We must note carefully that the possibility of this mode of
+interpretation rests on the fundamental property of the gravitational
+field of giving all bodies the same acceleration, or, what comes to the
+same thing, on the law of the equality of inertial and gravitational
+mass. If this natural law did not exist, the man in the accelerated
+chest would not be able to interpret the behaviour of the bodies around
+him on the supposition of a gravitational field, and he would not be
+justified on the grounds of experience in supposing his reference-body
+to be “at rest.”
+
+Suppose that the man in the chest fixes a rope to the inner side of the
+lid, and that he attaches a body to the free end of the rope. The
+result of this will be to stretch the rope so that it will hang
+“vertically” downwards. If we ask for an opinion of the cause of
+tension in the rope, the man in the chest will say: “The suspended body
+experiences a downward force in the gravitational field, and this is
+neutralised by the tension of the rope; what determines the magnitude
+of the tension of the rope is the _gravitational mass_ of the suspended
+body.” On the other hand, an observer who is poised freely in space
+will interpret the condition of things thus: “The rope must perforce
+take part in the accelerated motion of the chest, and it transmits this
+motion to the body attached to it. The tension of the rope is just
+large enough to effect the acceleration of the body. That which
+determines the magnitude of the tension of the rope is the _inertial
+mass_ of the body.” Guided by this example, we see that our extension
+of the principle of relativity implies the _necessity_ of the law of
+the equality of inertial and gravitational mass. Thus we have obtained
+a physical interpretation of this law.

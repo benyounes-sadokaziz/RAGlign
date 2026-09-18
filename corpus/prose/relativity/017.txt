@@ -1,0 +1,146 @@
+
+But if rods of every kind (_i.e._ of every material) were to behave _in
+the same way_ as regards the influence of temperature when they are on
+the variably heated marble slab, and if we had no other means of
+detecting the effect of temperature than the geometrical behaviour of
+our rods in experiments analogous to the one described above, then our
+best plan would be to assign the distance one to two points on the
+slab, provided that the ends of one of our rods could be made to
+coincide with these two points; for how else should we define the
+distance without our proceeding being in the highest measure grossly
+arbitrary? The method of Cartesian coordinates must then be discarded,
+and replaced by another which does not assume the validity of Euclidean
+geometry for rigid bodies.[20] The reader will notice that the
+situation depicted here corresponds to the one brought about by the
+general postulate of relativity (Section XXIII).
+
+
+ [20] Mathematicians have been confronted with our problem in the
+ following form. If we are given a surface (_e.g._ an ellipsoid) in
+ Euclidean three-dimensional space, then there exists for this surface
+ a two-dimensional geometry, just as much as for a plane surface. Gauss
+ undertook the task of treating this two-dimensional geometry from
+ first principles, without making use of the fact that the surface
+ belongs to a Euclidean continuum of three dimensions. If we imagine
+ constructions to be made with rigid rods _in the surface_ (similar to
+ that above with the marble slab), we should find that different laws
+ hold for these from those resulting on the basis of Euclidean plane
+ geometry. The surface is not a Euclidean continuum with respect to the
+ rods, and we cannot define Cartesian co-ordinates _in the surface_.
+ Gauss indicated the principles according to which we can treat the
+ geometrical relationships in the surface, and thus pointed out the way
+ to the method of Riemann of treating multi-dimensional, non-Euclidean
+ _continuum_. Thus it is that mathematicians long ago solved the formal
+ problems to which we are led by the general postulate of relativity.
+
+
+XXV.
+
+GAUSSIAN CO-ORDINATES
+
+image033
+
+
+According to Gauss, this combined analytical and geometrical mode of
+handling the problem can be arrived at in the following way. We imagine
+a system of arbitrary curves (see Fig. 4) drawn on the surface of the
+table. These we designate as _u_-curves, and we indicate each of them
+by means of a number. The Curves _u_ = 1, _u_ = 2 and _u_ = 3 are drawn
+in the diagram. Between the curves _u_ = 1 and _u_ = 2 we must imagine
+an infinitely large number to be drawn, all of which correspond to real
+numbers lying between 1 and 2. We have then a system of _u_-curves, and
+this “infinitely dense” system covers the whole surface of the table.
+These _u_-curves must not intersect each other, and through each point
+of the surface one and only one curve must pass. Thus a perfectly
+definite value of _u_ belongs to every point on the surface of the
+marble slab. In like manner we imagine a system of _v_-curves drawn on
+the surface. These satisfy the same conditions as the _u_-curves, they
+are provided with numbers in a corresponding manner, and they may
+likewise be of arbitrary shape. It follows that a value of _u_ and a
+value of _v_ belong to every point on the surface of the table. We call
+these two numbers the co-ordinates of the surface of the table
+(Gaussian co-ordinates). For example, the point _P_ in the diagram has
+the Gaussian co-ordinates _u_ = 3, _v_ = 1. Two neighbouring points _P_
+and _P′_ on the surface then correspond to the co-ordinates
+
+_P_: _u, v_
+
+_P′_: _u_ + _du, v_ + _dv_,
+
+where _du_ and _dv_ signify very small numbers. In a similar manner we
+may indicate the distance (line-interval) between _P_ and _P′_, as
+measured with a little rod, by means of the very small number _ds_.
+Then according to Gauss we have
+
+_ds_2 = _g_11_du_2 + 2_g_12_du dv_ + _g_22_dv_2,
+
+where _g_11, _g_12, _g_22, are magnitudes which depend in a perfectly
+definite way on _u_ and _v_. The magnitudes _g_11, _g_12 and _g_22,
+determine the behaviour of the rods relative to the _u_-curves and
+_v_-curves, and thus also relative to the surface of the table. For the
+case in which the points of the surface considered form a Euclidean
+continuum with reference to the measuring-rods, but only in this case,
+it is possible to draw the _u_-curves and _v_-curves and to attach
+numbers to them, in such a manner, that we simply have:
+
+_ds_2 = _du_2 + _dv_2
+
+Under these conditions, the _u_-curves and _v_-curves are straight
+lines in the sense of Euclidean geometry, and they are perpendicular to
+each other. Here the Gaussian coordinates are simply Cartesian ones. It
+is clear that Gauss co-ordinates are nothing more than an association
+of two sets of numbers with the points of the surface considered, of
+such a nature that numerical values differing very slightly from each
+other are associated with neighbouring points “in space.”
+
+So far, these considerations hold for a continuum of two dimensions.
+But the Gaussian method can be applied also to a continuum of three,
+four or more dimensions. If, for instance, a continuum of four
+dimensions be supposed available, we may represent it in the following
+way. With every point of the continuum, we associate arbitrarily four
+numbers, _x_1, _x_2, _x_3, _x_4, which are known as “co-ordinates.”
+Adjacent points correspond to adjacent values of the coordinates. If a
+distance _ds_ is associated with the adjacent points _P_ and _P′_, this
+distance being measurable and well defined from a physical point of
+view, then the following formula holds:
+
+_ds_2 = _g_11_dx_12 + 2_g_12_dx_1_dx_2 . . . . + _g_44_dx_42,
+
+where the magnitudes _g_11, etc., have values which vary with the
+position in the continuum. Only when the continuum is a Euclidean one
+is it possible to associate the co-ordinates _x_1 . . _x_4. with the
+points of the continuum so that we have simply
+
+_ds_2 = _dx_12 + _dx_22 + _dx_32 + _dx_42.
+
+In this case relations hold in the four-dimensional continuum which are
+analogous to those holding in our three-dimensional measurements.
+
+However, the Gauss treatment for _ds_2 which we have given above is not
+always possible. It is only possible when sufficiently small regions of
+the continuum under consideration may be regarded as Euclidean
+continua. For example, this obviously holds in the case of the marble
+slab of the table and local variation of temperature. The temperature
+is practically constant for a small part of the slab, and thus the
+geometrical behaviour of the rods is _almost_ as it ought to be
+according to the rules of Euclidean geometry. Hence the imperfections
+of the construction of squares in the previous section do not show
+themselves clearly until this construction is extended over a
+considerable portion of the surface of the table.
+
+We can sum this up as follows: Gauss invented a method for the
+mathematical treatment of continua in general, in which
+“size-relations” (“distances” between neighbouring points) are defined.
+To every point of a continuum are assigned as many numbers (Gaussian
+coordinates) as the continuum has dimensions. This is done in such a
+way, that only one meaning can be attached to the assignment, and that
+numbers (Gaussian coordinates) which differ by an indefinitely small
+amount are assigned to adjacent points. The Gaussian coordinate system
+is a logical generalisation of the Cartesian co-ordinate system. It is
+also applicable to non-Euclidean continua, but only when, with respect
+to the defined “size” or “distance,” small parts of the continuum under
+consideration behave more nearly like a Euclidean system, the smaller
+the part of the continuum under our notice.
+
+
+XXVI.

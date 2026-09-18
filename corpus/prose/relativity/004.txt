@@ -1,0 +1,136 @@
+Expressed in an abstract manner we may say: If a mass _m_ is moving
+uniformly in a straight line with respect to a co-ordinate system _K_,
+then it will also be moving uniformly and in a straight line relative
+to a second co-ordinate system _K′_ provided that the latter is
+executing a uniform translatory motion with respect to _K_. In
+accordance with the discussion contained in the preceding section, it
+follows that:
+
+If _K_ is a Galileian co-ordinate system. then every other co-ordinate
+system _K′_ is a Galileian one, when, in relation to _K_, it is in a
+condition of uniform motion of translation. Relative to _K′_ the
+mechanical laws of Galilei-Newton hold good exactly as they do with
+respect to _K_.
+
+We advance a step farther in our generalisation when we express the
+tenet thus: If, relative to _K_, _K′_ is a uniformly moving co-ordinate
+system devoid of rotation, then natural phenomena run their course with
+respect to _K′_ according to exactly the same general laws as with
+respect to _K_. This statement is called the _principle of relativity_
+(in the restricted sense).
+
+As long as one was convinced that all natural phenomena were capable of
+representation with the help of classical mechanics, there was no need
+to doubt the validity of this principle of relativity. But in view of
+the more recent development of electrodynamics and optics it became
+more and more evident that classical mechanics affords an insufficient
+foundation for the physical description of all natural phenomena. At
+this juncture the question of the validity of the principle of
+relativity became ripe for discussion, and it did not appear impossible
+that the answer to this question might be in the negative.
+
+Nevertheless, there are two general facts which at the outset speak
+very much in favour of the validity of the principle of relativity.
+Even though classical mechanics does not supply us with a sufficiently
+broad basis for the theoretical presentation of all physical phenomena,
+still we must grant it a considerable measure of “truth,” since it
+supplies us with the actual motions of the heavenly bodies with a
+delicacy of detail little short of wonderful. The principle of
+relativity must therefore apply with great accuracy in the domain of
+_mechanics_. But that a principle of such broad generality should hold
+with such exactness in one domain of phenomena, and yet should be
+invalid for another, is _a priori_ not very probable.
+
+We now proceed to the second argument, to which, moreover, we shall
+return later. If the principle of relativity (in the restricted sense)
+does not hold, then the Galileian co-ordinate systems _K, K′, K″_,
+etc., which are moving uniformly relative to each other, will not be
+_equivalent_ for the description of natural phenomena. In this case we
+should be constrained to believe that natural laws are capable of being
+formulated in a particularly simple manner, and of course only on
+condition that, from amongst all possible Galileian co-ordinate
+systems, we should have chosen _one_ (_K0_) of a particular state of
+motion as our body of reference. We should then be justified (because
+of its merits for the description of natural phenomena) in calling this
+system “absolutely at rest,” and all other Galileian systems _K_ “in
+motion.” If, for instance, our embankment were the system _K0_ then our
+railway carriage would be a system _K_, relative to which less simple
+laws would hold than with respect to _K0_. This diminished simplicity
+would be due to the fact that the carriage _K_ would be in motion
+(_i.e._ “really”)with respect to _K0_. In the general laws of nature
+which have been formulated with reference to _K_, the magnitude and
+direction of the velocity of the carriage would necessarily play a
+part. We should expect, for instance, that the note emitted by an
+organpipe placed with its axis parallel to the direction of travel
+would be different from that emitted if the axis of the pipe were
+placed perpendicular to this direction.
+
+Now in virtue of its motion in an orbit round the sun, our earth is
+comparable with a railway carriage travelling with a velocity of about
+30 kilometres per second. If the principle of relativity were not valid
+we should therefore expect that the direction of motion of the earth at
+any moment would enter into the laws of nature, and also that physical
+systems in their behaviour would be dependent on the orientation in
+space with respect to the earth. For owing to the alteration in
+direction of the velocity of revolution of the earth in the course of a
+year, the earth cannot be at rest relative to the hypothetical system
+_K0_ throughout the whole year. However, the most careful observations
+have never revealed such anisotropic properties in terrestrial physical
+space, _i.e._ a physical non-equivalence of different directions. This
+is very powerful argument in favour of the principle of relativity.
+
+
+VI.
+
+THE THEOREM OF THE ADDITION OF VELOCITIES EMPLOYED IN CLASSICAL
+MECHANICS
+
+Let us suppose our old friend the railway carriage to be travelling
+along the rails with a constant velocity _v_, and that a man traverses
+the length of the carriage in the direction of travel with a velocity
+_w_. How quickly or, in other words, with what velocity _W_ does the
+man advance relative to the embankment during the process? The only
+possible answer seems to result from the following consideration: If
+the man were to stand still for a second, he would advance relative to
+the embankment through a distance _v_ equal numerically to the velocity
+of the carriage. As a consequence of his walking, however, he traverses
+an additional distance w relative to the carriage, and hence also
+relative to the embankment, in this second, the distance w being
+numerically equal to the velocity with which he is walking. Thus in
+total he covers the distance _W = v + w_ relative to the embankment in
+the second considered. We shall see later that this result, which
+expresses the theorem of the addition of velocities employed in
+classical mechanics, cannot be maintained; in other words, the law that
+we have just written down does not hold in reality. For the time being,
+however, we shall assume its correctness.
+
+
+VII.
+
+THE APPARENT INCOMPATIBILITY OF THE LAW OF PROPAGATION OF LIGHT WITH
+THE PRINCIPLE OF RELATIVITY
+
+There is hardly a simpler law in physics than that according to which
+light is propagated in empty space. Every child at school knows, or
+believes he knows, that this propagation takes place in straight lines
+with a velocity _c_ = 300,000 km./sec. At all events we know with great
+exactness that this velocity is the same for all colours, because if
+this were not the case, the minimum of emission would not be observed
+simultaneously for different colours during the eclipse of a fixed star
+by its dark neighbour. By means of similar considerations based on
+observations of double stars, the Dutch astronomer De Sitter was also
+able to show that the velocity of propagation of light cannot depend on
+the velocity of motion of the body emitting the light. The assumption
+that this velocity of propagation is dependent on the direction “in
+space” is in itself improbable.
+
+In short, let us assume that the simple law of the constancy of the
+velocity of light _c_ (in vacuum) is justifiably believed by the child
+at school. Who would imagine that this simple law has plunged the
+conscientiously thoughtful physicist into the greatest intellectual
+difficulties? Let us consider how these difficulties arise.
+
+Of course we must refer the process of the propagation of light (and
+indeed every other process) to a rigid reference-body (co-ordinate
+system). As such a system let us again choose our embankment. We shall
+imagine the air above it to have been removed.

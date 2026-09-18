@@ -21,7 +21,13 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Sequence
 
-from .alignment import DEFAULT_THRESHOLDS, OverlapMode, align, oracle_reachability
+from .alignment import (
+    DEFAULT_THRESHOLDS,
+    OverlapMode,
+    align,
+    oracle_reachability,
+    overlap_score,
+)
 from .chunking import FixedSizeChunker, HeadingChunker, RecursiveChunker, SemanticChunker
 from .embedding import Embedder
 from .loader import corpus_fingerprint
@@ -129,7 +135,10 @@ class RunResult:
     query_ms_p90: float
     metrics: dict[str, MetricSet]  # "k=5,tau=0.5" -> MetricSet
     oracle: dict[float, float]  # tau -> fraction of spans reachable at all
-    per_question: dict[str, float]  # question id -> soft score, for diagnosis
+    # Per question, everything the failure diagnosis needs. Kept per question
+    # rather than aggregated because "which configs are bad" is a far less
+    # actionable answer than "this question fails, and here is which stage lost it".
+    per_question: dict[str, dict]
 
     def metric(self, k: int, threshold: float) -> MetricSet:
         return self.metrics[f"k={k},tau={threshold}"]
@@ -166,6 +175,39 @@ def evaluate(
         tau: oracle_reachability(pipeline.chunks, all_truths, tau, mode) for tau in thresholds
     }
 
+    # Per-question reachability: could ANY chunk in this index have satisfied
+    # this question's evidence? Computed separately from the corpus-wide oracle
+    # above, because the diagnosis needs to attribute each individual failure --
+    # a corpus-level average cannot say which question the chunker destroyed.
+    diag_tau = 0.5
+    per_question: dict[str, dict] = {}
+    for q, a in zip(questions, aligned):
+        reachable = oracle_reachability(pipeline.chunks, q.spans, diag_tau, mode)
+        # Best coverage ANY chunk in the index could have delivered, threshold
+        # free. `reachable` alone is not enough for diagnosis: it is a pass/fail
+        # at tau, so a chunker whose best chunk covers exactly 51% of every
+        # answer scores a perfect 1.0 and looks blameless, while the retriever
+        # takes the blame for failing to rank those marginal chunks. This
+        # records how much evidence actually survived segmentation.
+        achievable = 0.0
+        for t in q.spans:
+            best = max(
+                (
+                    overlap_score(c.span, t, mode)
+                    for c in pipeline.chunks
+                    if c.doc_id == t.doc_id
+                ),
+                default=0.0,
+            )
+            achievable = max(achievable, best)
+        per_question[q.id] = {
+            "soft": round(a.soft_score(max_k), 4),
+            "rank": a.first_hit_rank(diag_tau, max_k),
+            "reachable": round(reachable, 4),
+            "max_achievable": round(achievable, 4),
+            "best_coverage": round(max(a.span_best(max_k), default=0.0), 4),
+        }
+
     latencies.sort()
     return RunResult(
         spec=spec,
@@ -176,22 +218,30 @@ def evaluate(
         query_ms_p90=latencies[int(0.9 * (len(latencies) - 1))],
         metrics=metrics,
         oracle=oracle,
-        per_question={a.question_id: a.soft_score(max_k) for a in aligned},
+        per_question=per_question,
     )
 
 
-def save_run(result: RunResult, docs: Sequence[Document], qa_file: str, out_dir: Path = RUNS_ROOT) -> Path:
+def save_run(
+    result: RunResult,
+    docs: Sequence[Document],
+    qa_file: str,
+    corpus: str,
+    out_dir: Path = RUNS_ROOT,
+) -> Path:
     """Persist one run as JSON (TC-9).
 
     The corpus fingerprint is recorded because character spans are only valid
     against the exact corpus they were resolved on; a fingerprint mismatch means
     two runs are not comparable, and this is what makes that detectable.
     """
+    out_dir = out_dir / corpus
     out_dir.mkdir(parents=True, exist_ok=True)
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S")
     path = out_dir / f"{stamp}_{result.spec.id}.json"
     payload = {
         "config": result.spec.as_dict(),
+        "corpus": corpus,
         "corpus_fingerprint": corpus_fingerprint(list(docs)),
         "qa_file": qa_file,
         "n_chunks": result.n_chunks,
@@ -201,7 +251,7 @@ def save_run(result: RunResult, docs: Sequence[Document], qa_file: str, out_dir:
         "query_ms_p90": round(result.query_ms_p90, 3),
         "metrics": {key: m.as_dict() for key, m in result.metrics.items()},
         "oracle_reachability": result.oracle,
-        "per_question_soft": result.per_question,
+        "per_question": result.per_question,
         "env": {"python": platform.python_version(), "platform": platform.platform()},
     }
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")

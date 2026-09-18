@@ -32,6 +32,16 @@ from .models import Document, QAItem, Span
 
 QA_ROOT = Path(__file__).resolve().parent.parent / "data" / "qa"
 
+
+def qa_path(corpus: str, qa_file: str) -> Path:
+    """Locate a QA set for a corpus.
+
+    Ground truth is corpus-specific by construction -- a character span means
+    nothing against different documents -- so QA sets live under the corpus they
+    were authored against and are never resolvable without naming one.
+    """
+    return QA_ROOT / corpus / qa_file
+
 # Quotes shorter than this are too weak to be evidence: a 10-character string
 # may appear anywhere and pins down no particular passage.
 MIN_QUOTE_CHARS = 25

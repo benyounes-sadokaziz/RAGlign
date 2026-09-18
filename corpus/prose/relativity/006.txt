@@ -1,0 +1,149 @@
+For this
+purpose we suppose that clocks of identical construction are placed at
+the points _A, B_ and _C_ of the railway line (co-ordinate system) and
+that they are set in such a manner that the positions of their pointers
+are simultaneously (in the above sense) the same. Under these
+conditions we understand by the “time” of an event the reading
+(position of the hands) of that one of these clocks which is in the
+immediate vicinity (in space) of the event. In this manner a time-value
+is associated with every event which is essentially capable of
+observation.
+
+
+ [7] We suppose further that, when three events _A, B_ and _C_ occur in
+ different places in such a manner that, if _A_ is simultaneous with
+ _B_, and _B_ is simultaneous with _C_ (simultaneous in the sense of
+ the above definition), then the criterion for the simultaneity of the
+ pair of events _A, C_ is also satisfied. This assumption is a physical
+ hypothesis about the law of propagation of light; it must certainly be
+ fulfilled if we are to maintain the law of the constancy of the
+ velocity of light _in vacuo_.
+
+
+This stipulation contains a further physical hypothesis, the validity
+of which will hardly be doubted without empirical evidence to the
+contrary. It has been assumed that all these clocks _go at the same
+rate_ if they are of identical construction. Stated more exactly: When
+two clocks arranged at rest in different places of a reference-body are
+set in such a manner that a _particular_ position of the pointers of
+the one clock is _simultaneous_ (in the above sense) with the _same_
+position, of the pointers of the other clock, then identical “settings”
+are always simultaneous (in the sense of the above definition).
+
+
+IX.
+
+THE RELATIVITY OF SIMULTANEITY
+
+Up to now our considerations have been referred to a particular body of
+reference, which we have styled a “railway embankment.” We suppose a
+very long train travelling along the rails with the constant velocity v
+and in the direction indicated in Fig 1. People travelling in this
+train will with a vantage view the train as a rigid reference-body
+(co-ordinate system); they regard all events in reference to the train.
+Then every event which takes place along the line also takes place at a
+particular point of the train. Also the definition of simultaneity can
+be given relative to the train in exactly the same way as with respect
+to the embankment. As a natural consequence, however, the following
+question arises:
+
+image001
+
+
+Are two events (_e.g._ the two strokes of lightning _A_ and _B_) which
+are simultaneous _with reference to the railway embankment_ also
+simultaneous _relatively to the train?_ We shall show directly that the
+answer must be in the negative.
+
+When we say that the lightning strokes _A_ and _B_ are simultaneous
+with respect to be embankment, we mean: the rays of light emitted at
+the places _A_ and _B_, where the lightning occurs, meet each other at
+the mid-point _M_ of the length _A_ → _B_ of the embankment. But the
+events _A_ and _B_ also correspond to positions _A_ and _B_ on the
+train. Let _M′_ be the mid-point of the distance _A_ → _B_ on the
+travelling train. Just when the flashes (as judged from the embankment)
+of lightning occur, this point _M′_ naturally coincides with the point
+_M_ but it moves towards the right in the diagram with the velocity v
+of the train. If an observer sitting in the position _M′_ in the train
+did not possess this velocity, then he would remain permanently at M,
+and the light rays emitted by the flashes of lightning _A_ and _B_
+would reach him simultaneously, _i.e._ they would meet just where he is
+situated. Now in reality (considered with reference to the railway
+embankment) he is hastening towards the beam of light coming from _B_,
+whilst he is riding on ahead of the beam of light coming from _A_.
+Hence the observer will see the beam of light emitted from _B_ earlier
+than he will see that emitted from _A_. Observers who take the railway
+train as their reference-body must therefore come to the conclusion
+that the lightning flash _B_ took place earlier than the lightning
+flash _A_. We thus arrive at the important result:
+
+Events which are simultaneous with reference to the embankment are not
+simultaneous with respect to the train, and _vice versa_ (relativity of
+simultaneity). Every reference-body (co-ordinate system) has its own
+particular time; unless we are told the reference-body to which the
+statement of time refers, there is no meaning in a statement of the
+time of an event.
+
+Now before the advent of the theory of relativity it had always tacitly
+been assumed in physics that the statement of time had an absolute
+significance, _i.e._ that it is independent of the state of motion of
+the body of reference. But we have just seen that this assumption is
+incompatible with the most natural definition of simultaneity; if we
+discard this assumption, then the conflict between the law of the
+propagation of light _in vacuo_ and the principle of relativity
+(developed in Section VII) disappears.
+
+We were led to that conflict by the considerations of Section VI, which
+are now no longer tenable. In that section we concluded that the man in
+the carriage, who traverses the distance _w per second_ relative to the
+carriage, traverses the same distance also with respect to the
+embankment _in each second_ of time. But, according to the foregoing
+considerations, the time required by a particular occurrence with
+respect to the carriage must not be considered equal to the duration of
+the same occurrence as judged from the embankment (as reference-body).
+Hence it cannot be contended that the man in walking travels the
+distance _w_ relative to the railway line in a time which is equal to
+one second as judged from the embankment.
+
+Moreover, the considerations of Section VI are based on yet a second
+assumption, which, in the light of a strict consideration, appears to
+be arbitrary, although it was always tacitly made even before the
+introduction of the theory of relativity.
+
+
+X.
+
+ON THE RELATIVITY OF THE CONCEPTION OF DISTANCE
+
+Let us consider two particular points on the train [8] travelling along
+the embankment with the velocity _v_, and inquire as to their distance
+apart. We already know that it is necessary to have a body of reference
+for the measurement of a distance, with respect to which body the
+distance can be measured up. It is the simplest plan to use the train
+itself as reference-body (co-ordinate system). An observer in the train
+measures the interval by marking off his measuring-rod in a straight
+line (_e.g._ along the floor of the carriage) as many times as is
+necessary to take him from the one marked point to the other. Then the
+number which tells us how often the rod has to be laid down is the
+required distance.
+
+
+ [8] _e.g._ the middle of the first and of the hundredth carriage.
+
+
+It is a different matter when the distance has to be judged from the
+railway line. Here the following method suggests itself. If we call
+_A′_ and _B′_ the two points on the train whose distance apart is
+required, then both of these points are moving with the velocity v
+along the embankment. In the first place we require to determine the
+points _A_ and _B_ of the embankment which are just being passed by the
+two points _A′_ and _B′_ at a particular time t—judged from the
+embankment. These points _A_ and _B_ of the embankment can be
+determined by applying the definition of time given in Section VIII.
+The distance between these points A and B is then measured by repeated
+application of the measuring-rod along the embankment.
+
+_A priori_ it is by no means certain that this last measurement will
+supply us with the same result as the first. Thus the length of the
+train as measured from the embankment may be different from that
+obtained by measuring in the train itself.

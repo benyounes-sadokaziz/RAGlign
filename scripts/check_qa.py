@@ -1,34 +1,30 @@
-"""Step 2 verification: resolve every authored quote to a character span.
+"""Resolve every authored quote to a character span, for one corpus.
 
-This is the TC-2 quality gate. A quote that no longer appears verbatim, or that
-appears in more than one place without disambiguation, is rejected here rather
-than silently pointing at the wrong passage.
+The TC-2 quality gate. A quote that no longer appears verbatim, or appears in
+more than one place without disambiguation, is rejected here rather than
+silently pointing at the wrong passage.
 
-Run: .venv/Scripts/python.exe scripts/check_qa.py [qa_file]
+Run: .venv/Scripts/python.exe scripts/check_qa.py --corpus prose
 """
 
 from __future__ import annotations
 
-import sys
-from pathlib import Path
+from _cli import parser, resolve_qa
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-if hasattr(sys.stdout, "reconfigure"):  # Windows consoles default to cp1252
-    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-
-from raglign.loader import corpus_fingerprint, index_by_id, load_documents
-from raglign.qa import QA_ROOT, load_qa_set
+from raglign.loader import corpus_fingerprint, index_by_id, load_corpus
+from raglign.qa import load_qa_set, qa_path
 
 
-def main(argv: list[str]) -> int:
-    qa_path = Path(argv[1]) if len(argv) > 1 else QA_ROOT / "handwritten_v1.json"
+def main() -> int:
+    args = parser(__doc__).parse_args()
+    qa_file = resolve_qa(args.corpus, args.qa)
 
-    docs = load_documents()
-    by_id = index_by_id(docs)
-    print(f"corpus fingerprint: {corpus_fingerprint(docs)}")
-    print(f"qa file: {qa_path.name}\n")
+    docs = load_corpus(args.corpus)
+    print(f"corpus     : {args.corpus} ({len(docs)} docs)")
+    print(f"fingerprint: {corpus_fingerprint(docs)}")
+    print(f"qa file    : {qa_file}\n")
 
-    qa = load_qa_set(qa_path, by_id)
+    qa = load_qa_set(qa_path(args.corpus, qa_file), index_by_id(docs))
 
     print(f"accepted : {len(qa.items)}")
     print(f"rejected : {len(qa.rejections)}")
@@ -57,4 +53,4 @@ def main(argv: list[str]) -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main(sys.argv))
+    raise SystemExit(main())

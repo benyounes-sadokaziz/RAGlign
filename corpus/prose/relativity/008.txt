@@ -1,0 +1,202 @@
+From this we conclude that in the theory of relativity the velocity _c_
+plays the part of a limiting velocity, which can neither be reached nor
+exceeded by any real body.
+
+Of course this feature of the velocity _c_ as a limiting velocity also
+clearly follows from the equations of the Lorentz transformation, for
+these became meaningless if we choose values of _v_ greater than _c_.
+
+If, on the contrary, we had considered a metre-rod at rest in the
+_x_-axis with respect to _K_, then we should have found that the length
+of the rod as judged from _K′_ would have been
+
+image010
+
+
+this is quite in accordance with the principle of relativity which
+forms the basis of our considerations.
+
+_A priori_ it is quite clear that we must be able to learn something
+about the physical behaviour of measuring-rods and clocks from the
+equations of transformation, for the magnitudes _z, y, x, t_, are
+nothing more nor less than the results of measurements obtainable by
+means of measuring-rods and clocks. If we had based our considerations
+on the Galileian transformation we should not have obtained a
+contraction of the rod as a consequence of its motion.
+
+Let us now consider a seconds-clock which is permanently situated at
+the origin (_x′_ = 0) of _K′_. _t′_ = 0 and _t′_ = 1 are two successive
+ticks of this clock. The first and fourth equations of the Lorentz
+transformation give for these two ticks:
+
+_t_ = 0
+
+and
+
+image011
+
+
+As judged from _K_, the clock is moving with the velocity _v_; as
+judged from this reference-body, the time which elapses between two
+strokes of the clock is not one second, but
+
+image012
+
+
+seconds, _i.e._ a somewhat larger time. As a consequence of its motion
+the clock goes more slowly than when at rest. Here also the velocity
+_c_ plays the part of an unattainable limiting velocity.
+
+
+XIII.
+
+THEOREM OF THE ADDITION OF VELOCITIES. THE EXPERIMENT OF FIZEAU
+
+Now in practice we can move clocks and measuring-rods only with
+velocities that are small compared with the velocity of light; hence we
+shall hardly be able to compare the results of the previous section
+directly with the reality. But, on the other hand, these results must
+strike you as being very singular, and for that reason I shall now draw
+another conclusion from the theory, one which can easily be derived
+from the foregoing considerations, and which has been most elegantly
+confirmed by experiment.
+
+In Section VI we derived the theorem of the addition of velocities in
+one direction in the form which also results from the hypotheses of
+classical mechanics. This theorem can also be deduced readily from the
+Galilei transformation (Section XI). In place of the man walking inside
+the carriage, we introduce a point moving relatively to the co-ordinate
+system _K′_ in accordance with the equation
+
+_x′_ = _wt′_
+
+By means of the first and fourth equations of the Galilei
+transformation we can express _x′_ and _t′_ in terms of _x_ and _t_,
+and we then obtain
+
+_x_ = (_v_ + _w_)_t_
+
+This equation expresses nothing else than the law of motion of the
+point with reference to the system _K_ (of the man with reference to
+the embankment). We denote this velocity by the symbol _W_, and we then
+obtain, as in Section VI,
+
+_W_ = _v_ + _w_ . . . . . . . (A).
+
+But we can carry out this consideration just as well on the basis of
+the theory of relativity. In the equation
+
+_x′_ = _wt′_
+
+we must then express _x′_ and _t′_ in terms of _x_ and _t_, making use
+of the first and fourth equations of the _Lorentz transformation_.
+Instead of the equation (A) we then obtain the equation
+
+image013
+
+
+which corresponds to the theorem of addition for velocities in one
+direction according to the theory of relativity. The question now
+arises as to which of these two theorems is the better in accord with
+experience. On this point we are enlightened by a most important
+experiment which the brilliant physicist Fizeau performed more than
+half a century ago, and which has been repeated since then by some of
+the best experimental physicists, so that there can be no doubt about
+its result. The experiment is concerned with the following question.
+Light travels in a motionless liquid with a particular velocity _w_.
+How quickly does it travel in the direction of the arrow in the tube
+_T_ (see the accompanying diagram, Fig. 3) when the liquid above
+mentioned is flowing through the tube with a velocity _v_?
+
+image014
+
+
+In accordance with the principle of relativity we shall certainly have
+to take for granted that the propagation of light always takes place
+with the same velocity _w with respect to the liquid_, whether the
+latter is in motion with reference to other bodies or not. The velocity
+of light relative to the liquid and the velocity of the latter relative
+to the tube are thus known, and we require the velocity of light
+relative to the tube.
+
+It is clear that we have the problem of Section VI again before us. The
+tube plays the part of the railway embankment or of the co-ordinate
+system _K_, the liquid plays the part of the carriage or of the
+co-ordinate system _K′_, and finally, the light plays the part of the
+man walking along the carriage, or of the moving point in the present
+section. If we denote the velocity of the light relative to the tube by
+_W_, then this is given by the equation (A) or (B), according as the
+Galilei transformation or the Lorentz transformation corresponds to the
+facts. Experiment[10] decides in favour of equation (B) derived from
+the theory of relativity, and the agreement is, indeed, very exact.
+According to recent and most excellent measurements by Zeeman, the
+influence of the velocity of flow _v_ on the propagation of light is
+represented by formula (B) to within one per cent.
+
+
+ [10] Fizeau found
+
+
+image015
+
+
+where
+
+
+image016
+
+
+is the index of refraction of the liquid. On the other hand, owing to
+the smallness of
+
+
+image017
+
+
+as compared with 1, we can replace (B) in the first place by
+
+
+image018
+
+
+or to the same order of approximation by
+
+
+image019
+
+
+which agrees with Fizeau’s result.
+
+
+Nevertheless we must now draw attention to the fact that a theory of
+this phenomenon was given by H. A. Lorentz long before the statement of
+the theory of relativity. This theory was of a purely electrodynamical
+nature, and was obtained by the use of particular hypotheses as to the
+electromagnetic structure of matter. This circumstance, however, does
+not in the least diminish the conclusiveness of the experiment as a
+crucial test in favour of the theory of relativity, for the
+electrodynamics of Maxwell-Lorentz, on which the original theory was
+based, in no way opposes the theory of relativity. Rather has the
+latter been developed trom electrodynamics as an astoundingly simple
+combination and generalisation of the hypotheses, formerly independent
+of each other, on which electrodynamics was built.
+
+
+XIV.
+
+THE HEURISTIC VALUE OF THE THEORY OF RELATIVITY
+
+Our train of thought in the foregoing pages can be epitomised in the
+following manner. Experience has led to the conviction that, on the one
+hand, the principle of relativity holds true and that on the other hand
+the velocity of transmission of light _in vacuo_ has to be considered
+equal to a constant _c_. By uniting these two postulates we obtained
+the law of transformation for the rectangular co-ordinates _x, y, z_
+and the time _t_ of the events which constitute the processes of
+nature. In this connection we did not obtain the Galilei
+transformation, but, differing from classical mechanics, the _Lorentz
+transformation_.
+
+The law of transmission of light, the acceptance of which is justified
+by our actual knowledge, played an important part in this process of
+thought.

@@ -18,18 +18,14 @@ Run: .venv/Scripts/python.exe scripts/validation_study.py
 from __future__ import annotations
 
 import json
-import sys
-from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-if hasattr(sys.stdout, "reconfigure"):
-    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+from _cli import parser, resolve_qa
 
 from raglign.alignment import align
 from raglign.embedding import Embedder
 from raglign.experiment import RUNS_ROOT, ConfigSpec, build_pipeline
-from raglign.loader import corpus_fingerprint, index_by_id, load_documents
-from raglign.qa import QA_ROOT, load_qa_set
+from raglign.loader import corpus_fingerprint, index_by_id, load_corpus
+from raglign.qa import load_qa_set, qa_path
 from raglign.study import build_chunk_id_ground_truth, chunk_id_hits
 
 SPECS = [
@@ -44,15 +40,16 @@ TAU = 0.5
 MATCH_IOU = 0.9
 
 
-def main(argv: list[str]) -> int:
-    qa_name = argv[1] if len(argv) > 1 else "longspan_v1.json"
-    docs = load_documents()
-    qa = load_qa_set(QA_ROOT / qa_name, index_by_id(docs))
+def main() -> int:
+    args = parser(__doc__).parse_args()
+    qa_name = resolve_qa(args.corpus, args.qa)
+    docs = load_corpus(args.corpus)
+    qa = load_qa_set(qa_path(args.corpus, qa_name), index_by_id(docs))
     if qa.rejections:
         print(f"refusing to run: {len(qa.rejections)} unresolved QA items")
         return 1
 
-    print(f"corpus      : {len(docs)} docs, fingerprint {corpus_fingerprint(docs)}")
+    print(f"corpus      : {args.corpus} -- {len(docs)} docs, fingerprint {corpus_fingerprint(docs)}")
     print(f"qa set      : {qa_name}  ({len(qa)} questions)")
     print(f"scoring     : k={K}, span tau={TAU}, chunk-ID match IoU={MATCH_IOU}\n")
 
@@ -73,7 +70,7 @@ def main(argv: list[str]) -> int:
         print(f"{len(p.chunks)} chunks")
     print()
 
-    report = {"corpus_fingerprint": corpus_fingerprint(docs), "qa_set": qa_name, "authors": {}}
+    report = {"corpus": args.corpus, "corpus_fingerprint": corpus_fingerprint(docs), "qa_set": qa_name, "authors": {}}
 
     for author in SPECS:
         gold = build_chunk_id_ground_truth(qa.items, pipelines[author.id].chunks)
@@ -169,12 +166,13 @@ def main(argv: list[str]) -> int:
         print(f"  {author.id:<28}" + "".join(f"{v:>+10.3f}" for v in row))
     report["match_iou_sensitivity"] = sens
 
-    RUNS_ROOT.mkdir(parents=True, exist_ok=True)
-    out = RUNS_ROOT / "validation_study.json"
+    out_dir = RUNS_ROOT / args.corpus
+    out_dir.mkdir(parents=True, exist_ok=True)
+    out = out_dir / "validation_study.json"
     out.write_text(json.dumps(report, indent=2), encoding="utf-8")
-    print(f"\nwritten: runs/{out.name}")
+    print(f"\nwritten: runs/{args.corpus}/{out.name}")
     return 0
 
 
 if __name__ == "__main__":
-    raise SystemExit(main(sys.argv))
+    raise SystemExit(main())

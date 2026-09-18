@@ -1,0 +1,50 @@
+ Part III: Considerations on the Universe as a Whole
+ XXX. Cosmological Difficulties of Newton’s Theory
+ XXXI. The Possibility of a “Finite” and yet “Unbounded” Universe
+ XXXII. The Structure of Space According to the General Theory of Relativity
+
+ Appendices:
+ I. Simple Derivation of the Lorentz Transformation (supplementary to section XI)
+ II. Minkowski’s Four-Dimensional Space (“World”) (supplementary to section XVII)
+ III. The Experimental Confirmation of the General Theory of Relativity
+ IV. The Structure of Space According to the General Theory of Relativity (supplementary to section XXXII)
+ V. Relativity and the Problem of Space
+
+
+Note: The fifth Appendix was added by Einstein at the time of the
+fifteenth re-printing of this book; and as a result is still under
+copyright restrictions so cannot be added without the permission of the
+publisher.
+
+
+
+
+PREFACE
+
+
+The present book is intended, as far as possible, to give an exact
+insight into the theory of Relativity to those readers who, from a
+general scientific and philosophical point of view, are interested in
+the theory, but who are not conversant with the mathematical apparatus
+of theoretical physics. The work presumes a standard of education
+corresponding to that of a university matriculation examination, and,
+despite the shortness of the book, a fair amount of patience and force
+of will on the part of the reader. The author has spared himself no
+pains in his endeavour to present the main ideas in the simplest and
+most intelligible form, and on the whole, in the sequence and
+connection in which they actually originated. In the interest of
+clearness, it appeared to me inevitable that I should repeat myself
+frequently, without paying the slightest attention to the elegance of
+the presentation. I adhered scrupulously to the precept of that
+brilliant theoretical physicist L. Boltzmann, according to whom matters
+of elegance ought to be left to the tailor and to the cobbler. I make
+no pretence of having withheld from the reader difficulties which are
+inherent to the subject. On the other hand, I have purposely treated
+the empirical physical foundations of the theory in a “step-motherly”
+fashion, so that readers unfamiliar with physics may not feel like the
+wanderer who was unable to see the forest for the trees. May the book
+bring some one a few happy hours of suggestive thought!
+
+December, 1916
+
+ A. EINSTEIN

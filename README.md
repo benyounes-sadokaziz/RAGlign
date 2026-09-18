@@ -149,6 +149,119 @@ That boundary condition is a finding, not a caveat — it tells you when to both
 
 ---
 
+## v2: does any of this hold on a different corpus?
+
+Every v1 conclusion came from FastAPI markdown, and the heading-aware chunker won
+there partly *because* that corpus is dense with headings. So v2 added a second corpus
+that is structurally its opposite — and matched on everything else, so the comparison
+isolates structure:
+
+| | fastapi | prose |
+|---|---|---|
+| structure | headings, code fences, bullet lists | flowing paragraphs, **no markup at all** |
+| size | 97 docs, 540 KB | 70 docs, 514 KB |
+| evidence spans | 320–533 chars | 306–479 chars |
+| source | FastAPI docs | public-domain physics, biology, economics, memoir |
+
+### The core claim replicates
+
+Self-preference under chunk-ID ground truth vs span alignment, rotating the author:
+
+| corpus | chunk-ID GT | span GT |
+|---|---|---|
+| fastapi | +0.576 … **+0.697** | −0.030 … +0.091 |
+| prose | +0.452 … **+0.762** | −0.048 … +0.048 |
+
+The ground-truth bias is just as large on a corpus with no structure at all, and the
+match-strictness sweep decays to ~0 on both. **This is the result that matters most in
+v2** — the methodology's central finding is not an artifact of one corpus.
+
+### The winner did *not* flip — reported as-is
+
+I expected the best config to differ by corpus. It didn't: `heading1200/dense` tops both
+under default weights. Rather than bury that, here's the more interesting thing the data
+actually shows.
+
+**How much the chunking choice matters is strongly corpus-dependent.** Mean MRR spread
+between viable chunkers (excluding `fixed300`, a deliberate control):
+
+| corpus | spread |
+|---|---:|
+| fastapi | **0.223** |
+| prose | **0.045** |
+
+On structured docs the chunker is a real decision worth optimizing. On unstructured prose
+the strategies converge — a heading splitter with no headings to find degenerates into a
+size splitter, so `heading`, `recursive` and `semantic` all become approximately the same
+algorithm (0.580 / 0.587 / 0.581). Heading's share of the top 6 drops from 4/6 to 1/6.
+
+**Knowing whether a knob matters on your corpus is itself the useful output.**
+
+### The caveat the confidence intervals forced
+
+v2 added bootstrap CIs, and they immediately disciplined the v1 claims:
+
+```
+fastapi  heading1200/dense          0.545  [0.303, 0.818]
+         heading1200/hybrid+rerank  0.632  [0.377, 0.864]
+prose    heading1200/dense          0.717  [0.518, 0.911]
+         recursive800/dense+rerank  0.713  [0.520, 0.879]
+```
+
+**No top-3 difference on either corpus survives its own 95% interval.** At n=11–14 the
+fine-grained config ranking is not resolved. Only the large effects hold: the `fixed300`
+collapse, and the ~0.6 ground-truth bias. This is why the results tables above are framed
+as "which knobs matter" rather than "this exact config is best."
+
+More questions — not more configs, not more chunkers — is what buys resolution.
+
+---
+
+## v2: automatic failure diagnosis
+
+A metric says a question failed. It can't say *which stage lost it* — and the stages have
+different fixes. `scripts/diagnose.py` classifies every question, per config:
+
+| cause | fix |
+|---|---|
+| `chunker_destroyed` | no chunk covers the evidence → change chunking; no embedding model helps |
+| `chunker_degraded` | evidence survived only partially → increase chunk size first |
+| `retriever_missed` | indexed and intact, never retrieved → hybrid, or a reranker |
+| `reranker_demoted` | first stage had it, reranker pushed it out → drop/retune reranking |
+| `ranked_low` | found but not at rank 1 → a reranker is the targeted fix |
+
+Across all 30 configs:
+
+| | fastapi | prose |
+|---|---:|---:|
+| chunker_degraded | 17.0% | 12.9% |
+| retriever_missed | 17.9% | 9.3% |
+| ranked_low | 40.9% | 38.3% |
+| ok | 23.3% | 39.5% |
+
+The concrete payoff, on `fixed300`:
+
+```
+fixed300/dense    destroyed 0   degraded 8   unranked 0   low 1   ok 2
+```
+
+**8 of 11 failures are the chunker; zero are the retriever.** Standard evaluation reports
+`fixed300` as "low hit@5" and sends you shopping for embedding models. This says the chunks
+are smaller than the answers, which no retriever can fix.
+
+This required a real correction during the build: the first version checked reachability at
+τ=0.5, so a chunker whose best chunk covered 51% of every answer passed as blameless and the
+retriever absorbed the blame. `fixed300` showed **zero** chunker failures while its oracle
+reachability was visibly collapsing. Recording threshold-free `max_achievable` fixed it, and
+the misattribution is now a regression test.
+
+**This only works with span ground truth.** "Could any chunk have answered this?" is
+unaskable when ground truth is a chunk ID from a segmentation that never produced that chunk.
+Fair comparison was the advertised benefit; actionable diagnosis is the one that matters more
+day to day.
+
+---
+
 ## Honest positioning
 
 **Span-based ground truth is not a new technique.** Several 2025–26 studies already use it:
@@ -162,12 +275,13 @@ That packaging gap is RAGlign's contribution. It is a smaller claim than "novel 
 it is the accurate one.
 
 **Limits, stated plainly:**
-- n=11 long-span questions. One question moves hit@5 by 0.09, so the config ranking within
-  ~0.1 is not resolved. The validation-study effect (~0.6) is far outside that noise; the
-  grid's finer distinctions are not.
+- n=11 (fastapi) and n=14 (prose) long-span questions. Bootstrap intervals confirm no top-3
+  config difference is resolvable at this size. The validation-study effect (~0.6) is far
+  outside that noise and replicates on both corpora; the grid's finer distinctions are not.
 - Ground truth is extractive by construction (TC-2), so questions with no single source span
   are out of scope.
-- One embedding model, one corpus, one domain (Python API documentation).
+- One embedding model throughout; the vector store is not an axis (TC-4). Two corpora now,
+  but both English and both fairly clean text.
 
 ---
 
@@ -177,14 +291,23 @@ it is the accurate one.
 py -3.11 -m venv .venv
 .venv/Scripts/python.exe -m pip install -r requirements.txt
 
-.venv/Scripts/python.exe scripts/check_chunkers.py      # offset invariant holds?
-.venv/Scripts/python.exe scripts/check_qa.py            # every quote resolves?
-.venv/Scripts/python.exe scripts/validation_study.py    # the headline result
-.venv/Scripts/python.exe scripts/run_grid.py            # 30 configs (~7 min, CPU)
-.venv/Scripts/python.exe scripts/recommend.py           # ranked + explained
+# every script takes --corpus {fastapi,prose}; default is fastapi
+P=.venv/Scripts/python.exe
+$P scripts/check_chunkers.py --corpus prose    # offset invariant holds?
+$P scripts/check_qa.py --corpus prose          # every quote resolves?
+$P scripts/validation_study.py --corpus prose  # the headline result
+$P scripts/run_grid.py --corpus prose          # 30 configs
+$P scripts/recommend.py --corpus prose         # ranked + explained
+$P scripts/diagnose.py --corpus prose          # which stage lost each question
+$P scripts/compare_corpora.py                  # does the winner transfer?
 
-.venv/Scripts/streamlit.exe run app.py                  # demo UI
+$P -m pytest -q                                # 42 tests
+.venv/Scripts/streamlit.exe run app.py         # demo UI, 5 tabs
 ```
+
+Adding your own corpus: drop the files in `corpus/<name>/`, add a registry entry in
+`raglign/corpora.py`, and author a QA set at `data/qa/<name>/longspan_v1.json`. No other
+code changes — that's the point of v2's refactor.
 
 Everything runs locally on CPU. No API keys, no vector database, no network at eval time.
 

@@ -16,12 +16,17 @@ from __future__ import annotations
 import hashlib
 from pathlib import Path
 
+from . import corpora
 from .models import Document
 
-CORPUS_ROOT = Path(__file__).resolve().parent.parent / "corpus" / "fastapi"
+
+def load_corpus(name: str = corpora.DEFAULT_CORPUS) -> list[Document]:
+    """Load a registered corpus by name."""
+    c = corpora.get(name)
+    return load_documents(c.path, c.pattern)
 
 
-def load_documents(root: Path | str = CORPUS_ROOT, pattern: str = "**/*.md") -> list[Document]:
+def load_documents(root: Path | str, pattern: str = "**/*.md") -> list[Document]:
     """Load every matching file under `root` as a Document.
 
     Document ids are POSIX-style paths relative to `root`, so they are stable

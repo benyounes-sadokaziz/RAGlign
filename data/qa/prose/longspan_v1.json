@@ -1,0 +1,170 @@
+[
+  {
+    "id": "P01",
+    "question": "What two factors determine how well a nation supplies itself each year?",
+    "answer": "The skill, dexterity and judgment with which its labour is applied, and the proportion of people employed in useful labour versus those who are not.",
+    "quotes": [
+      {
+        "doc": "wealth/001.txt",
+        "quote": "But this proportion must in every nation be regulated by two different\n      circumstances: first, by the skill, dexterity, and judgment with which its\n      labour is generally applied; and, secondly, by the proportion between the\n      number of those who are employed in useful labour, and that of those who\n      are not so employed."
+      }
+    ],
+    "tags": ["long-span", "economics"]
+  },
+  {
+    "id": "P02",
+    "question": "How is the thought experiment with the railway embankment set up?",
+    "answer": "Lightning strikes the rails at two distant places A and B, and the claim is made that the two flashes were simultaneous — a statement that turns out to be harder to define precisely than it first appears.",
+    "quotes": [
+      {
+        "doc": "relativity/005.txt",
+        "quote": "Lightning has struck the rails on our railway embankment at two places\n_A_ and _B_ far distant from each other. I make the additional\nassertion that these two lightning flashes occurred simultaneously. If\nI ask you whether there is sense in this statement, you will answer my\nquestion with a decided “Yes.”"
+      }
+    ],
+    "tags": ["long-span", "physics"]
+  },
+  {
+    "id": "P03",
+    "question": "Why do most biographies of successful people fail to motivate readers?",
+    "answer": "They offer commonplace advice and lack the human element that would make the record real and bring the story within the reader's grasp.",
+    "quotes": [
+      {
+        "doc": "franklin/001.txt",
+        "quote": "We Americans devour eagerly any piece of writing that purports to tell\nus the secret of success in life; yet how often we are disappointed to\nfind nothing but commonplace statements, or receipts that we know by\nheart but never follow. Most of the life stories of our famous and\nsuccessful men fail to inspire because they lack the human element\nthat makes the record real and brings the story within our grasp."
+      }
+    ],
+    "tags": ["long-span", "memoir"]
+  },
+  {
+    "id": "P04",
+    "question": "What are cathode rays made of, and how can their motion be studied?",
+    "answer": "Negatively charged particles (electrons) of very small inertia and large velocity; their law of motion is studied by examining how electric and magnetic fields deflect them.",
+    "quotes": [
+      {
+        "doc": "relativity/010.txt",
+        "quote": "It is known that cathode rays and the so-called β-rays emitted by\nradioactive substances consist of negatively electrified particles\n(electrons) of very small inertia and large velocity. By examining the\ndeflection of these rays under the influence of electric and magnetic\nfields, we can study the law of motion of these particles very exactly."
+      }
+    ],
+    "tags": ["long-span", "physics"]
+  },
+  {
+    "id": "P05",
+    "question": "Who first stated the principle of natural selection, and how limited was his application of it?",
+    "answer": "Dr. W.C. Wells, in an 1813 paper published in 1818, but he applied it only to the races of man and to certain characters alone.",
+    "quotes": [
+      {
+        "doc": "origin/001.txt",
+        "quote": "In 1813 Dr. W.C. Wells read before the Royal Society “An Account of a\nWhite Female, part of whose skin resembles that of a Negro”; but his\npaper was not published until his famous “Two Essays upon Dew and\nSingle Vision” appeared in 1818. In this paper he distinctly recognises\nthe principle of natural selection, and this is the first recognition\nwhich has been indicated; but he applies it only to the races of man,\nand to certain characters alone."
+      }
+    ],
+    "tags": ["long-span", "biology"]
+  },
+  {
+    "id": "P06",
+    "question": "Why were stamped coins introduced instead of weighing metal?",
+    "answer": "Because weighing metals accurately was inconvenient and difficult; a stamp covering both sides certified both fineness and weight, so coins could be accepted by tale.",
+    "quotes": [
+      {
+        "doc": "wealth/009.txt",
+        "quote": "The inconveniency and difficulty of weighing those metals with exactness,\n      gave occasion to the institution of coins, of which the stamp, covering\n      entirely both sides of the piece, and sometimes the edges too, was\n      supposed to ascertain not only the fineness, but the weight of the metal.\n      Such coins, therefore, were received by tale, as at present, without the\n      trouble of weighing."
+      }
+    ],
+    "tags": ["long-span", "economics"]
+  },
+  {
+    "id": "P07",
+    "question": "Why is specialisation harder to observe in large industries than in small workshops?",
+    "answer": "Because each branch employs so many workers that they cannot all be gathered in one workhouse, so only one branch is visible at a time — the division is real but less obvious.",
+    "quotes": [
+      {
+        "doc": "wealth/002.txt",
+        "quote": "In those great manufactures, on the contrary, which are destined to supply\n      the great wants of the great body of the people, every different branch of\n      the work employs so great a number of workmen, that it is impossible to\n      collect them all into the same workhouse. We can seldom see more, at one\n      time, than those employed in one single branch."
+      }
+    ],
+    "tags": ["long-span", "economics"]
+  },
+  {
+    "id": "P08",
+    "question": "In what units did the Romans keep their accounts, and what did those units mean?",
+    "answer": "In asses and sestertii; the as was a copper coin and a sestertius meant two and a half asses, so even the silver sestertius had its value reckoned in copper.",
+    "quotes": [
+      {
+        "doc": "wealth/013.txt",
+        "quote": "The as was always the denomination of a\n      copper coin. The word sestertius signifies two asses and a half. Though\n      the sestertius, therefore, was originally a silver coin, its value was\n      estimated in copper. At Rome, one who owed a great deal of money was said\n      to have a great deal of other people’s copper."
+      }
+    ],
+    "tags": ["long-span", "economics"]
+  },
+  {
+    "id": "P09",
+    "question": "What costs are added to the price of grain before bread reaches the buyer?",
+    "answer": "The miller's profit and his servants' wages, the baker's profit and his servants' wages, and the cost of transport between farmer, miller and baker, plus the profits of whoever advanced those wages.",
+    "quotes": [
+      {
+        "doc": "wealth/017.txt",
+        "quote": "In the price of flour or meal, we must add to the price of the corn, the\n      profits of the miller, and the wages of his servants; in the price of\n      bread, the profits of the baker, and the wages of his servants; and in the\n      price of both, the labour of transporting the corn from the house of the\n      farmer to that of the miller, and from that of the miller to that of the\n      baker, together with the profits of those who advance the wages of that\n      labour."
+      }
+    ],
+    "tags": ["long-span", "economics"]
+  },
+  {
+    "id": "P10",
+    "question": "When is money an exact measure of what goods are really worth?",
+    "answer": "Only at the same time and place — there, more or less money commands proportionally more or less labour, but the relation does not hold across times and places.",
+    "quotes": [
+      {
+        "doc": "wealth/012.txt",
+        "quote": "At the same time and place, the real and the nominal price of all\n      commodities are exactly in proportion to one another. The more or less\n      money you get for any commodity, in the London market, for example, the\n      more or less labour it will at that time and place enable you to purchase\n      or command."
+      }
+    ],
+    "tags": ["long-span", "economics"]
+  },
+  {
+    "id": "P11",
+    "question": "Why does each observer's frame have its own time?",
+    "answer": "Because events simultaneous for one reference-body are not simultaneous for another, so a statement about the time of an event is meaningless unless the reference-body is specified.",
+    "quotes": [
+      {
+        "doc": "relativity/006.txt",
+        "quote": "Events which are simultaneous with reference to the embankment are not\nsimultaneous with respect to the train, and _vice versa_ (relativity of\nsimultaneity). Every reference-body (co-ordinate system) has its own\nparticular time; unless we are told the reference-body to which the\nstatement of time refers, there is no meaning in a statement of the\ntime of an event."
+      }
+    ],
+    "tags": ["long-span", "physics"]
+  },
+  {
+    "id": "P12",
+    "question": "Which skeletal features differ most between the breeds being compared?",
+    "answer": "The length, breadth and curvature of the facial bones, the shape and dimensions of the lower jaw's ramus, the number of caudal and sacral vertebrae, and the number and breadth of the ribs.",
+    "quotes": [
+      {
+        "doc": "origin/010.txt",
+        "quote": "In the skeletons of the several breeds, the development of the bones of\nthe face, in length and breadth and curvature, differs enormously. The\nshape, as well as the breadth and length of the ramus of the lower jaw,\nvaries in a highly remarkable manner. The caudal and sacral vertebræ\nvary in number; as does the number of the ribs, together with their\nrelative breadth and the presence of processes."
+      }
+    ],
+    "tags": ["long-span", "biology"]
+  },
+  {
+    "id": "P13",
+    "question": "How certain is our confidence that geometrical propositions are true?",
+    "answer": "It rests only on rather incomplete experience; the truth is assumed for now and is later shown to be limited under the general theory of relativity.",
+    "quotes": [
+      {
+        "doc": "relativity/002.txt",
+        "quote": "Of course the conviction of the “truth” of geometrical propositions in\nthis sense is founded exclusively on rather incomplete experience. For\nthe present we shall assume the “truth” of the geometrical\npropositions, then at a later stage (in the general theory of\nrelativity) we shall see that this “truth” is limited, and we shall\nconsider the extent of its limitation."
+      }
+    ],
+    "tags": ["long-span", "physics"]
+  },
+  {
+    "id": "P14",
+    "question": "Once labour is divided, how does a person obtain most of what they need?",
+    "answer": "By exchanging the surplus of their own labour for other people's produce — everyone lives by exchanging and becomes in some measure a merchant, making the society a commercial one.",
+    "quotes": [
+      {
+        "doc": "wealth/008.txt",
+        "quote": "He supplies the far greater part of them by exchanging that\n      surplus part of the produce of his own labour, which is over and above his\n      own consumption, for such parts of the produce of other men’s labour as he\n      has occasion for. Every man thus lives by exchanging, or becomes, in some\n      measure, a merchant, and the society itself grows to be what is properly a\n      commercial society."
+      }
+    ],
+    "tags": ["long-span", "economics"]
+  }
+]

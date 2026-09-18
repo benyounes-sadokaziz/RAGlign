@@ -1,0 +1,137 @@
+Section V that all attempts of this nature led to a negative result.
+Before the theory of relativity was put forward, it was difficult to
+become reconciled to this negative result, for reasons now to be
+discussed. The inherited prejudices about time and space did not allow
+any doubt to arise as to the prime importance of the Galileian
+transformation for changing over from one body of reference to another.
+Now assuming that the Maxwell-Lorentz equations hold for a
+reference-body _K_, we then find that they do not hold for a
+reference-body _K′_ moving uniformly with respect to _K_, if we assume
+that the relations of the Galileian transformation exist between the
+co-ordinates of _K_ and _K′_. It thus appears that, of all Galileian
+co-ordinate systems, one (_K_) corresponding to a particular state of
+motion is physically unique. This result was interpreted physically by
+regarding _K_ as at rest with respect to a hypothetical æther of space.
+On the other hand, all coordinate systems _K′_ moving relatively to _K_
+were to be regarded as in motion with respect to the æther. To this
+motion of _K′_ against the æther (“æther-drift” relative to _K′_) were
+attributed the more complicated laws which were supposed to hold
+relative to _K′_. Strictly speaking, such an æther-drift ought also to
+be assumed relative to the earth, and for a long time the efforts of
+physicists were devoted to attempts to detect the existence of an
+æther-drift at the earth’s surface.
+
+In one of the most notable of these attempts Michelson devised a method
+which appears as though it must be decisive. Imagine two mirrors so
+arranged on a rigid body that the reflecting surfaces face each other.
+A ray of light requires a perfectly definite time _T_ to pass from one
+mirror to the other and back again, if the whole system be at rest with
+respect to the æther. It is found by calculation, however, that a
+slightly different time _T′_ is required for this process, if the body,
+together with the mirrors, be moving relatively to the æther. And yet
+another point: it is shown by calculation that for a given velocity _v_
+with reference to the æther, this time _T′_ is different when the body
+is moving perpendicularly to the planes of the mirrors from that
+resulting when the motion is parallel to these planes. Although the
+estimated difference between these two times is exceedingly small,
+Michelson and Morley performed an experiment involving interference in
+which this difference should have been clearly detectable. But the
+experiment gave a negative result—a fact very perplexing to physicists.
+Lorentz and FitzGerald rescued the theory from this difficulty by
+assuming that the motion of the body relative to the æther produces a
+contraction of the body in the direction of motion, the amount of
+contraction being just sufficient to compensate for the difference in
+time mentioned above. Comparison with the discussion in Section XII
+shows that also from the standpoint of the theory of relativity this
+solution of the difficulty was the right one. But on the basis of the
+theory of relativity the method of interpretation is incomparably more
+satisfactory. According to this theory there is no such thing as a
+“specially favoured” (unique) co-ordinate system to occasion the
+introduction of the æther-idea, and hence there can be no æther-drift,
+nor any experiment with which to demonstrate it. Here the contraction
+of moving bodies follows from the two fundamental principles of the
+theory, without the introduction of particular hypotheses; and as the
+prime factor involved in this contraction we find, not the motion in
+itself, to which we cannot attach any meaning, but the motion with
+respect to the body of reference chosen in the particular case in
+point. Thus for a co-ordinate system moving with the earth the mirror
+system of Michelson and Morley is not shortened, but it _is_ shortened
+for a co-ordinate system which is at rest relatively to the sun.
+
+
+XVII.
+
+MINKOWSKI’S FOUR-DIMENSIONAL SPACE
+
+The non-mathematician is seized by a mysterious shuddering when he
+hears of “four-dimensional” things, by a feeling not unlike that
+awakened by thoughts of the occult. And yet there is no more
+common-place statement than that the world in which we live is a
+four-dimensional space-time continuum.
+
+Space is a three-dimensional continuum. By this we mean that it is
+possible to describe the position of a point (at rest) by means of
+three numbers (co-ordinates) _x, y, z_, and that there is an indefinite
+number of points in the neighbourhood of this one, the position of
+which can be described by co-ordinates such as _x1, y1, z1_, which may
+be as near as we choose to the respective values of the co-ordinates
+_x, y, z_, of the first point. In virtue of the latter property we
+speak of a “continuum,” and owing to the fact that there are three
+co-ordinates we speak of it as being “three-dimensional.”
+
+Similarly, the world of physical phenomena which was briefly called
+“world” by Minkowski is naturally four dimensional in the space-time
+sense. For it is composed of individual events, each of which is
+described by four numbers, namely, three space co-ordinates _x, y, z_,
+and a time co-ordinate, the time value _t_. The “world” is in this
+sense also a continuum; for to every event there are as many
+“neighbouring” events (realised or at least thinkable) as we care to
+choose, the co-ordinates _x1, y1, z1, t1_ of which differ by an
+indefinitely small amount from those of the event _x, y, z, t_
+originally considered. That we have not been accustomed to regard the
+world in this sense as a four-dimensional continuum is due to the fact
+that in physics, before the advent of the theory of relativity, time
+played a different and more independent rôle, as compared with the
+space coordinates. It is for this reason that we have been in the habit
+of treating time as an independent continuum. As a matter of fact,
+according to classical mechanics, time is absolute, _i.e._ it is
+independent of the position and the condition of motion of the system
+of co-ordinates. We see this expressed in the last equation of the
+Galileian transformation (_t′_ = _t_).
+
+The four-dimensional mode of consideration of the “world” is natural on
+the theory of relativity, since according to this theory time is robbed
+of its independence. This is shown by the fourth equation of the
+Lorentz transformation:
+
+image030
+
+
+Moreover, according to this equation the time difference Δ_t′_ of two
+events with respect to _K′_ does not in general vanish, even when the
+time difference Δ_t_ of the same events with reference to _K_ vanishes.
+Pure “space-distance” of two events with respect to _K_ results in
+“time-distance ” of the same events with respect to _K_. But the
+discovery of Minkowski, which was of importance for the formal
+development of the theory of relativity, does not lie here. It is to be
+found rather in the fact of his recognition that the four-dimensional
+space-time continuum of the theory of relativity, in its most essential
+formal properties, shows a pronounced relationship to the
+three-dimensional continuum of Euclidean geometrical space.[14] In
+order to give due prominence to this relationship, however, we must
+replace the usual time co-ordinate t by an imaginary magnitude
+
+image031
+
+
+proportional to it. Under these conditions, the natural laws satisfying
+the demands of the (special) theory of relativity assume mathematical
+forms, in which the time co-ordinate plays exactly the same role as the
+three space co-ordinates. Formally, these four co-ordinates correspond
+exactly to the three space co-ordinates in Euclidean geometry. It must
+be clear even to the non-mathematician that, as a consequence of this
+purely formal addition to our knowledge, the theory perforce gained
+clearness in no mean measure.
+
+
+ [14] Cf.

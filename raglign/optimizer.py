@@ -46,6 +46,7 @@ class Candidate:
     chars: float
     latency_ms: float
     oracle: dict[str, float]
+    per_question: dict[str, dict]
 
     @property
     def quality(self) -> float:
@@ -59,7 +60,13 @@ class Candidate:
         return 0.5 * self.mrr + 0.3 * self.ndcg + 0.2 * self.hit
 
 
-def load_candidates(qa_file: str, runs_root: Path = RUNS_ROOT, k: int = 5, tau: float = 0.5) -> list[Candidate]:
+def load_candidates(
+    qa_file: str,
+    corpus: str,
+    runs_root: Path = RUNS_ROOT,
+    k: int = 5,
+    tau: float = 0.5,
+) -> list[Candidate]:
     """Load the most recent run per config for one QA set and corpus.
 
     Runs from a different corpus fingerprint are excluded rather than merged:
@@ -69,8 +76,12 @@ def load_candidates(qa_file: str, runs_root: Path = RUNS_ROOT, k: int = 5, tau: 
     by_config: dict[str, tuple[str, dict]] = {}
     fingerprints: set[str] = set()
 
-    for path in sorted(runs_root.glob("*.json")):
-        if path.name == "validation_study.json":
+    corpus_dir = runs_root / corpus
+    if not corpus_dir.exists():
+        return []
+
+    for path in sorted(corpus_dir.glob("*.json")):
+        if path.name.startswith("validation_study"):
             continue
         data = json.loads(path.read_text(encoding="utf-8"))
         if data.get("qa_file") != qa_file:
@@ -109,6 +120,7 @@ def load_candidates(qa_file: str, runs_root: Path = RUNS_ROOT, k: int = 5, tau: 
                 chars=m["mean_chars_retrieved"],
                 latency_ms=data["query_ms_mean"],
                 oracle=data["oracle_reachability"],
+                per_question=data.get("per_question", {}),
             )
         )
     return out

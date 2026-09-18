@@ -1,0 +1,154 @@
+
+THE SPACE-TIME CONTINUUM OF THE SPECIAL THEORY OF RELATIVITY CONSIDERED
+AS A EUCLIDEAN CONTINUUM
+
+We are now in a position to formulate more exactly the idea of
+Minkowski, which was only vaguely indicated in Section XVII. In
+accordance with the special theory of relativity, certain co-ordinate
+systems are given preference for the description of the
+four-dimensional, space-time continuum. We called these “Galileian
+co-ordinate systems.” For these systems, the four co-ordinates _x, y,
+z, t_, which determine an event or—in other words—a point of the
+four-dimensional continuum, are defined physically in a simple manner,
+as set forth in detail in the first part of this book. For the
+transition from one Galileian system to another, which is moving
+uniformly with reference to the first, the equations of the Lorentz
+transformation are valid. These last form the basis for the derivation
+of deductions from the special theory of relativity, and in themselves
+they are nothing more than the expression of the universal validity of
+the law of transmission of light for all Galileian systems of
+reference.
+
+Minkowski found that the Lorentz transformations satisfy the following
+simple conditions. Let us consider two neighbouring events, the
+relative position of which in the four-dimensional continuum is given
+with respect to a Galileian reference-body _K_ by the space co-ordinate
+differences _dx, dy, dz_ and the time-difference _dt_. With reference
+to a second Galileian system we shall suppose that the corresponding
+differences for these two events are _dx′, dy′, dz′, dt′_. Then these
+magnitudes always fulfill the condition.[21]
+
+
+ [21] Cf. Appendixes I and II. The relations which are derived there
+ for the co-ordinates themselves are valid also for co-ordinate
+ _differences_, and thus also for co-ordinate differentials
+ (indefinitely small differences).
+
+
+_dx_2 + _dy_2 + _dz_2 – _c_2_dt_2 = _dx′_2 + _dy′_2 + _dz′_2 –
+_c_2_dt′_2.
+
+
+The validity of the Lorentz transformation follows from this condition.
+We can express this as follows: The magnitude
+
+_ds_2 = _dx_2 + _dy_2 + _dz_2 – _c_2 _dt_2,
+
+
+which belongs to two adjacent points of the four-dimensional space-time
+continuum, has the same value for all selected (Galileian)
+reference-bodies. If we replace _x, y, z_,
+
+image034
+
+
+by _x_1, _x_2, _x_3, _x_4, we also obtain the result that
+
+_ds_2 = _dx_12 + _dx_22 + _dx_32 + _dx_42.
+
+
+is independent of the choice of the body of reference. We call the
+magnitude _ds_ the “distance” apart of the two events or
+four-dimensional points.
+
+Thus, if we choose as time-variable the imaginary variable
+
+image035
+
+
+instead of the real quantity _t_, we can regard the space-time
+contintium—accordance with the special theory of relativity—as a
+“Euclidean” four-dimensional continuum, a result which follows from the
+considerations of the preceding section.
+
+
+XXVII.
+
+THE SPACE-TIME CONTINUUM OF THE GENERAL THEORY OF RELATIVITY IS NOT A
+EUCLIDEAN CONTINUUM
+
+In the first part of this book we were able to make use of space-time
+co-ordinates which allowed of a simple and direct physical
+interpretation, and which, according to Section XXVI, can be regarded
+as four-dimensional Cartesian co-ordinates. This was possible on the
+basis of the law of the constancy of the velocity of light. But
+according to Section XXI the general theory of relativity cannot retain
+this law. On the contrary, we arrived at the result that according to
+this latter theory the velocity of light must always depend on the
+co-ordinates when a gravitational field is present. In connection with
+a specific illustration in Section XXIII, we found that the presence of
+a gravitational field invalidates the definition of the coordinates and
+the time, which led us to our objective in the special theory of
+relativity.
+
+In view of the resuIts of these considerations we are led to the
+conviction that, according to the general principle of relativity, the
+space-time continuum cannot be regarded as a Euclidean one, but that
+here we have the general case, corresponding to the marble slab with
+local variations of temperature, and with which we made acquaintance as
+an example of a two-dimensional continuum. Just as it was there
+impossible to construct a Cartesian co-ordinate system from equal rods,
+so here it is impossible to build up a system (reference-body) from
+rigid bodies and clocks, which shall be of such a nature that
+measuring-rods and clocks, arranged rigidly with respect to one
+another, shall indicate position and time directly. Such was the
+essence of the difficulty with which we were confronted in Section
+XXIII.
+
+But the considerations of Sections XXV and XXVI show us the way to
+surmount this difficulty. We refer the four-dimensional space-time
+continuum in an arbitrary manner to Gauss co-ordinates. We assign to
+every point of the continuum (event) four numbers, _x_1, _x_2, _x_3,
+_x_4 (co-ordinates), which have not the least direct physical
+significance, but only serve the purpose of numbering the points of the
+continuum in a definite but arbitrary manner. This arrangement does not
+even need to be of such a kind that we must regard _x_1, _x_2, _x_3, as
+“space” co-ordinates and _x_4, as a “time” co-ordinate.
+
+The reader may think that such a description of the world would be
+quite inadequate. What does it mean to assign to an event the
+particular co-ordinates _x_1, _x_2, _x_3, _x_4, if in themselves these
+co-ordinates have no significance? More careful consideration shows,
+however, that this anxiety is unfounded. Let us consider, for instance,
+a material point with any kind of motion. If this point had only a
+momentary existence without duration, then it would to described in
+space-time by a single system of values _x_1, _x_2, _x_3, _x_4. Thus
+its permanent existence must be characterised by an infinitely large
+number of such systems of values, the co-ordinate values of which are
+so close together as to give continuity; corresponding to the material
+point, we thus have a (uni-dimensional) line in the four-dimensional
+continuum. In the same way, any such lines in our continuum correspond
+to many points in motion. The only statements having regard to these
+points which can claim a physical existence are in reality the
+statements about their encounters. In our mathematical treatment, such
+an encounter is expressed in the fact that the two lines which
+represent the motions of the points in question have a particular
+system of co-ordinate values, _x_1, _x_2, _x_3, _x_4, in common. After
+mature consideration the reader will doubtless admit that in reality
+such encounters constitute the only actual evidence of a time-space
+nature with which we meet in physical statements.
+
+When we were describing the motion of a material point relative to a
+body of reference, we stated nothing more than the encounters of this
+point with particular points of the reference-body. We can also
+determine the corresponding values of the time by the observation of
+encounters of the body with clocks, in conjunction with the observation
+of the encounter of the hands of clocks with particular points on the
+dials. It is just the same in the case of space-measurements by means
+of measuring-rods, as a little consideration will show.
+
+The following statements hold generally: Every physical description
+resolves itself into a number of statements, each of which refers to
+the space-time coincidence of two events _A_ and _B_. In terms of
+Gaussian co-ordinates, every such statement is expressed by the
+agreement of their four co-ordinates _x_1, _x_2, _x_3, _x_4.

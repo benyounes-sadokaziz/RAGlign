@@ -1,0 +1,155 @@
+PART I: THE SPECIAL THEORY OF RELATIVITY
+
+
+
+
+I.
+PHYSICAL MEANING OF GEOMETRICAL PROPOSITIONS
+
+
+In your schooldays most of you who read this book made acquaintance
+with the noble building of Euclid’s geometry, and you remember—perhaps
+with more respect than love—the magnificent structure, on the lofty
+staircase of which you were chased about for uncounted hours by
+conscientious teachers. By reason of our past experience, you would
+certainly regard everyone with disdain who should pronounce even the
+most out-of-the-way proposition of this science to be untrue. But
+perhaps this feeling of proud certainty would leave you immediately if
+some one were to ask you: “What, then, do you mean by the assertion
+that these propositions are true?” Let us proceed to give this question
+a little consideration.
+
+Geometry sets out from certain conceptions such as “plane,” “point,”
+and “straight line,” with which we are able to associate more or less
+definite ideas, and from certain simple propositions (axioms) which, in
+virtue of these ideas, we are inclined to accept as “true.” Then, on
+the basis of a logical process, the justification of which we feel
+ourselves compelled to admit, all remaining propositions are shown to
+follow from those axioms, _i.e._ they are proven. A proposition is then
+correct (“true”) when it has been derived in the recognised manner from
+the axioms. The question of “truth” of the individual geometrical
+propositions is thus reduced to one of the “truth” of the axioms. Now
+it has long been known that the last question is not only unanswerable
+by the methods of geometry, but that it is in itself entirely without
+meaning. We cannot ask whether it is true that only one straight line
+goes through two points. We can only say that Euclidean geometry deals
+with things called “straight lines,” to each of which is ascribed the
+property of being uniquely determined by two points situated on it. The
+concept “true” does not tally with the assertions of pure geometry,
+because by the word “true” we are eventually in the habit of
+designating always the correspondence with a “real” object; geometry,
+however, is not concerned with the relation of the ideas involved in it
+to objects of experience, but only with the logical connection of these
+ideas among themselves.
+
+It is not difficult to understand why, in spite of this, we feel
+constrained to call the propositions of geometry “true.” Geometrical
+ideas correspond to more or less exact objects in nature, and these
+last are undoubtedly the exclusive cause of the genesis of those ideas.
+Geometry ought to refrain from such a course, in order to give to its
+structure the largest possible logical unity. The practice, for
+example, of seeing in a “distance” two marked positions on a
+practically rigid body is something which is lodged deeply in our habit
+of thought. We are accustomed further to regard three points as being
+situated on a straight line, if their apparent positions can be made to
+coincide for observation with one eye, under suitable choice of our
+place of observation.
+
+If, in pursuance of our habit of thought, we now supplement the
+propositions of Euclidean geometry by the single proposition that two
+points on a practically rigid body always correspond to the same
+distance (line-interval), independently of any changes in position to
+which we may subject the body, the propositions of Euclidean geometry
+then resolve themselves into propositions on the possible relative
+position of practically rigid bodies.[1] Geometry which has been
+supplemented in this way is then to be treated as a branch of physics.
+We can now legitimately ask as to the “truth” of geometrical
+propositions interpreted in this way, since we are justified in asking
+whether these propositions are satisfied for those real things we have
+associated with the geometrical ideas. In less exact terms we can
+express this by saying that by the “truth” of a geometrical proposition
+in this sense we understand its validity for a construction with rule
+and compasses.
+
+
+ [1] It follows that a natural object is associated also with a
+ straight line. Three points _A, B_ and _C_ on a rigid body thus lie in
+ a straight line when the points _A_ and _C_ being given, _B_ is chosen
+ such that the sum of the distances _AB_ and _BC_ is as short as
+ possible. This incomplete suggestion will suffice for the present
+ purpose.
+
+
+Of course the conviction of the “truth” of geometrical propositions in
+this sense is founded exclusively on rather incomplete experience. For
+the present we shall assume the “truth” of the geometrical
+propositions, then at a later stage (in the general theory of
+relativity) we shall see that this “truth” is limited, and we shall
+consider the extent of its limitation.
+
+
+
+
+II.
+THE SYSTEM OF CO-ORDINATES
+
+
+On the basis of the physical interpretation of distance which has been
+indicated, we are also in a position to establish the distance between
+two points on a rigid body by means of measurements. For this purpose
+we require a “distance” (rod _S_) which is to be used once and for all,
+and which we employ as a standard measure. If, now, _A_ and _B_ are two
+points on a rigid body, we can construct the line joining them
+according to the rules of geometry; then, starting from _A_, we can
+mark off the distance _S_ time after time until we reach _B_. The
+number of these operations required is the numerical measure of the
+distance _AB_. This is the basis of all measurement of length.[2]
+
+
+ [2] Here we have assumed that there is nothing left over _i.e._ that
+ the measurement gives a whole number. This difficulty is got over by
+ the use of divided measuring-rods, the introduction of which does not
+ demand any fundamentally new method.
+
+
+Every description of the scene of an event or of the position of an
+object in space is based on the specification of the point on a rigid
+body (body of reference) with which that event or object coincides.
+This applies not only to scientific description, but also to everyday
+life. If I analyse the place specification “Trafalgar Square,
+London”[3] I arrive at the following result. The earth is the rigid
+body to which the specification of place refers; “Trafalgar Square,
+London” is a well-defined point, to which a name has been assigned, and
+with which the event coincides in space.[4]
+
+
+ [3]
+
+I have chosen this as being more familiar to the English reader than
+the “Potzdammer Platz, Berlin,” which is referred to in the original.
+(R. W. L.)
+
+
+ [4] It is not necessary here to investigate further the significance
+ of the expression “coincidence in space.” This conception is
+ sufficiently obvious to ensure that differences of opinion are
+ scarcely likely to arise as to its applicability in practice.
+
+
+This primitive method of place specification deals only with places on
+the surface of rigid bodies, and is dependent on the existence of
+points on this surface which are distinguishable from each other. But
+we can free ourselves from both of these limitations without altering
+the nature of our specification of position. If, for instance, a cloud
+is hovering over Trafalgar Square, then we can determine its position
+relative to the surface of the earth by erecting a pole perpendicularly
+on the Square, so that it reaches the cloud. The length of the pole
+measured with the standard measuring-rod, combined with the
+specification of the position of the foot of the pole, supplies us with
+a complete place specification. On the basis of this illustration, we
+are able to see the manner in which a refinement of the conception of
+position has been developed.
+
+(_a_) We imagine the rigid body, to which the place specification is
+referred, supplemented in such a manner that the object whose position
+we require is reached by the completed rigid body.
