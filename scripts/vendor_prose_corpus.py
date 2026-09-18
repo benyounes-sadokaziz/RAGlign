@@ -18,6 +18,7 @@ Run once: .venv/Scripts/python.exe scripts/vendor_prose_corpus.py
 
 from __future__ import annotations
 
+import argparse
 import re
 import subprocess
 import sys
@@ -125,6 +126,29 @@ def split_chapters(text: str, min_chars: int = 2000, max_chars: int = 8000) -> l
 
 
 def main() -> int:
+    ap = argparse.ArgumentParser(description=__doc__ or "")
+    ap.add_argument(
+        "--force",
+        action="store_true",
+        help="re-download and overwrite an existing corpus (invalidates ground truth)",
+    )
+    args = ap.parse_args()
+
+    # Refusing by default is not politeness, it is correctness. Ground truth is
+    # character offsets into these exact bytes; re-vendoring can shift them (a
+    # different upstream revision, a changed split heuristic) and every authored
+    # quote would then either fail to resolve or, worse, resolve somewhere else.
+    # A one-shot script that silently re-runs is a footgun pointed at the data
+    # the whole project depends on.
+    existing = list(DEST.rglob("*.txt"))
+    if existing and not args.force:
+        print(f"corpus/prose already holds {len(existing)} documents -- refusing to overwrite.")
+        print("Ground-truth spans are character offsets into these exact bytes; re-vendoring")
+        print("can shift them and silently invalidate data/qa/prose/. Pass --force if you")
+        print("intend that, then re-run scripts/check_qa.py --corpus prose to confirm the")
+        print("quotes still resolve.")
+        return 1
+
     DEST.mkdir(parents=True, exist_ok=True)
     manifest: list[str] = []
     total = 0

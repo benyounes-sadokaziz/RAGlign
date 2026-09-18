@@ -139,3 +139,32 @@ class TestDiagnosis:
     def test_clean_config_recommends_nothing(self):
         per_q = {"a": {"rank": 1, "reachable": 1.0, "max_achievable": 1.0, "best_coverage": 1.0}}
         assert recommended_action(diagnose_config(per_q)) == ""
+
+
+class TestScriptsStayWired:
+    """Every script must at least import and parse --help.
+
+    run_phase1.py silently broke during the v2 loader refactor and stayed broken
+    in the repo, because nothing exercised it. A shipped script that crashes on
+    launch is worse than no script: it reads as rot. This is the cheapest check
+    that catches a signature change breaking an entry point.
+    """
+
+    def test_every_script_runs_help(self):
+        import subprocess
+        import sys
+        from pathlib import Path
+
+        scripts = sorted(
+            p for p in (Path(__file__).resolve().parent.parent / "scripts").glob("*.py")
+            if not p.name.startswith("_")
+        )
+        assert scripts, "no scripts found"
+        for path in scripts:
+            proc = subprocess.run(
+                [sys.executable, str(path), "--help"],
+                capture_output=True,
+                text=True,
+                timeout=120,
+            )
+            assert proc.returncode == 0, f"{path.name} --help failed:\n{proc.stderr[-800:]}"
