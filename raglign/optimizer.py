@@ -115,9 +115,13 @@ def load_candidates(
         return []
 
     for path in sorted(corpus_dir.glob("*.json")):
-        if path.name.startswith("validation_study"):
-            continue
         data = json.loads(path.read_text(encoding="utf-8"))
+        # Identify run manifests by shape, not by filename. Sidecar reports live
+        # in the same directory (validation_study.json, generation.json), and an
+        # earlier name-based skip-list broke the moment a new report was added --
+        # it tried to read a generation report as a run and raised a KeyError.
+        if not {"config", "corpus_fingerprint", "metrics"} <= data.keys():
+            continue
         if data.get("qa_file") != qa_file:
             continue
         fingerprints.add(data["corpus_fingerprint"])

@@ -9,7 +9,10 @@
         "quote": "* `uv init`: create a new Python project.\n* `awesome-project`: create the project in a new directory with this name.\n* `--bare`: create only the minimal `pyproject.toml` file, without generating a sample `main.py`, `README.md`, or other files. You will create the application files yourself in the next steps of this tutorial."
       }
     ],
-    "tags": ["long-span", "setup"]
+    "tags": [
+      "long-span",
+      "setup"
+    ]
   },
   {
     "id": "L02",
@@ -21,7 +24,10 @@
         "quote": "* To pass a *path* or *query* parameter, add it to the URL itself.\n* To pass a JSON body, pass a Python object (e.g. a `dict`) to the parameter `json`.\n* If you need to send *Form Data* instead of JSON, use the `data` parameter instead.\n* To pass *headers*, use a `dict` in the `headers` parameter.\n* For *cookies*, a `dict` in the `cookies` parameter."
       }
     ],
-    "tags": ["long-span", "testing"]
+    "tags": [
+      "long-span",
+      "testing"
+    ]
   },
   {
     "id": "L03",
@@ -33,7 +39,10 @@
         "quote": "* `title`: The OpenAPI title, shown in the docs.\n* `version`: The version of your API, e.g. `2.5.0`.\n* `openapi_version`: The version of the OpenAPI specification used. By default, the latest: `3.1.0`.\n* `summary`: A short summary of the API.\n* `description`: The description of your API, this can include markdown and will be shown in the docs.\n* `routes`: The routes from the application, taken from `app.routes`. FastAPI uses them to collect the registered *path operations*, including those from included routers."
       }
     ],
-    "tags": ["long-span", "openapi"]
+    "tags": [
+      "long-span",
+      "openapi"
+    ]
   },
   {
     "id": "L04",
@@ -45,7 +54,10 @@
         "quote": "* `openapi_url`: the URL where the HTML page for the docs can get the OpenAPI schema for your API. You can use here the attribute `app.openapi_url`.\n* `title`: the title of your API.\n* `oauth2_redirect_url`: you can use `app.swagger_ui_oauth2_redirect_url` here to use the default.\n* `swagger_js_url`: the URL where the HTML for your Swagger UI docs can get the **JavaScript** file. This is the custom CDN URL.\n* `swagger_css_url`: the URL where the HTML for your Swagger UI docs can get the **CSS** file. This is the custom CDN URL."
       }
     ],
-    "tags": ["long-span", "docs-ui"]
+    "tags": [
+      "long-span",
+      "docs-ui"
+    ]
   },
   {
     "id": "L05",
@@ -57,7 +69,10 @@
         "quote": "* Send a **\"keep alive\" `ping` comment** every 15 seconds when there hasn't been any message, to prevent some proxies from closing the connection, as suggested in the [HTML specification: Server-Sent Events](https://html.spec.whatwg.org/multipage/server-sent-events.html#authoring-notes).\n* Set the `Cache-Control: no-cache` header to **prevent caching** of the stream.\n* Set a special header `X-Accel-Buffering: no` to **prevent buffering** in some proxies like Nginx."
       }
     ],
-    "tags": ["long-span", "streaming"]
+    "tags": [
+      "long-span",
+      "streaming"
+    ]
   },
   {
     "id": "L06",
@@ -69,7 +84,10 @@
         "quote": "* Make sure you have well defined Pydantic models for your request bodies and responses.\n* Configure any required permissions and roles using dependencies.\n* Never store plaintext passwords, only password hashes.\n* Implement and use well-known cryptographic tools, like pwdlib and JWT tokens, etc.\n* Add more granular permission controls with OAuth2 scopes where needed."
       }
     ],
-    "tags": ["long-span", "security"]
+    "tags": [
+      "long-span",
+      "security"
+    ]
   },
   {
     "id": "L07",
@@ -81,7 +99,10 @@
         "quote": "* If the parameter is also declared in the **path**, it will be used as a path parameter.\n* If the parameter is of a **singular type** (like `int`, `float`, `str`, `bool`, etc) it will be interpreted as a **query** parameter.\n* If the parameter is declared to be of the type of a **Pydantic model**, it will be interpreted as a request **body**."
       }
     ],
-    "tags": ["long-span", "parameters"]
+    "tags": [
+      "long-span",
+      "parameters"
+    ]
   },
   {
     "id": "L08",
@@ -93,7 +114,10 @@
         "quote": "* Import `Jinja2Templates`.\n* Create a `templates` object that you can reuse later.\n* Declare a `Request` parameter in the *path operation* that will return a template.\n* Use the `templates` you created to render and return a `TemplateResponse`, pass the name of the template, the request object, and a \"context\" dictionary with key-value pairs to be used inside of the Jinja2 template."
       }
     ],
-    "tags": ["long-span", "templates"]
+    "tags": [
+      "long-span",
+      "templates"
+    ]
   },
   {
     "id": "L09",
@@ -105,7 +129,10 @@
         "quote": "* The user types the `username` and `password` in the frontend, and hits `Enter`.\n* The frontend (running in the user's browser) sends that `username` and `password` to a specific URL in our API (declared with `tokenUrl=\"token\"`).\n* The API checks that `username` and `password`, and responds with a \"token\" (we haven't implemented any of this yet)."
       }
     ],
-    "tags": ["long-span", "security"]
+    "tags": [
+      "long-span",
+      "security"
+    ]
   },
   {
     "id": "L10",
@@ -117,7 +144,10 @@
         "quote": "* Starting in the same package that this module (the file `app/routers/items.py`) lives in (the directory `app/routers/`)...\n* go to the parent package (the directory `app/`)...\n* then go to the parent of that package (there's no parent package, `app` is the top level 😱)...\n* and in there, find the module `dependencies` (the file at `app/dependencies.py`)...\n* and from it, import the function `get_token_header`."
       }
     ],
-    "tags": ["long-span", "structure"]
+    "tags": [
+      "long-span",
+      "structure"
+    ]
   },
   {
     "id": "L11",
@@ -129,6 +159,472 @@
         "quote": "* [X-Forwarded-For](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/X-Forwarded-For)\n* [X-Forwarded-Proto](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/X-Forwarded-Proto)\n* [X-Forwarded-Host](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/X-Forwarded-Host)"
       }
     ],
-    "tags": ["long-span", "deployment"]
+    "tags": [
+      "long-span",
+      "deployment"
+    ]
+  },
+  {
+    "id": "F001",
+    "question": "Where does an example declared inside a Pydantic model end up?",
+    "answer": "In that model's JSON Schema, which is included in the app's OpenAPI and then shown in the docs UI.",
+    "quotes": [
+      {
+        "doc": "tutorial/schema-extra-example.md",
+        "quote": "When you add `examples` inside a Pydantic model, using `schema_extra` or `Field(examples=[\"something\"])` that example is added to the **JSON Schema** for that Pydantic model.\n\nAnd that **JSON Schema** of the Pydantic model is included in the **OpenAPI** of your API, and then it's used in the docs UI."
+      }
+    ],
+    "tags": [
+      "long-span",
+      "openapi",
+      "examples"
+    ]
+  },
+  {
+    "id": "F002",
+    "question": "Is returning a JSONResponse directly faster than declaring a response model?",
+    "answer": "No - a response model normally performs better because it serializes through Pydantic. JSONResponse is itself a subclass of Response.",
+    "quotes": [
+      {
+        "doc": "advanced/response-directly.md",
+        "quote": "You will normally have much better performance using a [Response Model](../tutorial/response-model.md) than returning a `JSONResponse` directly, as that way it serializes the data using Pydantic, in Rust.\n\n///\n\n## Return a `Response` { #return-a-response }\n\nYou can return a `Response` or any sub-class of it.\n\n/// note\n\n`JSONResponse` itself is a sub-class of `Response`."
+      }
+    ],
+    "tags": [
+      "long-span",
+      "responses",
+      "performance"
+    ]
+  },
+  {
+    "id": "F003",
+    "question": "Do dependencies have to be async functions?",
+    "answer": "No - the same rules as path operation functions apply, so async def or plain def both work and can be mixed.",
+    "quotes": [
+      {
+        "doc": "tutorial/dependencies/index.md",
+        "quote": "As dependencies will also be called by **FastAPI** (the same as your *path operation functions*), the same rules apply while defining your functions.\n\nYou can use `async def` or normal `def`.\n\nAnd you can declare dependencies with `async def` inside of normal `def` *path operation functions*, or `def` dependencies inside of `async def` *path operation functions*, etc."
+      }
+    ],
+    "tags": [
+      "long-span",
+      "dependencies",
+      "async"
+    ]
+  },
+  {
+    "id": "F004",
+    "question": "Why can a client assume a response field with a default value is always present?",
+    "answer": "Because the value will always be there, sometimes just the default, so the output schema marks the field required.",
+    "quotes": [
+      {
+        "doc": "how-to/separate-openapi-schemas.md",
+        "quote": "That means that clients using your API don't have to check if the value exists or not, they can **assume the field will always be there**, but just that in some cases it will have the default value of `None`.\n\nThe way to describe this in OpenAPI, is to mark that field as **required**, because it will always be there."
+      }
+    ],
+    "tags": [
+      "long-span",
+      "openapi",
+      "schemas"
+    ]
+  },
+  {
+    "id": "F005",
+    "question": "What makes a frontend on port 8080 and a backend on port 80 count as different origins?",
+    "answer": "The port differs, so the browser treats them as separate origins even on the same host.",
+    "quotes": [
+      {
+        "doc": "tutorial/cors.md",
+        "quote": "So, let's say you have a frontend running in your browser at `http://localhost:8080`, and its JavaScript is trying to communicate with a backend running at `http://localhost` (because we don't specify a port, the browser will assume the default port `80`).\n\nThen, the browser will send an HTTP `OPTIONS` request to the `:80`-backend, and if the backend sends the appropriate headers authorizing the communication from this different origin (`http://localhost:8080`) then the `:8080`-browser will let the JavaScript in the frontend send its request to the `:80`-backend."
+      }
+    ],
+    "tags": [
+      "long-span",
+      "cors"
+    ]
+  },
+  {
+    "id": "F006",
+    "question": "What is the hard part of adding authentication, and what does the framework supply?",
+    "answer": "Building the authentication/authorization provider itself; the framework provides tools in its security module that do the heavy lifting.",
+    "quotes": [
+      {
+        "doc": "tutorial/security/index.md",
+        "quote": "The most complex problem is building an authentication/authorization provider like those, but **FastAPI** gives you the tools to do it easily, while doing the heavy lifting for you.\n\n///\n\n## **FastAPI** utilities { #fastapi-utilities }\n\nFastAPI provides several tools for each of these security schemes in the `fastapi.security` module that simplify using these security mechanisms."
+      }
+    ],
+    "tags": [
+      "long-span",
+      "security"
+    ]
+  },
+  {
+    "id": "F007",
+    "question": "Can I use middleware written for other ASGI frameworks?",
+    "answer": "Yes - any ASGI middleware works, because the framework is built on the ASGI specification.",
+    "quotes": [
+      {
+        "doc": "advanced/middleware.md",
+        "quote": "And then you also read how to handle [CORS with the `CORSMiddleware`](../tutorial/cors.md).\n\nIn this section we'll see how to use other middlewares.\n\n## Adding ASGI middlewares { #adding-asgi-middlewares }\n\nAs **FastAPI** is based on Starlette and implements the <abbr title=\"Asynchronous Server Gateway Interface\">ASGI</abbr> specification, you can use any ASGI middleware."
+      }
+    ],
+    "tags": [
+      "long-span",
+      "middleware"
+    ]
+  },
+  {
+    "id": "F008",
+    "question": "If I change the status code through the response object, does response_model still apply?",
+    "answer": "Yes - the object you return is still filtered and converted by response_model.",
+    "quotes": [
+      {
+        "doc": "advanced/response-change-status-code.md",
+        "quote": "And then you can return any object you need, as you normally would (a `dict`, a database model, etc).\n\nAnd if you declared a `response_model`, it will still be used to filter and convert the object you returned.\n\n**FastAPI** will use that *temporary* response to extract the status code (also cookies and headers), and will put them in the final response that contains the value you returned, filtered by any `response_model`."
+      }
+    ],
+    "tags": [
+      "long-span",
+      "responses"
+    ]
+  },
+  {
+    "id": "F009",
+    "question": "Why do cookies not get sent when I click Execute in the interactive docs?",
+    "answer": "Browser restrictions prevent it, even though the cookie parameters are documented. Cookies are declared with Cookie, the same pattern as Query and Path.",
+    "quotes": [
+      {
+        "doc": "tutorial/cookie-params.md",
+        "quote": "If you go to the **API docs UI** at `/docs` you will be able to see the **documentation** for cookies for your *path operations*.\n\nBut even if you **fill the data** and click \"Execute\", because the docs UI works with **JavaScript**, the cookies won't be sent, and you will see an **error** message as if you didn't write any values.\n\n///\n\n## Recap { #recap }\n\nDeclare cookies with `Cookie`, using the same common pattern as `Query` and `Path`."
+      }
+    ],
+    "tags": [
+      "long-span",
+      "cookies",
+      "docs-ui"
+    ]
+  },
+  {
+    "id": "F010",
+    "question": "Do I have to convert incoming dictionaries myself?",
+    "answer": "No - incoming dicts are converted automatically, and the output is converted to JSON automatically too.",
+    "quotes": [
+      {
+        "doc": "tutorial/body-nested-models.md",
+        "quote": "But you don't have to worry about them either, incoming dicts are converted automatically and your output is converted automatically to JSON too.\n\n## Bodies of arbitrary `dict`s { #bodies-of-arbitrary-dicts }\n\nYou can also declare a body as a `dict` with keys of some type and values of some other type."
+      }
+    ],
+    "tags": [
+      "long-span",
+      "models"
+    ]
+  },
+  {
+    "id": "F011",
+    "question": "Why put the public model in response_model instead of using it as the return annotation?",
+    "answer": "Annotating the return as the public model while actually returning the database model would make editors and linters complain; response_model keeps the annotation honest.",
+    "quotes": [
+      {
+        "doc": "tutorial/sql-databases.md",
+        "quote": "If we had declared `-> HeroPublic`, your editor and linter would complain (rightfully so) that you are returning a `Hero` instead of a `HeroPublic`.\n\nBy declaring it in `response_model` we are telling **FastAPI** to do its thing, without interfering with the type annotations and the help from your editor and other tools."
+      }
+    ],
+    "tags": [
+      "long-span",
+      "sql",
+      "responses"
+    ]
+  },
+  {
+    "id": "F012",
+    "question": "How do I store a datetime in a database that only accepts JSON-compatible data?",
+    "answer": "Convert it to a string in ISO format, since datetime objects are not JSON compatible.",
+    "quotes": [
+      {
+        "doc": "tutorial/encoder.md",
+        "quote": "Let's imagine that you have a database `fake_db` that only receives JSON compatible data.\n\nFor example, it doesn't receive `datetime` objects, as those are not compatible with JSON.\n\nSo, a `datetime` object would have to be converted to a `str` containing the data in [ISO format](https://en.wikipedia.org/wiki/ISO_8601)."
+      }
+    ],
+    "tags": [
+      "long-span",
+      "encoding"
+    ]
+  },
+  {
+    "id": "F013",
+    "question": "What has to change about a test function before it can call asynchronous code?",
+    "answer": "The test function itself has to be asynchronous, marked with pytest.mark.anyio.",
+    "quotes": [
+      {
+        "doc": "advanced/async-tests.md",
+        "quote": "Let's look at how we can make that work.\n\n## pytest.mark.anyio { #pytest-mark-anyio }\n\nIf we want to call asynchronous functions in our tests, our test functions have to be asynchronous. AnyIO provides a neat plugin for this, that allows us to specify that some test functions are to be called asynchronously.\n\n## HTTPX { #httpx }\n\nEven if your **FastAPI** application uses normal `def` functions instead of `async def`, it is still an `async` application underneath."
+      }
+    ],
+    "tags": [
+      "long-span",
+      "testing",
+      "async"
+    ]
+  },
+  {
+    "id": "F014",
+    "question": "What are the base64 and bytes variables for in the streaming example?",
+    "answer": "They hold an image encoded in Base64 and then converted to bytes, so it can be passed to io.BytesIO while living in the same file.",
+    "quotes": [
+      {
+        "doc": "advanced/stream-data.md",
+        "quote": "The other two variables, `image_base64` and `binary_image`, are an image encoded in Base64, and then converted to bytes, to then pass it to `io.BytesIO`.\n\nOnly so that it can live in the same file for this example and you can copy it and run it as is. 🥚\n\n///\n\nBy using a `with` block, we make sure that the file-like object is closed after the generator function (the function with `yield`) is done. So, after it finishes sending the response."
+      }
+    ],
+    "tags": [
+      "long-span",
+      "streaming"
+    ]
+  },
+  {
+    "id": "F015",
+    "question": "How do I move or switch off the built-in documentation interfaces?",
+    "answer": "Swagger UI is served at /docs and its URL is set with docs_url; setting that parameter disables or relocates it, and ReDoc is configured the same way.",
+    "quotes": [
+      {
+        "doc": "tutorial/metadata.md",
+        "quote": "You can configure the two documentation user interfaces included:\n\n* **Swagger UI**: served at `/docs`.\n    * You can set its URL with the parameter `docs_url`.\n    * You can disable it by setting `docs_url=None`.\n* **ReDoc**: served at `/redoc`.\n    * You can set its URL with the parameter `redoc_url`.\n    * You can disable it by setting `redoc_url=None`.\n\nFor example, to set Swagger UI to be served at `/documentation` and disable ReDoc:"
+      }
+    ],
+    "tags": [
+      "long-span",
+      "docs-ui",
+      "metadata"
+    ]
+  },
+  {
+    "id": "F016",
+    "question": "How do I make bearer authentication return 403 instead of 401?",
+    "answer": "Create a subclass of HTTPBearer that returns a 403 Forbidden error rather than the default 401 Unauthorized.",
+    "quotes": [
+      {
+        "doc": "how-to/authentication-error-status-code.md",
+        "quote": "For example, you can create a subclass of `HTTPBearer` that returns a `403 Forbidden` error instead of the default `401 Unauthorized` error:\n\n{* ../../docs_src/authentication_error_status_code/tutorial001_an_py310.py hl[9:13] *}\n\n/// tip\n\nNotice that the function returns the exception instance, it doesn't raise it. The raising is done in the rest of the internal code."
+      }
+    ],
+    "tags": [
+      "long-span",
+      "security"
+    ]
+  },
+  {
+    "id": "F017",
+    "question": "What happens to returned data when the response class uses the JSON media type?",
+    "answer": "It is automatically converted and filtered, then serialised to bytes using Python's standard JSON library.",
+    "quotes": [
+      {
+        "doc": "advanced/custom-response.md",
+        "quote": "If you declare a `response_class` with a JSON media type (`application/json`), like is the case with the `JSONResponse`, the data you return will be automatically converted (and filtered) with any Pydantic `response_model` that you declared in the *path operation decorator*. But the data won't be serialized to JSON bytes with Pydantic, instead it will be converted with the `jsonable_encoder` and then passed to the `JSONResponse` class, which will serialize it to bytes using the standard JSON library in Python."
+      }
+    ],
+    "tags": [
+      "long-span",
+      "responses"
+    ]
+  },
+  {
+    "id": "F018",
+    "question": "How do I make client-side routing work for a single-page frontend?",
+    "answer": "Set the fallback to index.html. It applies only to GET and HEAD requests that explicitly accept HTML, so missing JavaScript, CSS and images still return 404.",
+    "quotes": [
+      {
+        "doc": "tutorial/frontend.md",
+        "quote": "For that, use `fallback=\"index.html\"`:\n\n{* ../../docs_src/frontend/tutorial002_py310.py hl[5] *}\n\n**FastAPI** uses this fallback only for `GET` and `HEAD` requests that explicitly accept HTML with `Accept: text/html` or `Accept: application/xhtml+xml`, as browser navigation requests normally do. Missing files like JavaScript, CSS, and images still return `404`."
+      }
+    ],
+    "tags": [
+      "long-span",
+      "frontend"
+    ]
+  },
+  {
+    "id": "F019",
+    "question": "Can a dependency declare a dependency of its own?",
+    "answer": "Yes - it is both a dependable and a dependant. Here it depends on query_extractor and falls back to the last query, which was saved to a cookie.",
+    "quotes": [
+      {
+        "doc": "tutorial/dependencies/sub-dependencies.md",
+        "quote": "Let's focus on the parameters declared:\n\n* Even though this function is a dependency (\"dependable\") itself, it also declares another dependency (it \"depends\" on something else).\n    * It depends on the `query_extractor`, and assigns the value returned by it to the parameter `q`.\n* It also declares an optional `last_query` cookie, as a `str`.\n    * If the user didn't provide any query `q`, we use the last query used, which we saved to a cookie before."
+      }
+    ],
+    "tags": [
+      "long-span",
+      "dependencies"
+    ]
+  },
+  {
+    "id": "F020",
+    "question": "How do I parameterise a dependency without writing many near-identical functions or classes?",
+    "answer": "Make the dependency itself parameterisable, so the otherwise fixed content can be set per use.",
+    "quotes": [
+      {
+        "doc": "advanced/advanced-dependencies.md",
+        "quote": "But there could be cases where you want to be able to set parameters on the dependency, without having to declare many different functions or classes.\n\nLet's imagine that we want to have a dependency that checks if the query parameter `q` contains some fixed content.\n\nBut we want to be able to parameterize that fixed content."
+      }
+    ],
+    "tags": [
+      "long-span",
+      "dependencies"
+    ]
+  },
+  {
+    "id": "F021",
+    "question": "Where should I look to learn more about using SQL databases with this framework?",
+    "answer": "The SQLModel documentation, which includes a mini tutorial on using SQLModel with FastAPI and a section on tests.",
+    "quotes": [
+      {
+        "doc": "how-to/testing-database.md",
+        "quote": "You can study about databases, SQL, and SQLModel in the [SQLModel docs](https://sqlmodel.tiangolo.com/). 🤓\n\nThere's a mini [tutorial on using SQLModel with FastAPI](https://sqlmodel.tiangolo.com/tutorial/fastapi/). ✨\n\nThat tutorial includes a section about [testing SQL databases](https://sqlmodel.tiangolo.com/tutorial/fastapi/tests/). 😎"
+      }
+    ],
+    "tags": [
+      "long-span",
+      "sql",
+      "testing"
+    ]
+  },
+  {
+    "id": "F022",
+    "question": "Do the cleanup steps after yield still run if an exception was raised?",
+    "answer": "Yes - the exit steps execute whether or not there was an exception, including after a rollback elsewhere.",
+    "quotes": [
+      {
+        "doc": "tutorial/dependencies/dependencies-with-yield.md",
+        "quote": "For example, if some code at some point in the middle, in another dependency or in a *path operation*, made a database transaction \"rollback\" or created any other exception, you would receive the exception in your dependency.\n\nSo, you can look for that specific exception inside the dependency with `except SomeException`.\n\nIn the same way, you can use `finally` to make sure the exit steps are executed, no matter if there was an exception or not."
+      }
+    ],
+    "tags": [
+      "long-span",
+      "dependencies"
+    ]
+  },
+  {
+    "id": "F023",
+    "question": "What does a callback mean in the OpenAPI callbacks feature?",
+    "answer": "A path operation in your API triggers a request to an external API built by someone else - usually the same developer who is using your API.",
+    "quotes": [
+      {
+        "doc": "advanced/openapi-callbacks.md",
+        "quote": "You could create an API with a *path operation* that could trigger a request to an *external API* created by someone else (probably the same developer that would be *using* your API).\n\nThe process that happens when your API app calls the *external API* is named a \"callback\". Because the software that the external developer wrote sends a request to your API and then your API *calls back*, sending a request to an *external API* (that was probably created by the same developer)."
+      }
+    ],
+    "tags": [
+      "long-span",
+      "openapi",
+      "callbacks"
+    ]
+  },
+  {
+    "id": "F024",
+    "question": "Where does the Request class actually come from?",
+    "answer": "Starlette - the framework re-exports it as a convenience for the developer.",
+    "quotes": [
+      {
+        "doc": "tutorial/middleware.md",
+        "quote": "You could also use `from starlette.requests import Request`.\n\n**FastAPI** provides it as a convenience for you, the developer. But it comes directly from Starlette.\n\n///\n\n### Before and after the `response` { #before-and-after-the-response }\n\nYou can add code to be run with the `request`,  before any *path operation* receives it."
+      }
+    ],
+    "tags": [
+      "long-span",
+      "middleware"
+    ]
+  },
+  {
+    "id": "F025",
+    "question": "How is the content key of an additional response structured?",
+    "answer": "content holds another JSON object keyed by media type, such as application/json, whose value is a further JSON object.",
+    "quotes": [
+      {
+        "doc": "advanced/additional-responses.md",
+        "quote": "* In the key `content`, that has as value another JSON object (`dict`) that contains:\n    * A key with the media type, e.g. `application/json`, that contains as value another JSON object, that contains:\n        * A key `schema`, that has as the value the JSON Schema from the model, here's the correct place.\n            * **FastAPI** adds a reference here to the global JSON Schemas in another place in your OpenAPI instead of including it directly. This way, other applications and clients can use those JSON Schemas directly, provide better code generation tools, etc.\n\n///\n\nThe generated responses in the OpenAPI for this *path operation* will be:"
+      }
+    ],
+    "tags": [
+      "long-span",
+      "openapi",
+      "responses"
+    ]
+  },
+  {
+    "id": "F026",
+    "question": "Why store password hashes instead of the passwords themselves?",
+    "answer": "If the database is stolen the thief gets only hashes, so they cannot reuse those passwords on another system.",
+    "quotes": [
+      {
+        "doc": "tutorial/security/simple-oauth2.md",
+        "quote": "If your database is stolen, the thief won't have your users' plaintext passwords, only the hashes.\n\nSo, the thief won't be able to try to use those same passwords in another system (as many users use the same password everywhere, this would be dangerous).\n\n{* ../../docs_src/security/tutorial003_an_py310.py hl[82:85] *}"
+      }
+    ],
+    "tags": [
+      "long-span",
+      "security"
+    ]
+  },
+  {
+    "id": "F027",
+    "question": "How does declaring a model attribute compare with declaring a path operation parameter?",
+    "answer": "The structure is the same - type, default value and Field - with Field taking the place of Path, Query and Body.",
+    "quotes": [
+      {
+        "doc": "tutorial/body-fields.md",
+        "quote": "Notice how each model's attribute with a type, default value and `Field` has the same structure as a *path operation function's* parameter, with `Field` instead of `Path`, `Query` and `Body`.\n\n///\n\n## Add extra information { #add-extra-information }\n\nYou can declare extra information in `Field`, `Query`, `Body`, etc. And it will be included in the generated JSON Schema.\n\nYou will learn more about adding extra information later in the docs, when learning to declare examples."
+      }
+    ],
+    "tags": [
+      "long-span",
+      "models",
+      "validation"
+    ]
+  },
+  {
+    "id": "F028",
+    "question": "Is status_code a parameter of the decorator or of the function?",
+    "answer": "Of the decorator method (get, post, and so on), not of the path operation function like the other parameters.",
+    "quotes": [
+      {
+        "doc": "tutorial/response-status-code.md",
+        "quote": "Notice that `status_code` is a parameter of the \"decorator\" method (`get`, `post`, etc). Not of your *path operation function*, like all the parameters and body.\n\n///\n\nThe `status_code` parameter receives a number with the HTTP status code.\n\n/// note\n\n`status_code` can alternatively also receive an `IntEnum`, such as Python's [`http.HTTPStatus`](https://docs.python.org/3/library/http.html#http.HTTPStatus)."
+      }
+    ],
+    "tags": [
+      "long-span",
+      "responses",
+      "routing"
+    ]
+  },
+  {
+    "id": "F029",
+    "question": "What exactly is an environment variable?",
+    "answer": "A value that lives outside the Python code, in the operating system, and can be read by your application and by other programs.",
+    "quotes": [
+      {
+        "doc": "advanced/settings.md",
+        "quote": "An **environment variable** (also known as an **env var**) is a value that lives outside of the Python code, in the operating system, and can be read by your application and other programs.\n\nYou can create an environment variable for a command when you run it. You will see the platform-specific commands below."
+      }
+    ],
+    "tags": [
+      "long-span",
+      "settings"
+    ]
+  },
+  {
+    "id": "F030",
+    "question": "How do I return a status code other than the main one for a path operation?",
+    "answer": "Return a Response directly, such as a JSONResponse, and set the additional status code on it.",
+    "quotes": [
+      {
+        "doc": "advanced/additional-status-codes.md",
+        "quote": "It will use the default status code or the one you set in your *path operation*.\n\n## Additional status codes { #additional-status-codes_1 }\n\nIf you want to return additional status codes apart from the main one, you can do that by returning a `Response` directly, like a `JSONResponse`, and set the additional status code directly.\n\nFor example, let's say that you want to have a *path operation* that allows updating items, and returns HTTP status codes of 200 \"OK\" when successful."
+      }
+    ],
+    "tags": [
+      "long-span",
+      "responses"
+    ]
   }
 ]

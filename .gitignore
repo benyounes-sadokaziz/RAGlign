@@ -20,6 +20,8 @@ runs/
 # --- Env / secrets ---
 .env
 .env.*
+# The template carries no secret and documents what keys exist, so it is tracked.
+!.env.example
 
 # --- OS / editor ---
 .DS_Store
