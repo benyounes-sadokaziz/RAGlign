@@ -21,7 +21,7 @@ Three deliberate constraints:
 from __future__ import annotations
 
 import json
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Sequence
 
@@ -47,6 +47,40 @@ class Candidate:
     latency_ms: float
     oracle: dict[str, float]
     per_question: dict[str, dict]
+    # Every (k, tau) cell the run recorded, keyed "k=5,tau=0.5". The scalar
+    # fields above are one selected cell, kept for ranking; this holds the rest
+    # so a results table can show hit@1/@3/@5/@10 without re-running anything.
+    metrics_by_key: dict[str, dict] = field(default_factory=dict)
+    selected_tau: float = 0.5
+
+    def at(self, k: int, tau: float | None = None) -> dict:
+        """Metrics for one (k, tau) cell; empty dict if the run did not record it."""
+        t = self.selected_tau if tau is None else tau
+        return self.metrics_by_key.get(f"k={k},tau={t}", {})
+
+    def metric_at(self, name: str, k: int, tau: float | None = None) -> float | None:
+        """One metric at one k, or None when that cell is absent.
+
+        None rather than 0.0 on purpose: a missing cell and a genuine zero mean
+        different things, and a table that renders both as 0.000 would invite
+        reading "this run never measured k=10" as "this config scored nothing".
+        """
+        cell = self.at(k, tau)
+        return cell.get(name) if name in cell else None
+
+    @property
+    def ks(self) -> list[int]:
+        """Every k this run recorded, at the selected tau."""
+        out = set()
+        for key in self.metrics_by_key:
+            k_part, tau_part = key.split(",")
+            if float(tau_part.split("=")[1]) == self.selected_tau:
+                out.add(int(k_part.split("=")[1]))
+        return sorted(out)
+
+    @property
+    def taus(self) -> list[float]:
+        return sorted({float(key.split("tau=")[1]) for key in self.metrics_by_key})
 
     @property
     def quality(self) -> float:
@@ -121,6 +155,8 @@ def load_candidates(
                 latency_ms=data["query_ms_mean"],
                 oracle=data["oracle_reachability"],
                 per_question=data.get("per_question", {}),
+                metrics_by_key=data["metrics"],
+                selected_tau=tau,
             )
         )
     return out

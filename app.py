@@ -31,8 +31,8 @@ st.set_page_config(page_title="RAGlign", layout="wide")
 
 
 @st.cache_data
-def _load(qa_file: str, corpus: str):
-    return load_candidates(qa_file, corpus)
+def _load(qa_file: str, corpus: str, tau: float = 0.5):
+    return load_candidates(qa_file, corpus, tau=tau)
 
 
 def _qa_label(name: str) -> str:
@@ -55,6 +55,13 @@ with st.sidebar:
     st.header("Evaluation set")
     qa_file = st.selectbox("Question set", sets, format_func=_qa_label, label_visibility="collapsed")
 
+    st.header("Scoring")
+    # tau is the overlap threshold that decides what counts as a hit. Exposed
+    # rather than fixed because it is a free parameter (TC-8) -- a reader who can
+    # move it can confirm for themselves that the ranking does not hinge on it.
+    tau = st.select_slider("Overlap threshold τ", options=[0.1, 0.3, 0.5, 0.7], value=0.5)
+    st.caption("a chunk counts as a hit when it covers ≥ τ of the evidence span")
+
     st.header("Priorities")
     wq = st.slider("Quality", 0.0, 1.0, 0.70, 0.05)
     wl = st.slider("Latency", 0.0, 1.0, 0.20, 0.05)
@@ -64,7 +71,7 @@ with st.sidebar:
     st.caption(f"normalised: {weights.quality:.0%} / {weights.latency:.0%} / {weights.context:.0%}")
 
 try:
-    cands = _load(qa_file, corpus)
+    cands = _load(qa_file, corpus, tau)
 except ValueError as exc:
     st.error(str(exc))
     st.stop()
@@ -123,28 +130,55 @@ with tab_rec:
     st.scatter_chart(fdf, x="latency_ms", y="quality", size="chars")
 
 with tab_grid:
-    st.dataframe(
-        pd.DataFrame(
-            [
-                {
-                    "rank": i,
-                    "config": x.label,
-                    "score": round(s, 3),
-                    "MRR": round(x.mrr, 3),
-                    "hit@5": round(x.hit, 3),
-                    "nDCG": round(x.ndcg, 3),
-                    "soft": round(x.soft, 3),
-                    "ms/query": round(x.latency_ms, 1),
-                    "chars": round(x.chars),
-                    "chunks": x.n_chunks,
-                    "pareto": "yes" if x.config_id in frontier else "",
-                }
-                for i, (x, s) in enumerate(ranked, 1)
-            ]
-        ),
-        use_container_width=True,
-        hide_index=True,
-        height=560,
+    ks = ranked[0][0].ks or [5]
+    st.caption(
+        f"All metrics at τ={tau}, every recorded k ({', '.join('@' + str(k) for k in ks)}). "
+        "hit@k = did any retrieved chunk cover the evidence · recall@k = fraction of evidence "
+        "spans found (differs only on multi-span questions) · MRR = 1/rank of the first hit · "
+        "nDCG = graded, position-discounted · soft = threshold-free mean coverage."
+    )
+
+    families = st.multiselect(
+        "Metrics to show",
+        ["hit@k", "recall@k", "MRR", "nDCG", "soft", "cost"],
+        default=["hit@k", "MRR", "nDCG", "cost"],
+    )
+
+    rows = []
+    for i, (x, s) in enumerate(ranked, 1):
+        row: dict = {"rank": i, "config": x.label, "score": round(s, 3)}
+        if "hit@k" in families:
+            for k in ks:
+                v = x.metric_at("hit_at_k", k)
+                row[f"hit@{k}"] = round(v, 3) if v is not None else None
+        if "recall@k" in families:
+            for k in ks:
+                v = x.metric_at("recall_at_k", k)
+                row[f"rec@{k}"] = round(v, 3) if v is not None else None
+        if "MRR" in families:
+            for k in ks:
+                v = x.metric_at("mrr", k)
+                row[f"MRR@{k}"] = round(v, 3) if v is not None else None
+        if "nDCG" in families:
+            for k in ks:
+                v = x.metric_at("ndcg_at_k", k)
+                row[f"nDCG@{k}"] = round(v, 3) if v is not None else None
+        if "soft" in families:
+            row["soft"] = round(x.soft, 3)
+        if "cost" in families:
+            row["ms/query"] = round(x.latency_ms, 1)
+            row["chars"] = round(x.chars)
+            row["chunks"] = x.n_chunks
+            unanswered = x.metric_at("unanswered", 5)
+            if unanswered is not None:
+                row["unans@5"] = int(unanswered)
+        row["pareto"] = "yes" if x.config_id in frontier else ""
+        rows.append(row)
+
+    st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True, height=560)
+    st.caption(
+        "Note how hit@k climbs with k while MRR barely moves on some configs: that gap is "
+        "a ranking problem, not a retrieval problem, and it is what a reranker fixes."
     )
 
     st.subheader("Segmentation ceiling (oracle reachability)")

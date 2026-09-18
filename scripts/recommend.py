@@ -36,17 +36,27 @@ def main() -> int:
     print(f"qa set : {qa_file}")
     print(f"configs: {len(cands)} evaluated, {len(frontier)} on the Pareto frontier\n")
 
+    ks = ranked[0][0].ks or [5]
+    hit_cols = "".join(f"{'hit@' + str(k):>8}" for k in ks)
+    mrr_cols = "".join(f"{'MRR@' + str(k):>8}" for k in ks)
     header = (
-        f"{'':>3} {'config':<26} {'score':>7} {'qual':>6} {'MRR':>6} {'hit@5':>6} "
-        f"{'ms/q':>8} {'chars':>6}  pareto"
+        f"{'':>3} {'config':<26} {'score':>7}{hit_cols}{mrr_cols}"
+        f"{'nDCG@5':>8}{'soft':>7}{'ms/q':>9}{'chars':>7}  pareto"
     )
     print(header)
     print("-" * len(header))
     for i, (cd, score) in enumerate(ranked[:12], 1):
         mark = "  *" if cd.config_id in front_ids else ""
+
+        def cell(name: str, k: int) -> str:
+            v = cd.metric_at(name, k)
+            return f"{v:>8.3f}" if v is not None else f"{'-':>8}"
+
         print(
-            f"{i:>3} {cd.label:<26} {score:>7.3f} {cd.quality:>6.3f} {cd.mrr:>6.3f} "
-            f"{cd.hit:>6.3f} {cd.latency_ms:>8.1f} {cd.chars:>6.0f}{mark}"
+            f"{i:>3} {cd.label:<26} {score:>7.3f}"
+            + "".join(cell("hit_at_k", k) for k in ks)
+            + "".join(cell("mrr", k) for k in ks)
+            + f"{cd.ndcg:>8.3f}{cd.soft:>7.3f}{cd.latency_ms:>9.1f}{cd.chars:>7.0f}{mark}"
         )
 
     print()
