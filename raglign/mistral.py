@@ -27,6 +27,7 @@ Keeping the generation path thin keeps that contrast obvious.
 from __future__ import annotations
 
 import hashlib
+import http.client
 import json
 import ssl
 import time
@@ -34,16 +35,26 @@ import urllib.error
 import urllib.request
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Sequence
 
 from . import apikeys
 
 API_BASE = "https://api.mistral.ai/v1"
 CACHE_DIR = Path(__file__).resolve().parent.parent / ".cache" / "mistral"
 
-# Small model on purpose. The judge task (does this text support that claim?) is
-# not a frontier-model problem, and a cheaper model means the metric can be run
-# with repeats -- which matters more for a noisy LLM judge than raw capability.
-DEFAULT_MODEL = "mistral-small-latest"
+# Model entitlement is per-model on Mistral, not per-account: a key can hold a
+# valid subscription while specific models return 429 with
+# `x-ratelimit-limit-req-minute: 0`. On the key used here mistral-small/medium are
+# capped at zero while the ministral and nemo families are not -- so defaults
+# point at models that are actually entitled, and `probe_models` exists to find
+# out rather than guess.
+DEFAULT_MODEL = "ministral-8b-latest"
+
+# A DIFFERENT model judges than generates, on purpose. LLM judges show
+# self-preference: they score their own outputs higher than equivalent text from
+# another model. Using one family to answer and another to judge removes the most
+# obvious way for the faithfulness number to be flattering rather than accurate.
+DEFAULT_JUDGE_MODEL = "open-mistral-nemo"
 
 RETRY_STATUS = {408, 409, 429, 500, 502, 503, 504}
 
@@ -87,13 +98,18 @@ class MistralClient:
         model: str = DEFAULT_MODEL,
         *,
         cache: bool = True,
-        max_retries: int = 4,
+        max_retries: int = 7,
         timeout: int = 90,
+        requests_per_minute: int = 90,
     ):
         self.model = model
         self.cache = cache
         self.max_retries = max_retries
         self.timeout = timeout
+        # Well under the entitled limits (188/min for nemo and ministral-8b) so a
+        # long run leaves room for whatever else shares the key.
+        self.min_interval = 60.0 / requests_per_minute if requests_per_minute else 0.0
+        self._last_call = 0.0
         self.usage = Usage()
         self._ctx = _ssl_context()
         self._key = apikeys.get("MISTRAL_API_KEY")
@@ -107,20 +123,40 @@ class MistralClient:
         ).hexdigest()[:32]
         return CACHE_DIR / f"{digest}.json"
 
+    def _throttle(self) -> None:
+        """Keep a minimum gap between calls.
+
+        The server drops connections when a few hundred requests arrive back to
+        back, which surfaces as RemoteDisconnected rather than 429 -- so pacing
+        client-side is not politeness, it is what stops the run from failing
+        halfway through. Derived from the documented per-minute limit with
+        headroom, since the limit is shared with anything else using the key.
+        """
+        if self.min_interval <= 0:
+            return
+        wait = self.min_interval - (time.monotonic() - self._last_call)
+        if wait > 0:
+            time.sleep(wait)
+
     def _post(self, path: str, body: dict) -> dict:
-        req = urllib.request.Request(
-            f"{API_BASE}{path}",
-            data=json.dumps(body).encode("utf-8"),
-            headers={
-                "Authorization": f"Bearer {self._key}",
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-            },
-            method="POST",
-        )
+        payload = json.dumps(body).encode("utf-8")
         last: Exception | None = None
         for attempt in range(self.max_retries):
+            # A fresh Request per attempt: urllib mutates the object during a
+            # failed open (redirect state, host headers), and reusing it after an
+            # error has produced confusing follow-on failures.
+            req = urllib.request.Request(
+                f"{API_BASE}{path}",
+                data=payload,
+                headers={
+                    "Authorization": f"Bearer {self._key}",
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                method="POST",
+            )
             try:
+                self._throttle()
                 with urllib.request.urlopen(req, timeout=self.timeout, context=self._ctx) as resp:
                     return json.loads(resp.read().decode("utf-8"))
             except urllib.error.HTTPError as exc:
@@ -128,9 +164,16 @@ class MistralClient:
                     detail = exc.read().decode("utf-8", "replace")[:300]
                     raise RuntimeError(f"Mistral HTTP {exc.code}: {detail}") from exc
                 last = exc
-            except (urllib.error.URLError, TimeoutError) as exc:
+            # OSError covers ConnectionResetError and RemoteDisconnected, which
+            # are NOT URLError subclasses and so escaped an earlier, narrower
+            # except clause -- killing a long run on a single dropped connection.
+            except (urllib.error.URLError, OSError, http.client.HTTPException, TimeoutError) as exc:
                 last = exc
-            time.sleep(min(2**attempt, 8))
+            finally:
+                self._last_call = time.monotonic()
+            # Cap at 30s, not 8: a WinError 10060 outage lasted longer than
+            # five short backoffs could ride out, and killed a paid run.
+            time.sleep(min(2**attempt, 30))
         raise RuntimeError(f"Mistral request failed after {self.max_retries} attempts: {last}")
 
     def chat(
@@ -191,3 +234,39 @@ class MistralClient:
 
 def available() -> bool:
     return apikeys.available("MISTRAL_API_KEY")
+
+
+def probe_models(candidates: Sequence[str], *, pause: float = 1.2) -> dict[str, int | None]:
+    """Return {model: requests-per-minute limit}, or None where it is unusable.
+
+    Worth having as a function rather than a one-off script: entitlement differs
+    per key and per tier, so "which models can this key actually call" is a
+    question any new environment has to re-answer. Guessing it wrong reads as an
+    account problem when it is only a model choice.
+    """
+    out: dict[str, int | None] = {}
+    for model in candidates:
+        body = {
+            "model": model,
+            "messages": [{"role": "user", "content": "hi"}],
+            "max_tokens": 4,
+        }
+        req = urllib.request.Request(
+            f"{API_BASE}/chat/completions",
+            data=json.dumps(body).encode("utf-8"),
+            headers={
+                "Authorization": f"Bearer {apikeys.get('MISTRAL_API_KEY')}",
+                "Content-Type": "application/json",
+            },
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=60, context=_ssl_context()) as resp:
+                limit = resp.headers.get("x-ratelimit-limit-req-minute")
+                out[model] = int(limit) if limit and limit.isdigit() else 0
+        except urllib.error.HTTPError as exc:
+            limit = exc.headers.get("x-ratelimit-limit-req-minute")
+            out[model] = int(limit) if limit and limit.isdigit() and limit != "0" else None
+        except Exception:  # noqa: BLE001
+            out[model] = None
+        time.sleep(pause)
+    return out

@@ -224,6 +224,13 @@ class GenerationSummary:
     span_grounding: float
     faithfulness: float | None
     relevance: float | None
+    # How many answers the judge actually saw. Essential context, not a detail:
+    # faithfulness is conditional on having answered, so a config that refuses
+    # most questions is judged on a small, self-selected subset of its easiest
+    # ones (see faithful_coverage below).
+    n_judged: int
+    faithful_coverage: float | None
+    relevant_coverage: float | None
     judge_failures: int
     per_question: list[dict] = field(default_factory=list)
 
@@ -231,14 +238,50 @@ class GenerationSummary:
         return asdict(self)
 
 
+def _find_key(payload: object, key: str, depth: int = 3) -> object | None:
+    """Locate `key` anywhere in a shallow nested structure.
+
+    Necessary because models disagree about JSON shape even when told the exact
+    format: mistral returns {"score": 0.9}, while open-mistral-nemo wraps it as
+    {"response": {"score": 0.9}}. A top-level-only lookup counted every nemo
+    judgement as a parse failure, which would have silently reduced the judged
+    tier to nothing while reporting healthy-looking None scores.
+    """
+    if depth < 0:
+        return None
+    if isinstance(payload, dict):
+        if key in payload:
+            return payload[key]
+        for value in payload.values():
+            found = _find_key(value, key, depth - 1)
+            if found is not None:
+                return found
+    elif isinstance(payload, list):
+        for value in payload:
+            found = _find_key(value, key, depth - 1)
+            if found is not None:
+                return found
+    return None
+
+
 def _score_0_1(payload: dict, key: str = "score") -> float | None:
-    raw = payload.get(key)
+    raw = _find_key(payload, key)
     if isinstance(raw, bool):
         return 1.0 if raw else 0.0
+    if isinstance(raw, str):
+        raw = raw.strip().rstrip("%")
     try:
         value = float(raw)  # type: ignore[arg-type]
     except (TypeError, ValueError):
         return None
+    # A model asked for 0..1 sometimes answers on a 0..100 scale (85, 90, 100).
+    # It also sometimes just overshoots slightly (2, 3, 5). Those two cases are
+    # genuinely ambiguous at small values, so the split is explicit: >= 10 is
+    # read as a percentage, below that as an overshoot to be clamped. Treating
+    # every value > 1 as a percentage would turn a judge's sloppy "5" into 0.05 --
+    # a near-zero score for what was meant as high confidence.
+    if value >= 10.0:
+        value /= 100.0
     return max(0.0, min(1.0, value))
 
 
@@ -352,6 +395,21 @@ def evaluate_generation(
 
     judged_f = [s.faithfulness for s in scores if s.faithfulness is not None]
     judged_r = [s.relevance for s in scores if s.relevance is not None]
+    answered_rate = 1.0 - (mean(1.0 if s.refused else 0.0 for s in scores) if scores else 0.0)
+
+    # Faithfulness alone is NOT comparable across configs, and measurement showed
+    # it inverted: a config refusing 83% of questions scored faithfulness 1.000,
+    # because the only answers it produced were its easiest ones. Excluding
+    # refusals from judging is right (judging "I don't know" measures nothing) but
+    # it makes the surviving sample self-selected -- classic survivorship bias.
+    #
+    # Multiplying by the answer rate restores comparability: "of all questions
+    # asked, what fraction got an answer that was also faithful". That is the
+    # quantity a user of the system actually experiences, and it is the one worth
+    # correlating against retrieval quality.
+    f_cov = (mean(judged_f) * answered_rate) if judged_f else None
+    r_cov = (mean(judged_r) * answered_rate) if judged_r else None
+
     return GenerationSummary(
         config_id=config_id,
         n=len(scores),
@@ -361,6 +419,9 @@ def evaluate_generation(
         span_grounding=round(mean(s.span_grounding for s in scores), 4) if scores else 0.0,
         faithfulness=round(mean(judged_f), 4) if judged_f else None,
         relevance=round(mean(judged_r), 4) if judged_r else None,
+        n_judged=len(judged_f),
+        faithful_coverage=round(f_cov, 4) if f_cov is not None else None,
+        relevant_coverage=round(r_cov, 4) if r_cov is not None else None,
         judge_failures=sum(s.judge_failures for s in scores),
         per_question=[s.as_dict() for s in scores],
     )

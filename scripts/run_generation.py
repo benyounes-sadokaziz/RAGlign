@@ -81,6 +81,13 @@ def main() -> int:
         default="mistral" if mistral.available() else "extractive",
         help="how answers are produced (default: mistral when a key is present)",
     )
+    p.add_argument("--model", default=mistral.DEFAULT_MODEL, help="generator model")
+    p.add_argument(
+        "--judge-model",
+        default=mistral.DEFAULT_JUDGE_MODEL,
+        help="judge model; defaults to a DIFFERENT model than the generator, since "
+             "LLM judges score their own output more favourably",
+    )
     args = p.parse_args()
 
     qa_file = resolve_qa(args.corpus, args.qa)
@@ -110,25 +117,78 @@ def main() -> int:
 
     use_llm = args.generator == "mistral"
     use_judge = use_llm and not args.no_judge and mistral.available()
-    client = None
+    client = judge = None
     if use_llm or use_judge:
         if not mistral.available():
             print("MISTRAL_API_KEY not set; use --generator extractive to run offline.")
             return 1
-        client = mistral.MistralClient()
+        client = mistral.MistralClient(model=args.model)
+    if use_judge:
+        judge = mistral.MistralClient(model=args.judge_model)
 
     print(f"corpus   : {args.corpus} -- {corpora.get(args.corpus).structure}")
     print(f"qa set   : {qa_file} ({len(items)} questions)")
     print(f"configs  : {n} sampled across the MRR range")
-    print(f"generator: {'mistral ' + client.model if use_llm else 'extractive (top-1 chunk, no LLM)'}")
-    print(f"judge    : {'mistral ' + client.model if use_judge else 'OFF'}")
+    print(f"generator: {client.model if use_llm else 'extractive (top-1 chunk, no LLM)'}")
+    print(f"judge    : {judge.model + ' (different model, to avoid self-preference)' if judge else 'OFF'}")
     if use_judge:
         print(f"repeats  : {args.repeats}")
     print()
 
+    out_dir = RUNS_ROOT / args.corpus
+    out_dir.mkdir(parents=True, exist_ok=True)
+    out = out_dir / "generation.json"
+
+    def save(rows: list[dict], failures: list[dict]) -> None:
+        """Checkpoint after every config.
+
+        A network outage once aborted a run that had already paid for two
+        configs. The API calls survived in the response cache, but the computed
+        summaries did not -- so the work was repeated. Writing incrementally
+        means a crash costs at most the config in flight.
+        """
+        out.write_text(
+            json.dumps(
+                {
+                    "corpus": args.corpus,
+                    "qa_file": qa_file,
+                    "n_questions": len(items),
+                    "generator": client.model if use_llm else "extractive",
+                    "judge": judge.model if judge else None,
+                    "repeats": args.repeats if judge else 0,
+                    "usage": {
+                        "generator": client.usage.as_dict() if client else None,
+                        "judge": judge.usage.as_dict() if judge else None,
+                    },
+                    "configs": rows,
+                    "failed": failures,
+                },
+                indent=2,
+            ),
+            encoding="utf-8",
+        )
+
+    # Resume: configs already scored in a previous attempt are skipped, so a
+    # re-run after a crash continues rather than starting over.
+    done: dict[str, dict] = {}
+    if out.exists():
+        try:
+            prior = json.loads(out.read_text(encoding="utf-8"))
+            if prior.get("qa_file") == qa_file and prior.get("n_questions") == len(items):
+                done = {c["config_id"]: c for c in prior.get("configs", [])}
+        except (json.JSONDecodeError, KeyError):
+            done = {}
+    if done:
+        print(f"resuming: {len(done)} config(s) already scored\n")
+
     embedder = Embedder()
     summaries = []
+    failures: list[dict] = []
     for cand in picks:
+        if cand.config_id in done:
+            summaries.append(done[cand.config_id])
+            print(f"  {cand.label:<28} mrr={cand.mrr:.3f} ... cached")
+            continue
         spec = _spec_from_label(cand)
         pipeline = build_pipeline(spec, docs, embedder)
         retrievals = {
@@ -147,20 +207,30 @@ def main() -> int:
         )
 
         print(f"  {cand.label:<28} mrr={cand.mrr:.3f} ...", end=" ", flush=True)
-        summary = evaluate_generation(
-            cand.config_id,
-            items,
-            retrievals,
-            evidence,
-            answerer=answerer,
-            chat_json=(client.chat_json if use_judge else None),
-            repeats=args.repeats,
-        )
+        try:
+            summary = evaluate_generation(
+                cand.config_id,
+                items,
+                retrievals,
+                evidence,
+                answerer=answerer,
+                chat_json=(judge.chat_json if judge else None),
+                repeats=args.repeats,
+            )
+        except RuntimeError as exc:
+            # One config failing to a network problem should not discard the
+            # others. Recorded so the gap is visible in the report rather than
+            # silently absent.
+            print(f"FAILED: {str(exc)[:80]}")
+            failures.append({"config": cand.label, "error": str(exc)[:200]})
+            save(summaries, failures)
+            continue
         summary_dict = summary.as_dict()
         summary_dict["retrieval_mrr"] = cand.mrr
         summary_dict["retrieval_hit"] = cand.hit
         summary_dict["label"] = cand.label
         summaries.append(summary_dict)
+        save(summaries, failures)
         print(
             f"refusal={summary.refusal_rate:.2f} goldF1={summary.gold_f1:.3f} "
             f"ground={summary.span_grounding:.3f}"
@@ -169,32 +239,43 @@ def main() -> int:
 
     print()
     header = (
-        f"{'config':<28}{'ret.MRR':>9}{'refusal':>9}{'goldF1':>9}{'goldRec':>9}"
-        f"{'ground':>9}{'faith':>9}{'relev':>9}"
+        f"{'config':<28}{'ret.MRR':>9}{'refusal':>9}{'goldRec':>9}{'ground':>9}"
+        f"{'faith*':>8}{'n':>4}{'faithCov':>10}{'relvCov':>9}"
     )
     print(header)
     print("-" * len(header))
+    def cell(value, width: int = 9, prec: int = 3) -> str:
+        return f"{value:>{width}.{prec}f}" if value is not None else f"{'-':>{width}}"
+
     for s in summaries:
-        f = f"{s['faithfulness']:>9.3f}" if s["faithfulness"] is not None else f"{'-':>9}"
-        r = f"{s['relevance']:>9.3f}" if s["relevance"] is not None else f"{'-':>9}"
         print(
             f"{s['label']:<28}{s['retrieval_mrr']:>9.3f}{s['refusal_rate']:>9.2f}"
-            f"{s['gold_f1']:>9.3f}{s['gold_recall']:>9.3f}"
-            f"{s['span_grounding']:>9.3f}{f}{r}"
+            f"{s['gold_recall']:>9.3f}{s['span_grounding']:>9.3f}"
+            f"{cell(s['faithfulness'], 8)}{s['n_judged']:>4}"
+            f"{cell(s['faithful_coverage'], 10)}{cell(s['relevant_coverage'])}"
         )
+    print(
+        "\n  faith* is conditional on the config having answered at all, over n judged\n"
+        "  answers -- so it is NOT comparable across configs: one that refuses most\n"
+        "  questions is judged only on its easiest few. faithCov/relvCov multiply by\n"
+        "  the answer rate, giving 'of all questions asked, what share got an answer\n"
+        "  that was also faithful'. Compare on those."
+    )
 
     print("\nDOES RETRIEVAL QUALITY PREDICT ANSWER QUALITY?")
     mrrs = [s["retrieval_mrr"] for s in summaries]
-    for name, key in (("gold F1", "gold_f1"), ("gold recall", "gold_recall"),
-                      ("grounding", "span_grounding"),
-                      ("faithfulness", "faithfulness"), ("relevance", "relevance")):
+    for name, key in (("gold recall", "gold_recall"), ("grounding", "span_grounding"),
+                      ("faithful coverage", "faithful_coverage"),
+                      ("relevant coverage", "relevant_coverage"),
+                      ("faithfulness*", "faithfulness"), ("relevance*", "relevance")):
         ys = [s[key] for s in summaries]
         if any(y is None for y in ys):
-            print(f"  retrieval MRR vs {name:<14} not judged")
+            print(f"  retrieval MRR vs {name:<18} not judged")
             continue
         r = correlation(mrrs, ys)
-        print(f"  retrieval MRR vs {name:<14} r = {r:+.3f}" if r is not None
-              else f"  retrieval MRR vs {name:<14} undefined (constant series)")
+        star = "   <- conditional, see note above" if name.endswith("*") else ""
+        print(f"  retrieval MRR vs {name:<18} r = {r:+.3f}{star}" if r is not None
+              else f"  retrieval MRR vs {name:<18} undefined (constant series)")
     if not use_llm:
         print(
             "\n  NOTE: with the extractive baseline the whole chunk is the answer, so gold F1\n"
@@ -208,23 +289,17 @@ def main() -> int:
         "  tracking what reaches the user -- worth reporting either way."
     )
 
-    out_dir = RUNS_ROOT / args.corpus
-    out_dir.mkdir(parents=True, exist_ok=True)
-    out = out_dir / "generation.json"
-    payload = {
-        "corpus": args.corpus,
-        "qa_file": qa_file,
-        "n_questions": len(items),
-        "generator": client.model if use_llm else "extractive",
-        "judge": client.model if use_judge else None,
-        "repeats": args.repeats if use_judge else 0,
-        "usage": client.usage.as_dict() if client else None,
-        "configs": summaries,
-    }
-    out.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    if failures:
+        print(
+            f"\n{len(failures)} config(s) failed: "
+            + ", ".join(f["config"] for f in failures)
+        )
+    save(summaries, failures)
     print(f"\nwritten: runs/{args.corpus}/{out.name}")
     if client:
-        print(f"usage  : {client.usage.as_dict()}")
+        print(f"usage  : generator {client.usage.as_dict()}")
+    if judge:
+        print(f"         judge     {judge.usage.as_dict()}")
     return 0
 
 

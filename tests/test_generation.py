@@ -237,3 +237,46 @@ class TestExtractiveBaseline:
         )
         assert s.span_grounding == pytest.approx(1.0)
         assert s.refusal_rate == 0.0
+
+
+class TestJudgeShapeTolerance:
+    """Models disagree about JSON shape even when told the exact format.
+
+    open-mistral-nemo wraps its answer as {"response": {"score": 0.9}} where
+    mistral returns {"score": 0.9}. A top-level-only lookup turned every nemo
+    judgement into a parse failure, quietly emptying the judged tier.
+    """
+
+    def test_top_level_score(self):
+        score, _, fails = judge_faithfulness(lambda *a, **k: {"score": 0.4}, "a", "c")
+        assert score == pytest.approx(0.4) and fails == 0
+
+    def test_nested_score_is_found(self):
+        score, _, fails = judge_faithfulness(
+            lambda *a, **k: {"response": {"score": 0.4}}, "a", "c"
+        )
+        assert score == pytest.approx(0.4) and fails == 0
+
+    def test_deeply_nested_score_is_found(self):
+        score, _, _ = judge_faithfulness(
+            lambda *a, **k: {"result": {"judgement": {"score": 1.0}}}, "a", "c"
+        )
+        assert score == pytest.approx(1.0)
+
+    def test_percentage_scale_is_normalised(self):
+        """A model asked for 0..1 sometimes answers 85."""
+        score, _, _ = judge_faithfulness(lambda *a, **k: {"score": 85}, "a", "c")
+        assert score == pytest.approx(0.85)
+
+    def test_numeric_string_is_accepted(self):
+        score, _, _ = judge_faithfulness(lambda *a, **k: {"score": "0.6"}, "a", "c")
+        assert score == pytest.approx(0.6)
+
+    def test_genuinely_missing_score_still_fails(self):
+        score, _, fails = judge_faithfulness(lambda *a, **k: {"verdict": "good"}, "a", "c")
+        assert score is None and fails == 1
+
+    def test_small_overshoot_is_clamped_not_rescaled(self):
+        """A judge answering 5 on a 0..1 scale meant high, not 5%."""
+        score, _, _ = judge_faithfulness(lambda *a, **k: {"score": 5}, "a", "c")
+        assert score == pytest.approx(1.0)

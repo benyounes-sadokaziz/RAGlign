@@ -1,0 +1,26 @@
+# Pin the light theme.
+#
+# Not a preference: the dashboard paints its own white cards and dark navy
+# sidebar, so it is already a fully specified design. Letting Streamlit's theme
+# follow the viewer's OS setting means dark mode paints the body text white --
+# on white cards -- and the whole page renders invisible. Observed exactly that.
+#
+# primaryColor drives the slider fills and focus rings, so it is set to the same
+# blue the CSS uses rather than Streamlit's default red.
+
+[theme]
+base = "light"
+primaryColor = "#2f6df6"
+backgroundColor = "#f6f8fb"
+# Sidebar widgets inherit this. White here is what made the selects
+# unreadable (white surface, light sidebar text), so it stays dark and the
+# main panel paints its own white cards in CSS instead.
+secondaryBackgroundColor = "#1d2c47"
+textColor = "#0f172a"
+font = "sans serif"
+
+[server]
+headless = true
+
+[browser]
+gatherUsageStats = false
