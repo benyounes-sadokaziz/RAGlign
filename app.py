@@ -59,6 +59,24 @@ VIEWS = {
     "Cross-corpus": "🗄",
 }
 
+# The default weighting, named once. The sliders, the reset callback and the
+# "already at default" check all read it, so they cannot disagree about what
+# "default" means.
+DEFAULT_WEIGHTS = {"wq": 0.70, "wl": 0.20, "wc": 0.10}
+
+
+def _reset_weights() -> None:
+    """Restore the default weights.
+
+    Runs as a button callback rather than inline: Streamlit forbids writing a
+    widget's session_state key after that widget has been created during the
+    same run, and callbacks execute before the rerun, so this is the one place
+    the assignment is legal.
+    """
+    for key, value in DEFAULT_WEIGHTS.items():
+        st.session_state[key] = value
+
+
 CAUSE_LABELS = {
     Cause.CHUNKER_DESTROYED: "Chunker destroyed",
     Cause.CHUNKER_DEGRADED: "Chunker degraded",
@@ -101,7 +119,7 @@ with st.sidebar:
         unsafe_allow_html=True,
     )
 
-    sets = corpora.get(corpus).qa_sets()
+    sets = data.qa_sets_with_runs(corpus)
     if not sets:
         st.error(f"No QA sets for {corpus}")
         st.stop()
@@ -132,19 +150,37 @@ with st.sidebar:
     # Each slider is preceded by its own name/value row, so the chip sits to the
     # right of the label as in the design rather than floating over the track.
     st.markdown('<div class="rg-s-quality">', unsafe_allow_html=True)
-    st.markdown(weight_row("Quality", st.session_state.get("wq", 0.70)), unsafe_allow_html=True)
-    wq = st.slider("Quality", 0.0, 1.0, 0.70, 0.05, key="wq", label_visibility="collapsed")
+    st.markdown(weight_row("Quality", st.session_state.get("wq", DEFAULT_WEIGHTS["wq"])), unsafe_allow_html=True)
+    wq = st.slider("Quality", 0.0, 1.0, DEFAULT_WEIGHTS["wq"], 0.05, key="wq", label_visibility="collapsed")
     st.markdown("</div>", unsafe_allow_html=True)
 
     st.markdown('<div class="rg-s-latency">', unsafe_allow_html=True)
-    st.markdown(weight_row("Latency", st.session_state.get("wl", 0.20)), unsafe_allow_html=True)
-    wl = st.slider("Latency", 0.0, 1.0, 0.20, 0.05, key="wl", label_visibility="collapsed")
+    st.markdown(weight_row("Latency", st.session_state.get("wl", DEFAULT_WEIGHTS["wl"])), unsafe_allow_html=True)
+    wl = st.slider("Latency", 0.0, 1.0, DEFAULT_WEIGHTS["wl"], 0.05, key="wl", label_visibility="collapsed")
     st.markdown("</div>", unsafe_allow_html=True)
 
     st.markdown('<div class="rg-s-context">', unsafe_allow_html=True)
-    st.markdown(weight_row("Context", st.session_state.get("wc", 0.10)), unsafe_allow_html=True)
-    wc = st.slider("Context", 0.0, 1.0, 0.10, 0.05, key="wc", label_visibility="collapsed")
+    st.markdown(weight_row("Context", st.session_state.get("wc", DEFAULT_WEIGHTS["wc"])), unsafe_allow_html=True)
+    wc = st.slider("Context", 0.0, 1.0, DEFAULT_WEIGHTS["wc"], 0.05, key="wc", label_visibility="collapsed")
     st.markdown("</div>", unsafe_allow_html=True)
+
+    # Disabled while the weights already sit at their defaults, so the control
+    # doubles as an indicator of whether the current ranking is the baseline one
+    # or something the viewer steered.
+    at_default = all(
+        abs(st.session_state.get(k, v) - v) < 1e-9 for k, v in DEFAULT_WEIGHTS.items()
+    )
+    st.button(
+        "↺  Reset to defaults",
+        on_click=_reset_weights,
+        disabled=at_default,
+        use_container_width=True,
+        help=(
+            "Already at the default 70 / 20 / 10 split"
+            if at_default
+            else "Restore the default 70 / 20 / 10 split"
+        ),
+    )
 
     st.markdown(
         hint(

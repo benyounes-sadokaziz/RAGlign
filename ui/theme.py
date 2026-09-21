@@ -126,16 +126,25 @@ def css() -> str:
       background:{t['blue']}; box-shadow:0 4px 14px rgba(47,109,246,.45);
   }}
   section[data-testid="stSidebar"] [role="radiogroup"] > label:has(input:checked) p {{ font-weight:600; }}
-  /* Kill the radio indicator by exclusion rather than by naming it: hide every
-     child of the label that is not the markdown label. Enumerating the wrapper
-     element failed repeatedly because it differs between Streamlit builds, and
-     each miss left a stray dot beside every nav icon. */
-  section[data-testid="stSidebar"] [role="radiogroup"] label > *:not([data-testid="stMarkdownContainer"]) {{
-      display:none !important; width:0 !important; height:0 !important;
-      margin:0 !important; padding:0 !important; border:0 !important;
+  /* Hide the radio dot by finding the element that CONTAINS the input, rather
+     than by position or by exclusion.
+     An exclusion rule (`label > *:not([data-testid="stMarkdownContainer"])`)
+     looked safe and was not: the markdown container sits one level deeper, so
+     the wrapper holding the nav text matched the :not() and the entire menu
+     disappeared. `:has(input)` can only ever match the indicator. */
+  section[data-testid="stSidebar"] [role="radiogroup"] input,
+  section[data-testid="stSidebar"] [role="radiogroup"] label > div:has(> input),
+  section[data-testid="stSidebar"] [role="radiogroup"] label > div:first-child:has(input) {{
+      display:none !important;
   }}
   section[data-testid="stSidebar"] [role="radiogroup"] label {{
-      display:flex !important; align-items:center !important;
+      display:flex !important; align-items:center !important; gap:0 !important;
+  }}
+  /* Belt and braces for builds where :has() does not match the wrapper: shrink
+     the indicator itself to nothing without touching any text node. */
+  section[data-testid="stSidebar"] [role="radiogroup"] [data-baseweb="radio"] > div:first-child {{
+      width:0 !important; height:0 !important; overflow:hidden !important;
+      margin:0 !important; border:0 !important;
   }}
   section[data-testid="stSidebar"] [role="radiogroup"] label > div {{ background:transparent !important; }}
   section[data-testid="stSidebar"] [role="radiogroup"] [data-testid="stMarkdownContainer"] {{
@@ -264,6 +273,24 @@ def css() -> str:
   section[data-testid="stSidebar"] [data-testid="stSlider"] [data-baseweb="slider"] > div > div:first-child > div:first-child,
   section[data-testid="stSidebar"] [data-testid="stSliderTrack"] > div:first-child {{
       background: {t['blue']} !important;
+  }}
+
+  /* Sidebar button (weights reset): quiet by default, blue on hover, and
+     visibly inert once the weights are already at their defaults. */
+  section[data-testid="stSidebar"] [data-testid="stButton"] button {{
+      background:{t['sidebar_card']} !important; border:1px solid {t['sidebar_line']} !important;
+      color:{t['on_dark']} !important; border-radius:10px !important;
+      font-size:.8rem !important; font-weight:600 !important; padding:.5rem .6rem !important;
+      margin-top:.7rem; transition:background .13s ease, border-color .13s ease;
+  }}
+  section[data-testid="stSidebar"] [data-testid="stButton"] button:hover:not(:disabled) {{
+      background:{t['blue']} !important; border-color:{t['blue']} !important;
+  }}
+  section[data-testid="stSidebar"] [data-testid="stButton"] button:disabled {{
+      opacity:.4 !important; cursor:default !important;
+  }}
+  section[data-testid="stSidebar"] [data-testid="stButton"] button * {{
+      color:{t['on_dark']} !important;
   }}
 
   .rg-hint {{

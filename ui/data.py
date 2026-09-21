@@ -106,6 +106,43 @@ def available_corpora() -> list[tuple[str, str, int]]:
 
 
 @st.cache_data(show_spinner=False)
+def qa_sets_with_runs(corpus: str) -> list[str]:
+    """QA sets for this corpus that actually have saved runs.
+
+    The selector offers only these. A set with no runs can only ever render the
+    empty state, so listing it is a dead end that looks like a broken app --
+    which is what the saturated short-span fastapi set did once the grid moved
+    to the long-span questions.
+
+    The file stays on disk regardless: the short-span set is the evidence behind
+    the two-regime finding in the README, and deleting data that supports a
+    documented claim to tidy a dropdown would be the wrong trade.
+
+    Falls back to every authored set when nothing has been run yet, so a fresh
+    corpus still shows a selector and the "run the grid first" message.
+    """
+    authored = corpora.get(corpus).qa_sets()
+    run_dir = RUNS_ROOT / corpus
+    if not run_dir.exists():
+        return authored
+
+    seen: set[str] = set()
+    for path in run_dir.glob("*.json"):
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            continue
+        # Run manifests only: sidecar reports carry no metrics block.
+        if {"config", "metrics", "corpus_fingerprint"} <= payload.keys():
+            name = payload.get("qa_file")
+            if name:
+                seen.add(name)
+
+    live = [q for q in authored if q in seen]
+    return live or authored
+
+
+@st.cache_data(show_spinner=False)
 def build(corpus: str, qa_file: str, tau: float, wq: float, wl: float, wc: float) -> View | None:
     total = max(wq + wl + wc, 1e-9)
     weights = Weights(wq / total, wl / total, wc / total)
