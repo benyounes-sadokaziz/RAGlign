@@ -354,34 +354,90 @@ it is the accurate one.
 
 ## Running it
 
+**Requirements:** Python 3.11+, ~2 GB disk, no GPU. The first run downloads a ~130 MB
+embedding model; everything after that is offline.
+
 ```bash
-py -3.11 -m venv .venv
-.venv/Scripts/python.exe -m pip install -r requirements.txt
+git clone <repo> && cd raglign
+python -m venv .venv
 
-# every script takes --corpus {fastapi,prose}; default is fastapi
-P=.venv/Scripts/python.exe
-$P scripts/check_chunkers.py --corpus prose    # offset invariant holds?
-$P scripts/check_qa.py --corpus prose          # every quote resolves?
-$P scripts/validation_study.py --corpus prose  # the headline result
-$P scripts/run_grid.py --corpus prose          # 30 configs
-$P scripts/recommend.py --corpus prose         # ranked + explained
-$P scripts/diagnose.py --corpus prose          # which stage lost each question
-$P scripts/compare_corpora.py                  # does the winner transfer?
+# Windows
+.venv\Scripts\python.exe -m pip install -r requirements.txt
+set P=.venv\Scripts\python.exe
 
-$P -m pytest -q                                # 86 tests
-.venv/Scripts/streamlit.exe run app.py         # demo UI, 5 tabs
+# macOS / Linux
+.venv/bin/python -m pip install -r requirements.txt
+export P=.venv/bin/python
 ```
 
-Adding your own corpus: drop the files in `corpus/<name>/`, add a registry entry in
-`raglign/corpora.py`, and author a QA set at `data/qa/<name>/longspan_v1.json`. No other
-code changes — that's the point of v2's refactor.
+### Quickest path to a result (~2 minutes)
 
-Everything runs locally on CPU. No API keys, no vector database, no network at eval time.
+```bash
+$P scripts/validation_study.py --corpus fastapi
+```
+
+Self-contained — it builds its own indexes and prints the headline bias table. Nothing
+else has to have been run first.
+
+### Full pipeline
+
+Order matters: everything after `run_grid.py` reads the run manifests it writes.
+
+```bash
+$P scripts/check_chunkers.py      # ~1 min   offset invariant holds on every chunker?
+$P scripts/check_qa.py            # instant  does every authored quote still resolve?
+$P scripts/run_grid.py            # ~25 min  evaluate all 30 configs  ← writes runs/
+$P scripts/recommend.py           # instant  ranked table + explanation
+$P scripts/diagnose.py            # instant  which stage lost each question
+$P scripts/compare_corpora.py     # instant  does the winner transfer between corpora?
+```
+
+Most of the 25 minutes is the 15 reranker configurations at ~1.5 s/query. Chunk
+embeddings are cached in `.cache/`, so re-runs are far quicker. Add `--corpus prose` to
+any of them; `fastapi` is the default.
+
+### Optional
+
+```bash
+$P scripts/run_generation.py --generator extractive   # no API key needed
+$P scripts/run_generation.py                          # needs MISTRAL_API_KEY in .env
+$P scripts/author_qa.py --corpus fastapi --count 30   # scaffold new questions
+$P -m pytest -q                                       # 86 tests, all offline
+.venv/Scripts/streamlit.exe run app.py                # dashboard on :8501
+```
+
+### Adding your own corpus
+
+1. Put the documents in `corpus/<name>/`
+2. Add a registry entry in `raglign/corpora.py` (path, glob, one-line description)
+3. Author a QA set at `data/qa/<name>/longspan_v1.json` — or scaffold one with
+   `scripts/author_qa.py`, which slices candidate passages out of your corpus so the
+   quotes are verbatim by construction and you only write the questions
+4. `$P scripts/check_qa.py --corpus <name>` to confirm every quote resolves
+5. `$P scripts/run_grid.py --corpus <name>`
+
+No other code changes.
+
+### Repository layout
+
+```
+raglign/          library — models, loader, chunking/, retrieval/, alignment,
+                  metrics, diagnosis, generation, optimizer, corpora
+scripts/          CLI entry points (every one takes --corpus)
+ui/               dashboard: theme, components, charts, data prep
+tests/            86 tests, no network required
+corpus/           vendored documents, pinned to upstream commits
+data/qa/<corpus>/ ground-truth question sets
+runs/<corpus>/    generated results (gitignored — rebuildable)
+```
+
+Everything runs locally on CPU. No API keys, no vector database, no network at eval time —
+the generation layer is the single opt-in exception.
 
 ## How it fits together
 
 ```
-corpus/*.md ──► Loader ──► Chunkers (4) ──► Embedder ──► Retrievers (3) ──► [Reranker]
+corpus/*  ──► Loader ──► Chunkers (5) ──► Embedder ──► Retrievers (3) ──► [Reranker]
                    │                                                             │
                    └──► QA set: question + verbatim quote                         │
                              │                                                    │
