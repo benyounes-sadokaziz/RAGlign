@@ -78,11 +78,15 @@ retriever entirely — the ceiling imposed by segmentation alone.
 
 | chunker | τ=0.1 | τ=0.3 | τ=0.5 | τ=0.7 |
 |---|---:|---:|---:|---:|
-| `heading_1200` | 1.000 | 1.000 | 1.000 | 1.000 |
-| `fixed_800` | 1.000 | 1.000 | 1.000 | 1.000 |
-| `recursive_800` | 1.000 | 1.000 | 1.000 | 1.000 |
-| `semantic_90` | 1.000 | 1.000 | 1.000 | **0.909** |
-| `fixed_300` | 1.000 | 1.000 | 1.000 | **0.455** |
+| `fixed_800` | 1.000 | 1.000 | 1.000 | 0.927 |
+| `recursive_800` | 1.000 | 1.000 | 1.000 | 0.902 |
+| `heading_1200` | 1.000 | 1.000 | 1.000 | 0.829 |
+| `semantic_1200` | 1.000 | 1.000 | 1.000 | 0.805 |
+| `fixed_300` | 1.000 | 1.000 | 0.976 | **0.463** |
+
+At the smaller question set every viable chunker read 1.000 across the board and τ did
+nothing. With 41 questions the evidence spans vary more, and τ=0.7 now separates them —
+the segmentation ceiling finally discriminates instead of saturating.
 
 `fixed_300` destroys over half the evidence *before retrieval happens*. Hit@k alone reports
 this as a retrieval failure and sends you tuning embeddings that cannot possibly help.
@@ -96,12 +100,12 @@ Separating the two failure modes requires spans; chunk IDs cannot express it.
 
 | config | hit@5 | MRR | nDCG | ms/query | context chars |
 |---|---:|---:|---:|---:|---:|
-| `heading1200/hybrid+rerank` | **0.818** | 0.632 | 0.677 | 2874 | 3848 |
-| `heading1200/dense+rerank` | 0.727 | **0.659** | 0.676 | 2809 | 3988 |
-| `heading1200/dense` | 0.727 | 0.545 | 0.591 | **0.4** | 3445 |
-| `fixed800/dense` | 0.636 | 0.530 | 0.549 | 0.4 | 3903 |
-| `semantic90/dense` | 0.636 | 0.397 | 0.514 | 0.4 | 3866 |
-| `fixed300/dense` | 0.273 | 0.227 | 0.258 | 0.6 | 1491 |
+| `heading1200/dense+rerank` | 0.805 | **0.683** | 0.746 | 2844 | 3624 |
+| `heading1200/hybrid+rerank` | **0.829** | 0.676 | 0.746 | 3152 | 3532 |
+| `heading1200/bm25+rerank` | 0.780 | 0.645 | 0.726 | 2909 | 3664 |
+| `fixed800/bm25+rerank` | 0.805 | 0.631 | 0.692 | 1419 | 3904 |
+| `heading1200/dense` | 0.756 | 0.589 | 0.639 | **0.4** | 3428 |
+| `fixed300/bm25` | 0.439 | 0.222 | 0.483 | 4.9 | 1486 |
 
 ### What it tests
 
@@ -202,16 +206,18 @@ sensitivity by corpus, 0.18) were reported with equal confidence when n was smal
 v2 added bootstrap CIs, and they immediately disciplined the v1 claims:
 
 ```
-fastapi  heading1200/dense          0.545  [0.303, 0.818]
-         heading1200/hybrid+rerank  0.632  [0.377, 0.864]
-prose    heading1200/dense          0.717  [0.518, 0.911]
-         recursive800/dense+rerank  0.713  [0.520, 0.879]
+fastapi  heading1200/dense          0.598  [0.478, 0.726]
+         fixed800/hybrid            0.623  [0.499, 0.751]
+         heading1200/hybrid+rerank  0.680  [0.558, 0.802]
+prose    recursive800/dense         0.765  [0.657, 0.860]
 ```
 
-**No top-3 difference on either corpus survives its own 95% interval.** At n=11–14 the
-fine-grained config ranking is not resolved. Only the large effects hold: the `fixed300`
-collapse, and the ~0.6 ground-truth bias. This is why the results tables above are framed
-as "which knobs matter" rather than "this exact config is best."
+**No top-3 difference on either corpus survives its own 95% interval.** Widening the
+question sets from 11/14 to 41/43 halved the interval widths from ~0.50 to ~0.25 —
+exactly the √n improvement statistics predicts — and best-vs-worst became separable where
+it had not been. Neighbouring configs still are not. Only the large effects hold: the
+`fixed300` collapse, and the ~0.6 ground-truth bias. This is why the results tables above
+are framed as "which knobs matter" rather than "this exact config is best."
 
 More questions — not more configs, not more chunkers — is what buys resolution.
 
@@ -262,6 +268,67 @@ day to day.
 
 ---
 
+## Does better retrieval actually produce better answers?
+
+Everything above measures *retrieval*. That only matters if it predicts what reaches the
+user, so `scripts/run_generation.py` closes the loop: a real LLM answers from each
+configuration's retrieved context, and the answers are scored.
+
+Five configurations spanning the MRR range, all 41 fastapi questions:
+
+| config | retrieval MRR | refusal | faithful coverage |
+|---|---:|---:|---:|
+| `fixed800/dense+rerank` | 0.616 | 0.10 | **0.854** |
+| `fixed800/bm25+rerank` | 0.631 | 0.07 | 0.830 |
+| `fixed800/bm25` | 0.539 | 0.15 | 0.741 |
+| `fixed300/hybrid` | 0.327 | 0.10 | 0.690 |
+| `fixed300/bm25` | 0.222 | 0.20 | 0.644 |
+
+```
+retrieval MRR vs gold recall        r = +0.984
+retrieval MRR vs span grounding     r = +0.968
+retrieval MRR vs faithful coverage  r = +0.951
+```
+
+**Retrieval quality predicts answer quality at r ≈ +0.95.** That is the evidence that
+optimizing retrieval is worth doing at all — and it would have been just as publishable
+had it come out weak.
+
+**Two tiers, deliberately separated.** The deterministic tier (refusal rate, token recall
+against the authored answer, grounding against the evidence span) needs no API and reruns
+identically. Only span-level ground truth makes it computable: a chunk ID gives you no
+reference answer and no reference evidence text. The judged tier (faithfulness, relevance)
+uses `ministral-8b` to answer and **`open-mistral-nemo` to judge** — a different model,
+because LLM judges score their own output more favourably.
+
+**A bias I had to correct mid-build.** Refusals are excluded from judging, since asking
+whether "I don't know" is supported by a context measures nothing. But that makes the
+judged sample self-selected: a config refusing 83% of questions gets judged only on its
+easiest few, and scored *perfect* faithfulness. Correlation with retrieval MRR came out at
+**−0.918** — apparently proving better retrieval produces less faithful answers. Reporting
+`faithfulness × answer rate` instead fixes it (+0.951). The raw figure is still shown,
+labelled conditional, with its sample size.
+
+It also runs with **no API key** via `--generator extractive`, where the top-ranked chunk
+becomes the answer — a genuine floor, since a reader cannot state what was never retrieved.
+
+---
+
+## The dashboard
+
+`streamlit run app.py` — a read-only view over saved run manifests. It never evaluates
+anything, so the controls are instant and every number on screen is byte-identical to what
+the CLI wrote to disk.
+
+Five views: **Recommendation** (winner, KPI tiles with intervals, generated explanation,
+Pareto frontier, quality-vs-latency scatter), **Full grid** (every metric at every cutoff),
+**Failure diagnosis** (per-question root cause), **Validation study**, **Cross-corpus**.
+
+Corpus, question set, overlap threshold τ and the three priority weights are live controls;
+the weights re-rank everything and change the ranking only, never the measurements.
+
+---
+
 ## Honest positioning
 
 **Span-based ground truth is not a new technique.** Several 2025–26 studies already use it:
@@ -275,7 +342,7 @@ That packaging gap is RAGlign's contribution. It is a smaller claim than "novel 
 it is the accurate one.
 
 **Limits, stated plainly:**
-- n=11 (fastapi) and n=14 (prose) long-span questions. Bootstrap intervals confirm no top-3
+- n=41 (fastapi) and n=43 (prose) long-span questions. Bootstrap intervals confirm no top-3
   config difference is resolvable at this size. The validation-study effect (~0.6) is far
   outside that noise and replicates on both corpora; the grid's finer distinctions are not.
 - Ground truth is extractive by construction (TC-2), so questions with no single source span
@@ -301,7 +368,7 @@ $P scripts/recommend.py --corpus prose         # ranked + explained
 $P scripts/diagnose.py --corpus prose          # which stage lost each question
 $P scripts/compare_corpora.py                  # does the winner transfer?
 
-$P -m pytest -q                                # 42 tests
+$P -m pytest -q                                # 86 tests
 .venv/Scripts/streamlit.exe run app.py         # demo UI, 5 tabs
 ```
 
@@ -362,8 +429,10 @@ Highlights:
 Automatic embedding/LLM selection · prompt optimization · query-adaptive routing ·
 continuous production loop · automatic failure root-cause diagnosis · $/query cost modeling.
 
-Generation-side metrics (faithfulness, answer relevance) are the natural next addition, and
-belong in a column clearly separated from the deterministic retrieval metrics.
+Generation-side metrics now exist (see above), kept in a tier clearly separated from the
+deterministic retrieval metrics. The remaining gaps are a larger question set — ~150 would
+be needed to resolve neighbouring configs — and an embedding-model axis, which is only
+worth opening once differences are resolvable.
 
 ---
 
