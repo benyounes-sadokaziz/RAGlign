@@ -23,6 +23,13 @@ runs/
 # The template carries no secret and documents what keys exist, so it is tracked.
 !.env.example
 
+# --- Recordings ---
+# Demo captures are tens of megabytes and git stores them forever, badly.
+# Host the video outside the repo and link it from the README.
+*.mp4
+*.mov
+*.gif
+
 # --- OS / editor ---
 .DS_Store
 Thumbs.db
