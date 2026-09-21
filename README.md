@@ -167,35 +167,35 @@ isolates structure:
 
 Self-preference under chunk-ID ground truth vs span alignment, rotating the author:
 
-| corpus | chunk-ID GT | span GT |
-|---|---|---|
-| fastapi | +0.576 … **+0.697** | −0.030 … +0.091 |
-| prose | +0.452 … **+0.762** | −0.048 … +0.048 |
+| corpus | n | chunk-ID GT | span GT |
+|---|---:|---|---|
+| fastapi | 41 | +0.569 … **+0.675** | +0.016 … +0.049 |
+| prose | 43 | +0.589 … **+0.744** | −0.116 … +0.101 |
 
 The ground-truth bias is just as large on a corpus with no structure at all, and the
 match-strictness sweep decays to ~0 on both. **This is the result that matters most in
 v2** — the methodology's central finding is not an artifact of one corpus.
 
-### The winner did *not* flip — reported as-is
+### The winner *does* differ by corpus
 
-I expected the best config to differ by corpus. It didn't: `heading1200/dense` tops both
-under default weights. Rather than bury that, here's the more interesting thing the data
-actually shows.
+| corpus | best config |
+|---|---|
+| fastapi (structured markdown) | `heading1200/dense` |
+| prose (no markup) | `recursive800/dense` |
 
-**How much the chunking choice matters is strongly corpus-dependent.** Mean MRR spread
-between viable chunkers (excluding `fixed300`, a deliberate control):
+Config choice does not transfer across document structure — which is exactly the condition
+that makes a per-corpus optimizer worth building rather than just publishing a default.
 
-| corpus | spread |
-|---|---:|
-| fastapi | **0.223** |
-| prose | **0.045** |
+**A finding from the smaller question sets did not survive.** At n=11/14 the same config
+won both corpora, and the spread between viable chunkers looked dramatically different
+(0.223 on fastapi vs 0.045 on prose), which I reported as "chunking matters far more on
+structured documents." At n=41/43 those spreads are **0.106 and 0.104** — essentially
+equal. The apparent difference was small-sample noise, and the earlier conclusion is
+retracted here rather than quietly dropped.
 
-On structured docs the chunker is a real decision worth optimizing. On unstructured prose
-the strategies converge — a heading splitter with no headings to find degenerates into a
-size splitter, so `heading`, `recursive` and `semantic` all become approximately the same
-algorithm (0.580 / 0.587 / 0.581). Heading's share of the top 6 drops from 4/6 to 1/6.
-
-**Knowing whether a knob matters on your corpus is itself the useful output.**
+This is the clearest illustration of why the confidence intervals were added: the effect
+that replicated (ground-truth bias, ~0.6) and the effect that evaporated (chunker
+sensitivity by corpus, 0.18) were reported with equal confidence when n was small.
 
 ### The caveat the confidence intervals forced
 

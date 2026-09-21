@@ -126,16 +126,16 @@ def css() -> str:
       background:{t['blue']}; box-shadow:0 4px 14px rgba(47,109,246,.45);
   }}
   section[data-testid="stSidebar"] [role="radiogroup"] > label:has(input:checked) p {{ font-weight:600; }}
-  /* Kill the radio indicator. Targeted several ways because the wrapper element
-     differs between Streamlit builds, and a selector that misses leaves a stray
-     dot beside every nav icon. Everything except the markdown label goes. */
-  section[data-testid="stSidebar"] [role="radiogroup"] input,
-  section[data-testid="stSidebar"] [role="radiogroup"] [data-baseweb="radio"] > div:first-child,
-  section[data-testid="stSidebar"] [role="radiogroup"] label > div:first-child:not([data-testid="stMarkdownContainer"]),
-  section[data-testid="stSidebar"] [role="radiogroup"] label > span:first-child,
-  section[data-testid="stSidebar"] [role="radiogroup"] svg {{
+  /* Kill the radio indicator by exclusion rather than by naming it: hide every
+     child of the label that is not the markdown label. Enumerating the wrapper
+     element failed repeatedly because it differs between Streamlit builds, and
+     each miss left a stray dot beside every nav icon. */
+  section[data-testid="stSidebar"] [role="radiogroup"] label > *:not([data-testid="stMarkdownContainer"]) {{
       display:none !important; width:0 !important; height:0 !important;
       margin:0 !important; padding:0 !important; border:0 !important;
+  }}
+  section[data-testid="stSidebar"] [role="radiogroup"] label {{
+      display:flex !important; align-items:center !important;
   }}
   section[data-testid="stSidebar"] [role="radiogroup"] label > div {{ background:transparent !important; }}
   section[data-testid="stSidebar"] [role="radiogroup"] [data-testid="stMarkdownContainer"] {{
@@ -171,41 +171,63 @@ def css() -> str:
      sidebar keeps its light text -- producing an unreadable white-on-white
      control. Both surface and text are therefore forced here, on the wrapper and
      every inner node, since the value sits several divs deep. */
-  section[data-testid="stSidebar"] [data-baseweb="select"],
-  section[data-testid="stSidebar"] [data-baseweb="select"] > div,
-  section[data-testid="stSidebar"] [data-baseweb="select"] > div > div,
-  section[data-testid="stSidebar"] [data-baseweb="base-input"],
-  section[data-testid="stSidebar"] [data-testid="stSelectbox"] div[role="combobox"] {{
-      background:{t['sidebar_card']} !important;
-      border-color:{t['sidebar_line']} !important;
-      border-radius:11px; font-size:.85rem;
+  /* Selects render on a light surface that repeated attempts failed to repaint
+     dark -- each one named a different baseweb node and missed whichever
+     actually carries it. So the contrast is fixed from the other side: the text
+     is forced DARK to match the light control. Readability beats matching the
+     surrounding dark panel, and the outcome is a clean white field with a light
+     border, which reads deliberately rather than broken. */
+  section[data-testid="stSidebar"] div[data-testid="stSelectbox"] *,
+  section[data-testid="stSidebar"] div[data-testid="stSelectbox"] input,
+  section[data-testid="stSidebar"] div[data-baseweb="select"] * {{
+      color:{t['ink']} !important;
+      -webkit-text-fill-color:{t['ink']} !important;
+      opacity:1 !important;
+      font-size:.85rem; font-weight:500;
   }}
-  section[data-testid="stSidebar"] [data-baseweb="select"] * {{
-      color:{t['on_dark']} !important; -webkit-text-fill-color:{t['on_dark']} !important;
+  section[data-testid="stSidebar"] div[data-testid="stSelectbox"] > div,
+  section[data-testid="stSidebar"] div[data-baseweb="select"] > div {{
+      background-color:#ffffff !important;
+      border:1px solid #cfd8e8 !important;
+      border-radius:11px !important;
+      min-height:42px;
   }}
-  section[data-testid="stSidebar"] [data-baseweb="select"] svg {{ fill:{t['on_dark_soft']} !important; }}
-  section[data-testid="stSidebar"] [data-baseweb="select"] > div {{ min-height:42px; }}
+  section[data-testid="stSidebar"] div[data-testid="stSelectbox"] svg {{
+      fill:{t['ink_soft']} !important; color:{t['ink_soft']} !important;
+  }}
 
-  /* The dropdown renders in a portal outside the sidebar, so it needs its own
-     dark treatment or it opens as white-on-white. */
+  /* The dropdown is a light surface too, so its items follow the same rule. */
+  [data-baseweb="popover"] li,
+  [data-baseweb="popover"] li * {{
+      color:{t['ink']} !important; -webkit-text-fill-color:{t['ink']} !important;
+  }}
+  [data-baseweb="popover"] li:hover,
+  [data-baseweb="popover"] li:hover * {{
+      background:{t['blue']} !important; color:#fff !important;
+      -webkit-text-fill-color:#fff !important;
+  }}
+
   [data-baseweb="popover"] [role="listbox"],
   [data-baseweb="popover"] ul {{
-      background:{t['sidebar_card']} !important; border:1px solid {t['sidebar_line']} !important;
+      background:#ffffff !important; border:1px solid #cfd8e8 !important;
   }}
-  [data-baseweb="popover"] li {{ color:{t['on_dark']} !important; font-size:.85rem; }}
-  [data-baseweb="popover"] li:hover {{ background:{t['blue']} !important; }}
 
   section[data-testid="stSidebar"] label[data-testid="stWidgetLabel"] {{ margin-bottom:.2rem; }}
   section[data-testid="stSidebar"] label[data-testid="stWidgetLabel"] p {{
       font-size:.78rem; font-weight:600; color:{t['on_dark_soft']};
   }}
 
-  /* segmented control -> the tau buttons, stretched to the sidebar width */
+  /* Segmented control -> the tau buttons, in a single row.
+     flex-direction and nowrap are stated explicitly: the group inherited a
+     column direction from its Streamlit wrapper and the four buttons stacked
+     vertically down the sidebar. */
   section[data-testid="stSidebar"] [data-testid="stButtonGroup"] {{
-      gap:.4rem; width:100%; display:flex;
+      display:flex !important; flex-direction:row !important; flex-wrap:nowrap !important;
+      gap:.35rem; width:100%;
   }}
-  section[data-testid="stSidebar"] [data-testid="stButtonGroup"] > div {{
-      flex:1 1 0; min-width:0; display:flex;
+  section[data-testid="stSidebar"] [data-testid="stButtonGroup"] > div,
+  section[data-testid="stSidebar"] [data-testid="stButtonGroup"] > span {{
+      flex:1 1 0 !important; min-width:0 !important; display:flex !important;
   }}
   section[data-testid="stSidebar"] [data-testid="stButtonGroup"] button {{
       background:{t['sidebar_card']} !important; border:1px solid {t['sidebar_line']} !important;

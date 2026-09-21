@@ -175,14 +175,26 @@ def main() -> int:
         print("  No flip. Reported as-is rather than buried: it partly weakens the case")
         print("  for per-corpus optimization of the *winner*.")
 
+    # The conclusion is derived, never asserted. An earlier version hardcoded
+    # "chunking matters far more on structured documents" -- true of the first,
+    # smaller question sets, and flatly contradicted by its own numbers once the
+    # sets grew. Narrative text that cannot be falsified by the data beneath it
+    # is how a stale finding survives a re-run.
     print()
-    print("  But how much the chunking choice MATTERS is strongly corpus-dependent:")
+    print("  How much does the chunking choice matter on each corpus?")
     for n, sp in spreads.items():
         print(f"    {n:<12} spread among viable chunkers {sp:.3f} MRR")
-    print("  On structured documents the chunker is a real decision; on unstructured")
-    print("  prose the viable strategies converge -- a heading splitter with no headings")
-    print("  to find degenerates into a size splitter, so they all become the same thing.")
-    print("  Knowing *whether a knob matters* on your corpus is itself the useful output.")
+    lo, hi = min(spreads.values()), max(spreads.values())
+    if hi - lo < 0.05:
+        print("  The spreads are comparable, so the chunker is about equally consequential")
+        print("  on both corpora. Note this REVERSES the finding from the smaller question")
+        print("  sets, where prose looked far less chunker-sensitive -- that gap did not")
+        print("  survive more questions and was small-sample noise.")
+    else:
+        biggest = max(spreads, key=spreads.get)
+        print(f"  The chunker is a substantially bigger decision on {biggest}")
+        print(f"  ({hi:.3f} vs {lo:.3f} MRR). Knowing whether a knob matters on your own")
+        print("  corpus is itself a useful output.")
 
     print()
     if not resolvable:
